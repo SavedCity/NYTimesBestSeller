@@ -1,18 +1,30 @@
-import { Card, CardHeader } from "@mui/material";
 import React from "react";
+import styled from "styled-components";
 
 export default function Books(props) {
+  const CategoryContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+  `;
+
+  const CategoryBox = styled.div`
+    margin: 10px 0;
+  `;
+
+  const CategoryName = styled.a`
+    color: #282828;
+    font-size: 1.6rem;
+  `;
+
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <CategoryContainer>
       {props.booksData.lists.map((book) => {
         return (
-          <div key={book.list_id}>
-            <Card sx={{ m: "5px" }} variant="outlined">
-              <CardHeader sx={{ bgcolor: "#0001" }} title={book.list_name} />
-            </Card>
-          </div>
+          <CategoryBox key={book.list_id}>
+            <CategoryName href="#">{book.list_name}</CategoryName>
+          </CategoryBox>
         );
       })}
-    </div>
+    </CategoryContainer>
   );
 }

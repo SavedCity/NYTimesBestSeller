@@ -1,11 +1,11 @@
 import "./App.css";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
-import User from "./components/User";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Books from "./components/Books";
 
 function App() {
-  const [usersData, setUsersData] = useState([]);
+  const [booksData, setBooksData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,13 +14,12 @@ function App() {
 
   const fetchUsers = async () => {
     await axios
-      .get("https://dummyapi.io/data/v1/user?limit=50", {
-        headers: {
-          "app-id": "61acd21ffa68b81b9f9f9b58",
-        },
-      })
+      .get(
+        "https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=FGuAAGxWuiRNhKjRZsrPKUUiSbtOJUG1"
+      )
       .then((response) => {
-        setUsersData(response.data.data);
+        const booksData = response.data.results;
+        setBooksData(booksData);
         setLoading(false);
       })
       .catch((err) => {
@@ -29,12 +28,17 @@ function App() {
   };
 
   if (!loading) {
-    console.log(usersData);
+    console.log(booksData);
   }
 
   return (
     <div className="App">
-      {!loading ? <User usersData={usersData} /> : <h1>LOADING...</h1>}
+      <Router>
+        <Routes>
+          <Route path="/" />
+        </Routes>
+        {!loading ? <Books booksData={booksData} /> : <h1>LOADING...</h1>}
+      </Router>
     </div>
   );
 }

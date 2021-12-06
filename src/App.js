@@ -2,7 +2,7 @@ import "./App.css";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import User from "./components/User";
+import Books from "./components/Books";
 
 function App() {
   const [usersData, setUsersData] = useState([]);
@@ -14,13 +14,11 @@ function App() {
 
   const fetchUsers = async () => {
     await axios
-      .get("https://dummyapi.io/data/v1/user?limit=50", {
-        headers: {
-          "app-id": "61acd21ffa68b81b9f9f9b58",
-        },
-      })
+      .get(
+        "https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=FGuAAGxWuiRNhKjRZsrPKUUiSbtOJUG1"
+      )
       .then((response) => {
-        setUsersData(response.data.data);
+        setUsersData(response.data.results);
         setLoading(false);
       })
       .catch((err) => {
@@ -34,7 +32,7 @@ function App() {
 
   return (
     <div className="App">
-      {!loading ? <User usersData={usersData} /> : <h1>LOADING...</h1>}
+      {!loading ? <Books usersData={usersData} /> : <h1>LOADING...</h1>}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Books from "./components/Books";
 
 function App() {
-  const [usersData, setUsersData] = useState([]);
+  const [booksData, setBooksData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,7 +18,8 @@ function App() {
         "https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=FGuAAGxWuiRNhKjRZsrPKUUiSbtOJUG1"
       )
       .then((response) => {
-        setUsersData(response.data.results);
+        const booksData = response.data.results;
+        setBooksData(booksData);
         setLoading(false);
       })
       .catch((err) => {
@@ -27,12 +28,12 @@ function App() {
   };
 
   if (!loading) {
-    console.log(usersData);
+    console.log(booksData);
   }
 
   return (
     <div className="App">
-      {!loading ? <Books usersData={usersData} /> : <h1>LOADING...</h1>}
+      {!loading ? <Books booksData={booksData} /> : <h1>LOADING...</h1>}
     </div>
   );
 }

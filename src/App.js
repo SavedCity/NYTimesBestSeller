@@ -1,7 +1,7 @@
 import "./App.css";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Books from "./components/Books";
 
 function App() {
@@ -33,7 +33,12 @@ function App() {
 
   return (
     <div className="App">
-      {!loading ? <Books booksData={booksData} /> : <h1>LOADING...</h1>}
+      <Router>
+        <Routes>
+          <Route path="/" />
+        </Routes>
+        {!loading ? <Books booksData={booksData} /> : <h1>LOADING...</h1>}
+      </Router>
     </div>
   );
 }

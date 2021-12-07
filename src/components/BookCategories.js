@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 
 export default function Categories(props) {
   const categories = useSelector((state) => state.allBookCategories.categories);
+  const loading = useSelector((state) => state.loading);
+  console.log(loading);
 
   const CategoryContainer = styled.div`
     display: flex;
@@ -25,7 +27,7 @@ export default function Categories(props) {
     <div>
       <h1>Book Categories</h1>
       <CategoryContainer>
-        {!props.loading ? (
+        {!loading ? (
           <>
             {categories.map((category) => {
               const { list_id, list_name } = category;

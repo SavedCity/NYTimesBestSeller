@@ -16,3 +16,13 @@ export const bookCategoriesReducer = (
       return state;
   }
 };
+
+export const loadingReducer = (state = true, { type, payload }) => {
+  switch (type) {
+    case ActionTypes.SET_LOADING:
+      return { ...state, loading: payload };
+
+    default:
+      return state;
+  }
+};

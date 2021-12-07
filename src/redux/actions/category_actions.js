@@ -13,3 +13,10 @@ export const selectedBooks = (books) => {
     payload: books,
   };
 };
+
+export const setLoading = (loading) => {
+  return {
+    type: ActionTypes.SET_LOADING,
+    payload: loading,
+  };
+};

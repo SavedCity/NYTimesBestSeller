@@ -7,21 +7,20 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Categories from "./components/BookCategories";
 
-import { setCategories } from "./redux/actions/category_actions";
+import { setCategories, setLoading } from "./redux/actions/category_actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
-
-  const categories = useSelector((state) => state.allBookCategories.categories);
+  // const [loading, setLoading] = useState(true);
+  const loading = useSelector((state) => state.loading);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchUsers();
+    fetchBookCategories();
   }, []);
 
-  const fetchUsers = async () => {
+  const fetchBookCategories = async () => {
     const response = await axios
       .get(
         "https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=FGuAAGxWuiRNhKjRZsrPKUUiSbtOJUG1"
@@ -30,12 +29,12 @@ export default function App() {
         console.log(err);
       });
     dispatch(setCategories(response.data.results.lists));
-    setLoading(false);
+    dispatch(setLoading(false));
   };
 
   return (
     <div className="App">
-      <Categories loading={loading} />
+      <Categories />
     </div>
   );
 }

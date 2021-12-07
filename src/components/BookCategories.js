@@ -2,6 +2,8 @@ import styled from "styled-components";
 import React from "react";
 
 import { useSelector } from "react-redux";
+import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
+import IdPage from "./idpage";
 
 const CategoryContainer = styled.div`
   display: flex;
@@ -29,9 +31,10 @@ export default function Categories(props) {
           <>
             {categories.map((category) => {
               const { list_id, list_name } = category;
+
               return (
                 <CategoryBox key={list_id}>
-                  <CategoryName href="#">{list_name}</CategoryName>
+                  <Link to={category.list_name}>{list_name}</Link>
                 </CategoryBox>
               );
             })}

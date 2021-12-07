@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Categories from "./components/BookCategories";
 
-import { setCategories, setLoading } from "./redux/actions/category_actions";
+import { setCategories, setLoading } from "./redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function App() {
@@ -28,8 +28,8 @@ export default function App() {
       .catch((err) => {
         console.log(err);
       });
-    dispatch(setCategories(response.data.results.lists));
     dispatch(setLoading(false));
+    dispatch(setCategories(response.data.results.lists));
   };
 
   return (

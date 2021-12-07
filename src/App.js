@@ -2,22 +2,20 @@ import "./App.css";
 
 import axios from "axios";
 
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Categories from "./components/BookCategories";
 
 import { setCategories, setLoading } from "./redux/actions/actions";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function App() {
-  // const [loading, setLoading] = useState(true);
-  const loading = useSelector((state) => state.loading);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     fetchBookCategories();
+    // eslint-disable-next-line
   }, []);
 
   const fetchBookCategories = async () => {
@@ -28,8 +26,8 @@ export default function App() {
       .catch((err) => {
         console.log(err);
       });
-    dispatch(setLoading(false));
     dispatch(setCategories(response.data.results.lists));
+    dispatch(setLoading(false));
   };
 
   return (

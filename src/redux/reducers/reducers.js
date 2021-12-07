@@ -5,12 +5,12 @@ const initialState = {
 };
 
 export const bookCategoriesReducer = (
-  state = initialState,
+  state = initialState.bookCategories,
   { type, payload }
 ) => {
   switch (type) {
     case ActionTypes.SET_BOOK_CATEGORIES:
-      return { ...state, categories: payload };
+      return payload;
 
     default:
       return state;
@@ -20,7 +20,7 @@ export const bookCategoriesReducer = (
 export const loadingReducer = (state = true, { type, payload }) => {
   switch (type) {
     case ActionTypes.SET_LOADING:
-      return { ...state, loading: payload };
+      return payload;
 
     default:
       return state;

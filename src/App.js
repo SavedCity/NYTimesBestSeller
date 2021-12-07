@@ -11,10 +11,9 @@ import { setCategories, setLoading } from "./redux/actions/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function App() {
-  // const [loading, setLoading] = useState(true);
-  const loading = useSelector((state) => state.loading);
-
   const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.loading);
 
   useEffect(() => {
     fetchBookCategories();
@@ -28,8 +27,8 @@ export default function App() {
       .catch((err) => {
         console.log(err);
       });
-    dispatch(setLoading(false));
     dispatch(setCategories(response.data.results.lists));
+    dispatch(setLoading(false));
   };
 
   return (

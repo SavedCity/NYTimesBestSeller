@@ -5,9 +5,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export default function Categories(props) {
-  const categories = useSelector((state) => state.allBookCategories.categories);
+  const categories = useSelector((state) => state.allBookCategories);
   const loading = useSelector((state) => state.loading);
-  console.log(loading);
 
   const CategoryContainer = styled.div`
     display: flex;

@@ -4,7 +4,7 @@ import React from "react";
 // import { setCategories } from "../redux/actions/category_actions";
 import { useSelector } from "react-redux";
 
-export default function Categories(props) {
+export default function Categories() {
   const categories = useSelector((state) => state.allBookCategories.categories);
   const loading = useSelector((state) => state.loading);
   console.log(loading);

@@ -5,9 +5,18 @@ import axios from "axios";
 import React, { useEffect } from "react";
 
 import LeftSideMenu from "./components/LeftSideMenu";
+import Categories from "./components/BookCategories";
+import IdPage from "./components/idpage";
 
 import { setCategories, setLoading } from "./redux/actions/actions";
 import { useDispatch } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Routes,
+} from "react-router-dom";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -30,8 +39,15 @@ export default function App() {
   };
 
   return (
-    <div className="App">
-      <LeftSideMenu />
-    </div>
+    <Router>
+      <div>
+        <Link to="/">Home</Link>
+        <Link to="/bookscategory">Books Category</Link>
+      </div>
+      <Routes>
+        <Route path="/bookscategory" element={<Categories />}></Route>
+        <Route path="/bookscategory/:idpage" element={<IdPage />}></Route>
+      </Routes>
+    </Router>
   );
 }

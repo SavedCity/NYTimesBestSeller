@@ -2,6 +2,8 @@ import styled from "styled-components";
 import React from "react";
 
 import { useSelector } from "react-redux";
+import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
+import IdPage from "./idpage";
 
 const CategoryTitle = styled.h1`
   text-decoration: underline;
@@ -44,9 +46,10 @@ export default function Categories() {
           <>
             {/* {categories.map((category) => {
               const { list_id, list_name } = category;
+
               return (
                 <CategoryBox key={list_id}>
-                  <CategoryLink href="#">{list_name}</CategoryLink>
+                  <Link to={category.list_name}>{list_name}</Link>
                 </CategoryBox>
               );
             })} */}

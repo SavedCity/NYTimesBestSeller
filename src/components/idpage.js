@@ -7,6 +7,25 @@ import styled from "@emotion/styled";
 export default function IdPage() {
   const [bookList, setBookList] = useState([]);
 
+  const Card = styled.div``;
+
+  const Title = styled.h3`
+    color: blue;
+  `;
+
+  const ProductUrl = styled.a`
+    color: red;
+    cursor: pointer;
+  `;
+
+  const Author = styled.h5`
+    color: green;
+  `;
+
+  const Description = styled.p`
+    color: black;
+  `;
+
   const loading = useSelector((state) => state.loading);
   console.log(bookList);
   useEffect(() => {
@@ -35,7 +54,10 @@ export default function IdPage() {
 
             return (
               <Card>
+                <ProductUrl>{books.amazon_product_url}</ProductUrl>
                 <Title>{books.book_details[0].title}</Title>
+                <Author>{books.book_details[0].author}</Author>
+                <Description>{books.book_details[0].description}</Description>
               </Card>
             );
           })}

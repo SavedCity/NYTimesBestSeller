@@ -42,9 +42,9 @@ export default function Categories() {
     <div>
       <CategoryTitle>Book Categories</CategoryTitle>
       <CategoryContainer>
-        {loading ? (
+        {!loading ? (
           <>
-            {/* {categories.map((category) => {
+            {categories.map((category) => {
               const { list_id, list_name } = category;
 
               return (
@@ -52,7 +52,7 @@ export default function Categories() {
                   <Link to={category.list_name}>{list_name}</Link>
                 </CategoryBox>
               );
-            })} */}
+            })}
           </>
         ) : (
           <div className="loader-div">

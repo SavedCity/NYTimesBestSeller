@@ -34,7 +34,7 @@ export default function IdPage() {
 
             return (
               <div>
-                <h3></h3>
+                <h3>{books.book_details[0].title}</h3>
               </div>
             );
           })}

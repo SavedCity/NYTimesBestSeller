@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export const bookCategoriesReducer = (
-  state = initialState.bookCategories,
+  state = initialState,
   { type, payload }
 ) => {
   switch (type) {

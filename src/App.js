@@ -3,9 +3,8 @@ import "./App.css";
 import axios from "axios";
 
 import React, { useEffect } from "react";
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Categories from "./components/BookCategories";
+import LeftSideMenu from "./components/LeftSideMenu";
 
 import { setCategories, setLoading } from "./redux/actions/actions";
 import { useDispatch } from "react-redux";
@@ -32,7 +31,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <Categories />
+      <LeftSideMenu />
     </div>
   );
 }

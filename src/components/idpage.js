@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import styled from "@emotion/styled";
 
 export default function IdPage() {
   const [bookList, setBookList] = useState([]);
@@ -33,9 +34,9 @@ export default function IdPage() {
             console.log(books);
 
             return (
-              <div>
-                <h3>{books.book_details[0].title}</h3>
-              </div>
+              <Card>
+                <Title>{books.book_details[0].title}</Title>
+              </Card>
             );
           })}
         </>

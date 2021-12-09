@@ -4,7 +4,7 @@ import BookCategories from "../components/BookCategories";
 
 const SideMenu = styled.div`
   background: #0001;
-  position: fixed;
+  /* position: fixed; */
   /* overflow: scroll; */
   width: 370px;
   height: 100%;

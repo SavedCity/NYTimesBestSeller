@@ -4,14 +4,11 @@ import axios from "axios";
 
 import React, { useEffect } from "react";
 
-// import LeftSideMenu from "./components/LeftSideMenu";
-import IdPage from "./components/idpage";
 import Home from "./components/Home";
 
 import { setCategories, setLoading } from "./redux/actions/actions";
 import { useDispatch } from "react-redux";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import Categories from "./components/BookCategories";
+import { BrowserRouter as Router } from "react-router-dom";
 
 export default function App() {
   const dispatch = useDispatch();

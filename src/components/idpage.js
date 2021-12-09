@@ -4,7 +4,17 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 
-const Card = styled.div``;
+const CardContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Card = styled.div`
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid;
+  width: 20vw;
+`;
 
 const Title = styled.h3`
   color: blue;
@@ -49,22 +59,32 @@ export default function IdPage() {
   return (
     <div>
       {!loading ? (
-        <>
-          {bookList.map((books, key) => {
-            return (
-              <Card key={key}>
-                <ProductUrl href={books.amazon_product_url} target="_blank">
-                  Buy Book
-                </ProductUrl>
-                <Title>{books.book_details[0].title}</Title>
-                <Author>{books.book_details[0].author}</Author>
-                <Description>{books.book_details[0].description}</Description>
-              </Card>
-            );
-          })}
-        </>
+        <CardContainer>
+          {bookList
+            .sort((a, b) =>
+              a.book_details[0].title > b.book_details[0].title
+                ? 1
+                : b.book_details[0].title > a.book_details[0].title
+                ? -1
+                : 0
+            )
+            .map((books, key) => {
+              return (
+                <Card key={key}>
+                  <ProductUrl href={books.amazon_product_url} target="_blank">
+                    Buy Book
+                  </ProductUrl>
+                  <Title>{books.book_details[0].title}</Title>
+                  <Author>{books.book_details[0].author}</Author>
+                  <Description>{books.book_details[0].description}</Description>
+                </Card>
+              );
+            })}
+        </CardContainer>
       ) : (
-        <h1>LOADING...</h1>
+        <div className="loader-div">
+          <div className="loader"></div>
+        </div>
       )}
     </div>
   );

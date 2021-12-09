@@ -43,17 +43,27 @@ export default function Categories() {
       <CategoryContainer>
         {!loading ? (
           <>
-            {categories.map((category) => {
-              const { list_id, list_name } = category;
+            {categories
+              .sort((a, b) =>
+                a.list_name > b.list_name
+                  ? 1
+                  : b.list_name > a.list_name
+                  ? -1
+                  : 0
+              )
+              .map((category) => {
+                const { list_id, list_name } = category;
 
-              return (
-                <CategoryBox key={list_id}>
-                  <CategoryLink to={category.list_name_encoded}>
-                    {list_name}
-                  </CategoryLink>
-                </CategoryBox>
-              );
-            })}
+                console.log();
+
+                return (
+                  <CategoryBox key={list_id}>
+                    <CategoryLink to={category.list_name_encoded}>
+                      {list_name}
+                    </CategoryLink>
+                  </CategoryBox>
+                );
+              })}
           </>
         ) : (
           <div className="loader-div">

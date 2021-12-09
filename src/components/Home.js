@@ -6,7 +6,6 @@ import IdPage from "./idpage";
 
 const MainPage = styled.div`
   display: flex;
-  background-color: #0003;
 `;
 
 export default function Home() {

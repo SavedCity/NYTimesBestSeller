@@ -12,7 +12,6 @@ const Title = styled.h3`
 
 const ProductUrl = styled.a`
   color: red;
-  cursor: pointer;
 `;
 
 const Author = styled.h5`
@@ -33,7 +32,7 @@ export default function IdPage() {
   useEffect(() => {
     fetchBookList();
     // eslint-disable-next-line
-  }, []);
+  }, [params]);
 
   const fetchBookList = async () => {
     const bookListUrl = "https://api.nytimes.com/svc/books/v3/lists.json?list";
@@ -54,7 +53,9 @@ export default function IdPage() {
           {bookList.map((books, key) => {
             return (
               <Card key={key}>
-                <ProductUrl>{books.amazon_product_url}</ProductUrl>
+                <ProductUrl href={books.amazon_product_url} target="_blank">
+                  Buy Book
+                </ProductUrl>
                 <Title>{books.book_details[0].title}</Title>
                 <Author>{books.book_details[0].author}</Author>
                 <Description>{books.book_details[0].description}</Description>

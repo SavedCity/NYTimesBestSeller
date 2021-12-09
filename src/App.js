@@ -3,20 +3,15 @@ import "./App.css";
 import axios from "axios";
 
 import React, { useEffect } from "react";
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Categories from "./components/BookCategories";
+// import LeftSideMenu from "./components/LeftSideMenu";
 import IdPage from "./components/idpage";
+import Home from "./components/Home";
 
 import { setCategories, setLoading } from "./redux/actions/actions";
 import { useDispatch } from "react-redux";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import Categories from "./components/BookCategories";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -40,14 +35,7 @@ export default function App() {
 
   return (
     <Router>
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="/bookscategory">Books Category</Link>
-      </div>
-      <Routes>
-        <Route path="/bookscategory" element={<Categories />}></Route>
-        <Route path="/bookscategory/:idpage" element={<IdPage />}></Route>
-      </Routes>
+      <Home />
     </Router>
   );
 }

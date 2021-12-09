@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import styled from "@emotion/styled";
+import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
 
 export default function IdPage() {
   const [bookList, setBookList] = useState([]);
@@ -27,7 +28,6 @@ export default function IdPage() {
   `;
 
   const loading = useSelector((state) => state.loading);
-  console.log(bookList);
   useEffect(() => {
     fetchBookList();
     // eslint-disable-next-line
@@ -50,11 +50,9 @@ export default function IdPage() {
       {!loading ? (
         <>
           {bookList.map((books) => {
-            console.log(books);
-
             return (
               <Card>
-                <ProductUrl>{books.amazon_product_url}</ProductUrl>
+                <Link to={books.amazon_product_url}>Buy</Link>
                 <Title>{books.book_details[0].title}</Title>
                 <Author>{books.book_details[0].author}</Author>
                 <Description>{books.book_details[0].description}</Description>

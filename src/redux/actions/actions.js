@@ -7,6 +7,12 @@ export const setCategories = (categories) => {
   };
 };
 
+export const removeSelectedCategory = () => {
+  return {
+    type: ActionTypes.REMOVE_SELECTED_BOOK_CATEGORY,
+  };
+};
+
 export const selectedBooks = (books) => {
   return {
     type: ActionTypes.SELECTED_BOOKS,

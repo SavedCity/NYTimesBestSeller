@@ -12,6 +12,9 @@ export const bookCategoriesReducer = (
     case ActionTypes.SET_BOOK_CATEGORIES:
       return payload;
 
+    case ActionTypes.REMOVE_SELECTED_BOOK_CATEGORY:
+      return {};
+
     default:
       return state;
   }

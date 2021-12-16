@@ -37,6 +37,11 @@ export default function Categories() {
   const categories = useSelector((state) => state.allBookCategories);
   const loading = useSelector((state) => state.loading);
 
+  const resetDropDown = () => {
+    const dropDown = document.getElementById("sorting-option");
+    dropDown.selectedIndex = 0;
+  };
+
   return (
     <div>
       <CategoryTitle>Book Categories</CategoryTitle>
@@ -54,11 +59,12 @@ export default function Categories() {
               .map((category) => {
                 const { list_id, list_name } = category;
 
-                console.log();
-
                 return (
                   <CategoryBox key={list_id}>
-                    <CategoryLink to={category.list_name_encoded}>
+                    <CategoryLink
+                      onClick={resetDropDown}
+                      to={category.list_name_encoded}
+                    >
                       {list_name}
                     </CategoryLink>
                   </CategoryBox>

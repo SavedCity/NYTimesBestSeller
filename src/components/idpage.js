@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
+
 import axios from "axios";
+
 import styled from "styled-components";
 
 const CardContainer = styled.div`
@@ -53,34 +55,55 @@ export default function IdPage() {
       .catch((err) => {
         console.log(err);
       });
+
     setBookList(response.data.results);
+  };
+
+  const sortBooks = (type) => {
+    const sorted = [...bookList].sort((a, b) =>
+      a.book_details[0][type] > b.book_details[0][type]
+        ? 1
+        : b.book_details[0][type] > a.book_details[0][type] || b[type] > a[type]
+        ? -1
+        : 0
+    );
+    setBookList(sorted);
+    console.log(sorted);
   };
 
   return (
     <div>
       {!loading ? (
-        <CardContainer>
-          {bookList
-            .sort((a, b) =>
-              a.book_details[0].title > b.book_details[0].title
-                ? 1
-                : b.book_details[0].title > a.book_details[0].title
-                ? -1
-                : 0
-            )
-            .map((books, key) => {
+        <div>
+          <select
+            id="sorting-option"
+            onChange={(e) => sortBooks(e.target.value)}
+          >
+            <option value="rank">Default</option>
+            <option value="title">By Title</option>
+            <option value="author">By Author</option>
+            <option value="publisher">By Publisher</option>
+          </select>
+
+          <CardContainer>
+            {bookList.map((books, key) => {
               return (
                 <Card key={key}>
+                  <Title>{books.rank}</Title>
+
                   <ProductUrl href={books.amazon_product_url} target="_blank">
                     Buy Book
                   </ProductUrl>
                   <Title>{books.book_details[0].title}</Title>
+                  <Title>{books.book_details[0].publisher}</Title>
+
                   <Author>{books.book_details[0].author}</Author>
                   <Description>{books.book_details[0].description}</Description>
                 </Card>
               );
             })}
-        </CardContainer>
+          </CardContainer>
+        </div>
       ) : (
         <div className="loader-div">
           <div className="loader"></div>

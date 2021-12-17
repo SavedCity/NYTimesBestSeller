@@ -2,6 +2,10 @@ body {
   margin: 0;
 }
 
+* {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
 .loader-div {
   display: flex;
   justify-content: center;

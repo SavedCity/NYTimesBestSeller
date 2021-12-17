@@ -34,6 +34,17 @@ const Description = styled.p`
   color: black;
 `;
 
+const Dropdown = styled.select`
+  width: 150px;
+  height: 30px;
+  font-size: 16px;
+  font-weight: 200;
+  font-family: sen;
+  border: 1px solid #0009;
+  outline: none;
+  border-radius: 4px;
+`;
+
 export default function IdPage() {
   const [bookList, setBookList] = useState([]);
 
@@ -75,7 +86,7 @@ export default function IdPage() {
     <div>
       {!loading ? (
         <div>
-          <select
+          <Dropdown
             id="sorting-option"
             onChange={(e) => sortBooks(e.target.value)}
           >
@@ -83,14 +94,12 @@ export default function IdPage() {
             <option value="title">By Title</option>
             <option value="author">By Author</option>
             <option value="publisher">By Publisher</option>
-          </select>
+          </Dropdown>
 
           <CardContainer>
             {bookList.map((books, key) => {
               return (
                 <Card key={key}>
-                  <Title>{books.rank}</Title>
-
                   <ProductUrl href={books.amazon_product_url} target="_blank">
                     Buy Book
                   </ProductUrl>

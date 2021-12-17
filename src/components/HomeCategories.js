@@ -21,7 +21,6 @@ const CategoryBox = styled.div`
 
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);
-  const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
 
   useEffect(() => {
@@ -32,31 +31,41 @@ export default function HomeCategories() {
   const fetchHomeList = async () => {
     const response = await axios
       .get(
-        "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=2pAbKOEz8ASuAknW3ktpDO4BUGph89k2"
+        "https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=2pAbKOEz8ASuAknW3ktpDO4BUGph89k2"
       )
       .catch((err) => {
         console.log(err);
       });
-    setHomeData(response);
-    dispatch(setLoading(false));
-    console.log(loading);
+
+    setHomeData(response.data.results);
   };
+  console.log(homeData);
 
   return (
     <div>
-      {/* {!loading ? (
+      {!loading ? (
         <>
           {homeData.map((topStories) => {
-            console.log(topStories);
-
-            return <CategoryBox></CategoryBox>;
+            const { title, section, abstract, byline, url } = topStories;
+            return (
+              <CategoryBox>
+                <h5>{byline}</h5>
+                <h3>{section}</h3>
+                <h2>{title}</h2>
+                <p>{abstract}</p>
+                <a href={url} target="_blank">
+                  LINK
+                </a>
+                <hr />
+              </CategoryBox>
+            );
           })}
         </>
       ) : (
         <div className="loader-div">
           <div className="loader"></div>
         </div>
-      )} */}
+      )}
     </div>
   );
 }

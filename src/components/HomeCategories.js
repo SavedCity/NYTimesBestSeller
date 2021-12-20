@@ -1,22 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
 import axios from "axios";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { setLoading } from "../redux/actions/actions";
-
-const CategoryTitle = styled.h1`
-  text-decoration: underline;
-  color: #25b;
-`;
-
-const CategoryContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import { useSelector } from "react-redux";
 
 const CategoryBox = styled.div`
-  margin: 10px 0px;
+  margin: 10px;
 `;
 
 export default function HomeCategories() {
@@ -53,7 +41,7 @@ export default function HomeCategories() {
                 <h3>{section}</h3>
                 <h2>{title}</h2>
                 <p>{abstract}</p>
-                <a href={url} target="_blank">
+                <a href={url} target="_blank" rel="noreferrer">
                   LINK
                 </a>
                 <hr />

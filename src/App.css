@@ -6,12 +6,12 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+/* Main loader */
 .loader-div {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 50px auto;
-  /* position: absolute; */
 }
 
 .loader {
@@ -31,4 +31,22 @@ body {
     transform: scale(100%);
     border: 3px solid;
   }
+}
+
+/* Pop up menu arrow */
+.arrow-rotate {
+  transform: rotate(90deg);
+}
+
+/* Hamburger menu */
+.hamburger-top {
+  transform: rotate(45deg);
+  top: 18px !important;
+}
+.hamburger-mid {
+  width: 0 !important;
+}
+.hamburger-bottom {
+  transform: rotate(-45deg);
+  bottom: 18px !important;
 }

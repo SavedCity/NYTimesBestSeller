@@ -9,13 +9,19 @@ import styled from "styled-components";
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
+  /* margin-left: 30px; */
+  margin: 0;
+  justify-content: center;
 `;
 
 const Card = styled.div`
-  margin: 10px auto;
+  margin: 20px;
   padding: 10px;
   border: 1px solid;
   width: 20vw;
+  flex: 1;
+  flex-basis: 20%;
 `;
 
 const Title = styled.h3`
@@ -34,6 +40,11 @@ const Description = styled.p`
   color: black;
 `;
 
+const CardContainerHeader = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
 const Dropdown = styled.select`
   width: 150px;
   height: 30px;
@@ -43,6 +54,7 @@ const Dropdown = styled.select`
   border: 1px solid #0009;
   outline: none;
   border-radius: 4px;
+  margin: 0 30px;
 `;
 
 export default function IdPage() {
@@ -79,22 +91,23 @@ export default function IdPage() {
         : 0
     );
     setBookList(sorted);
-    console.log(sorted);
   };
 
   return (
     <div>
       {!loading ? (
         <div>
-          <Dropdown
-            id="sorting-option"
-            onChange={(e) => sortBooks(e.target.value)}
-          >
-            <option value="rank">Default</option>
-            <option value="title">By Title</option>
-            <option value="author">By Author</option>
-            <option value="publisher">By Publisher</option>
-          </Dropdown>
+          <CardContainerHeader>
+            <Dropdown
+              id="sorting-option"
+              onChange={(e) => sortBooks(e.target.value)}
+            >
+              <option value="rank">Default</option>
+              <option value="title">By Title</option>
+              <option value="author">By Author</option>
+              <option value="publisher">By Publisher</option>
+            </Dropdown>
+          </CardContainerHeader>
 
           <CardContainer>
             {bookList.map((books, key) => {
@@ -104,9 +117,8 @@ export default function IdPage() {
                     Buy Book
                   </ProductUrl>
                   <Title>{books.book_details[0].title}</Title>
-                  <Title>{books.book_details[0].publisher}</Title>
-
-                  <Author>{books.book_details[0].author}</Author>
+                  <Title>Publisher: {books.book_details[0].publisher}</Title>
+                  <Author>Author: {books.book_details[0].author}</Author>
                   <Description>{books.book_details[0].description}</Description>
                 </Card>
               );

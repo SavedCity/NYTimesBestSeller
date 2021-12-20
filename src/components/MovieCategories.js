@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import axios from "axios";
 
 const CategoryContainer = styled.div`
   display: flex;
@@ -30,8 +32,25 @@ const CategoryLink = styled(Link)`
 `;
 
 export default function Categories() {
-  const categories = useSelector((state) => state.allBookCategories);
+  const [categories, setCategories] = useState([]);
   const loading = useSelector((state) => state.loading);
+
+  useEffect(() => {
+    fetchMovieCategories();
+    // eslint-disable-next-line
+  }, []);
+
+  const fetchMovieCategories = async () => {
+    const response = await axios
+      .get(
+        "https://api.nytimes.com/svc/movies/v2/critics/all.json?api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f"
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+    setCategories(response.data.results);
+  };
+  console.log(categories);
 
   const resetDropDown = () => {
     const dropDown = document.getElementById("sorting-option");
@@ -45,22 +64,19 @@ export default function Categories() {
           <>
             {categories
               .sort((a, b) =>
-                a.list_name > b.list_name
+                a.display_name > b.display_name
                   ? 1
-                  : b.list_name > a.list_name
+                  : b.display_name > a.display_name
                   ? -1
                   : 0
               )
-              .map((category) => {
-                const { list_id, list_name } = category;
+              .map((category, key) => {
+                const { display_name, status } = category;
 
                 return (
-                  <CategoryBox key={list_id}>
-                    <CategoryLink
-                      onClick={resetDropDown}
-                      to={category.list_name_encoded}
-                    >
-                      {list_name}
+                  <CategoryBox key={key}>
+                    <CategoryLink onClick={resetDropDown} to={display_name}>
+                      {display_name}
                     </CategoryLink>
                   </CategoryBox>
                 );

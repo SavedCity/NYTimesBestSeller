@@ -4,10 +4,14 @@ import BookCategories from "../components/BookCategories";
 import MovieCategories from "../components/MovieCategories";
 
 const SideMenu = styled.div`
-  background: #0001;
+  background: #eee;
   min-width: 370px;
   min-height: 100%;
   padding: 10px 20px;
+  position: absolute;
+  left: -450px;
+  transition: 0.2s;
+  z-index: 1;
 `;
 
 const CategoryButton = styled.div`
@@ -65,7 +69,7 @@ export default function LeftSideMenu() {
   };
 
   return (
-    <SideMenu id="side-menu" style={{ display: "none" }}>
+    <SideMenu id="side-menu">
       <CategoryButton onClick={openBooks}>
         <CategoryButtonTitle>BOOKS</CategoryButtonTitle>
         <Arrow className="fas fa-arrow-right" id="books-arrow"></Arrow>

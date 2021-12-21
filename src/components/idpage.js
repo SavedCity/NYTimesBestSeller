@@ -80,16 +80,27 @@ const CardContainerHeader = styled.div`
 `;
 
 const SortingContainer = styled.div`
-  /* display: none; */
+  display: none;
+  position: absolute;
+  background: #fff;
+  top: 33px;
+  left: 0;
+  z-index: 1;
+  width: 198px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: 0.3s;
 `;
 
 const SortingOpener = styled.button`
   border: 1px solid #0003;
   font: 500 1rem barlow;
-  /* padding: 1px 40px 3px 40px; */
+  padding: 5px 40px 8px 40px;
   cursor: pointer;
-  background: none;
+  background: #fff;
   border-radius: 3px;
+  width: 100%;
+  transition: 0.2s;
 
   &:hover {
     background: #7161ef;
@@ -100,26 +111,25 @@ const SortingOpener = styled.button`
 const SortingDropdown = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 15px 10px;
-  border: 1px solid #0003;
-  border-radius: 4px;
 `;
 
 const SortingButton = styled.button`
-  margin: 3px 0;
-  padding: 3px 10px;
+  margin: 5px 0;
+  padding: 5px 10px;
   font: 500 1rem barlow;
   cursor: pointer;
   letter-spacing: 1px;
   border: none;
   transition: 0.2s;
-  /* background: none; */
+  background: none;
   text-align: start;
-  border-radius: 3px;
+  /* border-radius: 3px; */
+  /* border-bottom: 1px solid #0003; */
 
   &:hover {
     background: #7161ef;
     color: #fff;
+    /* border-radius: 3px; */
   }
 `;
 
@@ -160,14 +170,35 @@ export default function IdPage() {
     setBookList(sorted);
   };
 
+  const openSorting = () => {
+    let sortingContainer = document.getElementById("sorting-container");
+
+    sortingContainer.classList.add("sorting-opened");
+  };
+
+  const closeSorting = () => {
+    let sortingContainer = document.getElementById("sorting-container");
+
+    sortingContainer.classList.remove("sorting-opened");
+  };
+
   return (
     <div>
       {!loading ? (
         <div>
           <CardContainerHeader>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div
+              style={{
+                // display: "flex",
+                // flexDirection: "column",
+                position: "relative",
+                width: "200px",
+              }}
+              onMouseEnter={openSorting}
+              onMouseLeave={closeSorting}
+            >
               <SortingOpener>Sort</SortingOpener>
-              <SortingContainer>
+              <SortingContainer id="sorting-container">
                 <SortingDropdown>
                   <SortingButton
                     value="rank"
@@ -222,7 +253,6 @@ export default function IdPage() {
                   </Description>
                   <div
                     style={{
-                      position: "relative",
                       position: "absolute",
                       bottom: "5px",
                     }}

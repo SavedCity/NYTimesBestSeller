@@ -71,7 +71,7 @@ export default function Categories() {
                   : 0
               )
               .map((category, key) => {
-                const { display_name, status } = category;
+                const { display_name } = category;
 
                 return (
                   <CategoryBox key={key}>

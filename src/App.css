@@ -33,6 +33,12 @@ body {
   }
 }
 
+/* Side menu */
+.menu-slide {
+  left: 0 !important;
+  position: relative !important;
+}
+
 /* Pop up menu arrow */
 .arrow-rotate {
   transform: rotate(90deg);
@@ -49,4 +55,19 @@ body {
 .hamburger-bottom {
   transform: rotate(-45deg);
   bottom: 14px !important;
+}
+
+.hamburger-top-hover {
+  width: 26px !important;
+}
+.hamburger-mid-hover {
+  width: 33px !important;
+}
+.hamburger-bottom-hover {
+  width: 26px !important;
+}
+
+/* Sorting */
+.sorting-opened {
+  display: block !important;
 }

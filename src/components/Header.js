@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
-import Logo from "../images/nytimes-blue.png";
+// import Logo from "../images/nytimes-blue.png";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -32,6 +32,10 @@ const HamburgerTop = styled.div`
   position: absolute;
   top: 5px;
   transition: 0.2s;
+
+  &:hover {
+    width: 26px;
+  }
 `;
 
 const HamburgerMid = styled.div`
@@ -66,15 +70,11 @@ const HeaderLinks = styled(Link)`
   border-radius: 3px;
   transition: 0.2s;
   margin: 0 12px;
-
-  &:hover {
-    background: #0001;
-  }
 `;
 
-const ImgLogo = styled.img`
-  width: 180px;
-`;
+// const ImgLogo = styled.img`
+//   width: 180px;
+// `;
 
 export default function Header() {
   const openMenu = () => {
@@ -87,13 +87,16 @@ export default function Header() {
     let movieCategories = document.getElementById("movie-categories");
     let moviesArrow = document.getElementById("movies-arrow");
 
-    if (menu.style.display === "none") {
-      menu.style.display = "block";
+    if (!menu.classList.contains("menu-slide")) {
+      // menu.style.display = "block";
+      menu.classList.add("menu-slide");
       top.classList.add("hamburger-top");
       mid.classList.add("hamburger-mid");
       bottom.classList.add("hamburger-bottom");
+      mid.classList.remove("hamburger-mid-hover");
     } else {
-      menu.style.display = "none";
+      // menu.style.display = "none";
+      menu.classList.remove("menu-slide");
       top.classList.remove("hamburger-top");
       mid.classList.remove("hamburger-mid");
       bottom.classList.remove("hamburger-bottom");
@@ -104,11 +107,40 @@ export default function Header() {
     }
   };
 
+  const menuHover = () => {
+    let menu = document.getElementById("side-menu");
+    let top = document.getElementById("ham-top");
+    let mid = document.getElementById("ham-mid");
+    let bottom = document.getElementById("ham-bottom");
+
+    if (!menu.classList.contains("menu-slide")) {
+      top.classList.add("hamburger-top-hover");
+      mid.classList.add("hamburger-mid-hover");
+      bottom.classList.add("hamburger-bottom-hover");
+    }
+  };
+
+  const menuLeave = () => {
+    let menu = document.getElementById("side-menu");
+    let top = document.getElementById("ham-top");
+    let mid = document.getElementById("ham-mid");
+    let bottom = document.getElementById("ham-bottom");
+
+    if (!menu.classList.contains("menu-slide")) {
+      top.classList.remove("hamburger-top-hover");
+      mid.classList.remove("hamburger-mid-hover");
+      bottom.classList.remove("hamburger-bottom-hover");
+    }
+  };
+
   return (
     <HeaderContainer>
       <LeftHeader>
-        {/* <Menu onClick={openMenu}>MENU</Menu> */}
-        <HamburgerBox onClick={openMenu}>
+        <HamburgerBox
+          onMouseOver={menuHover}
+          onMouseLeave={menuLeave}
+          onClick={openMenu}
+        >
           <HamburgerTop id="ham-top"></HamburgerTop>
           <HamburgerMid id="ham-mid"></HamburgerMid>
           <HamburgerBottom id="ham-bottom"></HamburgerBottom>

@@ -17,8 +17,8 @@ const LeftHeader = styled.div`
 `;
 
 const HamburgerBox = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 31px;
   /* background: #0001; */
   position: relative;
   margin: 0 30px 0 10px;
@@ -26,7 +26,7 @@ const HamburgerBox = styled.div`
 `;
 
 const HamburgerTop = styled.div`
-  width: 40px;
+  width: 33px;
   height: 3px;
   background: #444;
   position: absolute;
@@ -35,16 +35,16 @@ const HamburgerTop = styled.div`
 `;
 
 const HamburgerMid = styled.div`
-  width: 30px;
+  width: 26px;
   height: 3px;
   background: #444;
   position: absolute;
-  top: 18px;
+  top: 13.5px;
   transition: 0.1s;
 `;
 
 const HamburgerBottom = styled.div`
-  width: 40px;
+  width: 33px;
   height: 3px;
   background: #444;
   position: absolute;
@@ -62,7 +62,7 @@ const HeaderLinks = styled(Link)`
   font-family: sen;
   font-size: 1rem;
   /* line-height: 1.8; */
-  padding: 10px 9px 4px 9px;
+  padding: 6px 9px 4px 9px;
   border-radius: 3px;
   transition: 0.2s;
   margin: 0 12px;

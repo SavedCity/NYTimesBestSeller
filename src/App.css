@@ -41,12 +41,12 @@ body {
 /* Hamburger menu */
 .hamburger-top {
   transform: rotate(45deg);
-  top: 18px !important;
+  top: 14px !important;
 }
 .hamburger-mid {
   width: 0 !important;
 }
 .hamburger-bottom {
   transform: rotate(-45deg);
-  bottom: 18px !important;
+  bottom: 14px !important;
 }

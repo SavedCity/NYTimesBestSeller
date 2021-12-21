@@ -6,6 +6,10 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+::selection {
+  background: #cbaffe;
+}
+
 /* Main loader */
 .loader-div {
   display: flex;

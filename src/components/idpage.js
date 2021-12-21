@@ -8,6 +8,72 @@ import styled from "styled-components";
 
 import AmazonLogoImg from "../images/amazon.png";
 
+const CardContainerHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 20px 0 20px;
+  align-items: center;
+`;
+
+const ListName = styled.h3`
+  font: 400 1.6rem barlow;
+`;
+
+const SortingContainer = styled.div`
+  display: none;
+  position: absolute;
+  background: #fff;
+  top: 33px;
+  left: 0;
+  z-index: 1;
+  width: 198px;
+  border: 1px solid #ccc;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  transition: 0.3s;
+`;
+
+const SortingOpener = styled.button`
+  border: 1px solid #0003;
+  font: 500 1rem barlow;
+  padding: 5px 40px 8px 40px;
+  cursor: pointer;
+  background: #fff;
+  border-radius: 3px;
+  width: 100%;
+  transition: 0.2s;
+
+  &:hover {
+    background: #7161ef;
+    color: #fff;
+  }
+`;
+
+const SortingDropdown = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SortingButton = styled.button`
+  margin: 5px 0;
+  padding: 5px 10px;
+  font: 500 1rem barlow;
+  cursor: pointer;
+  letter-spacing: 1px;
+  border: none;
+  transition: 0.2s;
+  background: none;
+  text-align: start;
+  /* border-radius: 3px; */
+  /* border-bottom: 1px solid #0003; */
+
+  &:hover {
+    background: #7161ef;
+    color: #fff;
+    /* border-radius: 3px; */
+  }
+`;
+
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -73,66 +139,6 @@ const AmazonLogo = styled.img`
   left: -15px;
 `;
 
-const CardContainerHeader = styled.div`
-  display: flex;
-  justify-content: end;
-  margin: 20px 20px 0 20px;
-`;
-
-const SortingContainer = styled.div`
-  display: none;
-  position: absolute;
-  background: #fff;
-  top: 33px;
-  left: 0;
-  z-index: 1;
-  width: 198px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: 0.3s;
-`;
-
-const SortingOpener = styled.button`
-  border: 1px solid #0003;
-  font: 500 1rem barlow;
-  padding: 5px 40px 8px 40px;
-  cursor: pointer;
-  background: #fff;
-  border-radius: 3px;
-  width: 100%;
-  transition: 0.2s;
-
-  &:hover {
-    background: #7161ef;
-    color: #fff;
-  }
-`;
-
-const SortingDropdown = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const SortingButton = styled.button`
-  margin: 5px 0;
-  padding: 5px 10px;
-  font: 500 1rem barlow;
-  cursor: pointer;
-  letter-spacing: 1px;
-  border: none;
-  transition: 0.2s;
-  background: none;
-  text-align: start;
-  /* border-radius: 3px; */
-  /* border-bottom: 1px solid #0003; */
-
-  &:hover {
-    background: #7161ef;
-    color: #fff;
-    /* border-radius: 3px; */
-  }
-`;
-
 export default function IdPage() {
   const [bookList, setBookList] = useState([]);
 
@@ -157,9 +163,10 @@ export default function IdPage() {
 
     setBookList(response.data.results);
   };
-  console.log(bookList);
 
   const sortBooks = (type) => {
+    let sortButton = document.getElementById("sort-button");
+
     const sorted = [...bookList].sort((a, b) =>
       a.book_details[0][type] > b.book_details[0][type]
         ? 1
@@ -168,25 +175,43 @@ export default function IdPage() {
         : 0
     );
     setBookList(sorted);
+    let firstCapitalType = type.charAt(0).toUpperCase() + type.slice(1);
+    sortButton.innerHTML = type === "rank" ? "Sort" : "By " + firstCapitalType;
   };
 
   const openSorting = () => {
     let sortingContainer = document.getElementById("sorting-container");
-
     sortingContainer.classList.add("sorting-opened");
   };
 
   const closeSorting = () => {
     let sortingContainer = document.getElementById("sorting-container");
-
     sortingContainer.classList.remove("sorting-opened");
   };
+
+  let listName = params.idpage.replaceAll("-", " ").split(" ");
+
+  for (let i = 0; i < listName.length; i++) {
+    listName[i] =
+      " " + listName[i].charAt(0).toUpperCase() + listName[i].slice(1);
+  }
 
   return (
     <div>
       {!loading ? (
         <div>
           <CardContainerHeader>
+            <ListName>
+              <span
+                style={{
+                  font: "400 1.4rem barlow",
+                  color: "#0009",
+                }}
+              >
+                Results for:
+              </span>{" "}
+              {listName}
+            </ListName>
             <div
               style={{
                 // display: "flex",
@@ -197,7 +222,7 @@ export default function IdPage() {
               onMouseEnter={openSorting}
               onMouseLeave={closeSorting}
             >
-              <SortingOpener>Sort</SortingOpener>
+              <SortingOpener id="sort-button">Sort</SortingOpener>
               <SortingContainer id="sorting-container">
                 <SortingDropdown>
                   <SortingButton

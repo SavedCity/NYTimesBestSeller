@@ -33,6 +33,11 @@ export default function Categories() {
   const categories = useSelector((state) => state.allBookCategories);
   const loading = useSelector((state) => state.loading);
 
+  const defaultSort = () => {
+    let sortButton = document.getElementById("sort-button");
+    sortButton.innerHTML = "Sort";
+  };
+
   return (
     <div>
       <CategoryContainer>
@@ -51,7 +56,17 @@ export default function Categories() {
 
                 return (
                   <CategoryBox key={list_id}>
-                    <CategoryLink to={category.list_name_encoded}>
+                    <CategoryLink
+                      to={category.list_name_encoded}
+                      onClick={() => {
+                        defaultSort();
+                      }}
+                      // className={(isActive) =>
+                      //   "category" + isActive
+                      //     ? "active-category"
+                      //     : "inactive-category"
+                      // }
+                    >
                       {list_name}
                     </CategoryLink>
                   </CategoryBox>

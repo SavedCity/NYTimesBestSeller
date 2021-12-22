@@ -10,28 +10,29 @@ const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0;
-  overflow-y: hidden;
+  overflow: hidden;
   max-height: 0px;
   transition: 0.3s;
 `;
 
 const CategoryBox = styled.div`
-  margin: 10px 0px;
+  margin: 5px 10px;
+  border-bottom: 1px solid #140152;
+  width: 0;
+  transition: 0.3s;
+  padding: 0 0 8px 0;
+
+  &:hover {
+    width: 100%;
+  }
 `;
 
 const CategoryLink = styled(Link)`
   color: #282828;
-  font-size: 1.2rem;
+  font: 400 1.2rem barlow;
   text-decoration: none;
-  background: #0001;
-  border-radius: 3px;
-  padding: 5px 10px;
   transition: 0.3s;
   white-space: nowrap;
-
-  &:hover {
-    background: #0002;
-  }
 `;
 
 export default function Categories() {

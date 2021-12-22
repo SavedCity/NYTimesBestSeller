@@ -16,21 +16,22 @@ const SideMenu = styled.div`
 
 const CategoryButton = styled.div`
   padding: 7px 30px;
-  margin: 10px 0;
+  margin: 5px 0;
   cursor: pointer;
   position: relative;
-  border: 2px solid #0003;
+  border: 1px solid #0003;
   border-radius: 4px;
   background: #fff;
   transition: 0.2s;
 
   &:hover {
-    border: 2px solid #0007;
+    border: 1px solid #0007;
   }
 `;
 
 const CategoryButtonTitle = styled.div`
-  font: 600 1rem barlow;
+  font: 500 1rem barlow;
+  letter-spacing: 1px;
 `;
 
 const Arrow = styled.i`
@@ -44,33 +45,31 @@ const Arrow = styled.i`
 export default function LeftSideMenu() {
   const openBooks = () => {
     let booksArrow = document.getElementById("books-arrow");
-    let categoryContainer = document.getElementById("books-category-container");
+    let booksContainer = document.getElementById("books-category-container");
 
     if (booksArrow.classList.contains("arrow-rotate")) {
       booksArrow.classList.remove("arrow-rotate");
     } else booksArrow.classList.add("arrow-rotate");
 
-    if (!categoryContainer.classList.contains("category-slide")) {
-      categoryContainer.classList.add("category-slide");
+    if (!booksContainer.classList.contains("category-slide")) {
+      booksContainer.classList.add("category-slide");
     } else {
-      categoryContainer.classList.remove("category-slide");
+      booksContainer.classList.remove("category-slide");
     }
   };
 
   const openMovies = () => {
     let movies = document.getElementById("movies-arrow");
-    let categoryContainer = document.getElementById(
-      "movies-category-container"
-    );
+    let moviesContainer = document.getElementById("movies-category-container");
 
     if (movies.classList.contains("arrow-rotate")) {
       movies.classList.remove("arrow-rotate");
     } else movies.classList.add("arrow-rotate");
 
-    if (!categoryContainer.classList.contains("category-slide")) {
-      categoryContainer.classList.add("category-slide");
+    if (!moviesContainer.classList.contains("category-slide")) {
+      moviesContainer.classList.add("category-slide");
     } else {
-      categoryContainer.classList.remove("category-slide");
+      moviesContainer.classList.remove("category-slide");
     }
   };
 

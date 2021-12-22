@@ -82,9 +82,9 @@ export default function Header() {
     let top = document.getElementById("ham-top");
     let mid = document.getElementById("ham-mid");
     let bottom = document.getElementById("ham-bottom");
-    let bookCategories = document.getElementById("book-categories");
+    let booksContainer = document.getElementById("books-category-container");
     let booksArrow = document.getElementById("books-arrow");
-    let movieCategories = document.getElementById("movie-categories");
+    let moviesContainer = document.getElementById("movies-category-container");
     let moviesArrow = document.getElementById("movies-arrow");
 
     if (!menu.classList.contains("menu-slide")) {
@@ -100,9 +100,9 @@ export default function Header() {
       top.classList.remove("hamburger-top");
       mid.classList.remove("hamburger-mid");
       bottom.classList.remove("hamburger-bottom");
-      bookCategories.style.display = "none";
+      booksContainer.classList.remove("category-slide");
       booksArrow.classList.remove("arrow-rotate");
-      movieCategories.style.display = "none";
+      moviesContainer.classList.remove("category-slide");
       moviesArrow.classList.remove("arrow-rotate");
     }
   };

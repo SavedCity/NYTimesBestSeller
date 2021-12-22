@@ -99,7 +99,7 @@ const Title = styled.h3`
   margin: 10px 0 15px 0;
   border-bottom: 1px solid #0003;
   padding-bottom: 10px;
-  color: #03045e;
+  color: #22007c;
 `;
 
 const Author = styled.h5`
@@ -197,6 +197,8 @@ export default function IdPage() {
     listName[i] =
       " " + listName[i].charAt(0).toUpperCase() + listName[i].slice(1);
   }
+
+  console.log(params.idpage.replaceAll("-", " ").split(" "));
 
   return (
     <div>

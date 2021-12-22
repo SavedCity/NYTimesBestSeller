@@ -8,6 +8,8 @@ const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px 0;
+  /* background: #0003; */
+  overflow: hidden;
 `;
 
 const CategoryBox = styled.div`
@@ -16,7 +18,7 @@ const CategoryBox = styled.div`
 
 const CategoryLink = styled(Link)`
   color: #282828;
-  font-size: 1.2rem;
+  font: 400 1.2rem barlow;
   text-decoration: none;
   background: #0001;
   border-radius: 3px;
@@ -25,7 +27,7 @@ const CategoryLink = styled(Link)`
   white-space: nowrap;
 
   &:hover {
-    background: #0002;
+    background: #cbaffe;
   }
 `;
 
@@ -35,7 +37,9 @@ export default function Categories() {
 
   const defaultSort = () => {
     let sortButton = document.getElementById("sort-button");
-    sortButton.innerHTML = "Sort";
+    if (sortButton !== null) {
+      sortButton.innerHTML = "Sort";
+    }
   };
 
   return (
@@ -56,19 +60,18 @@ export default function Categories() {
 
                 return (
                   <CategoryBox key={list_id}>
-                    <CategoryLink
-                      to={category.list_name_encoded}
-                      onClick={() => {
-                        defaultSort();
-                      }}
-                      // className={(isActive) =>
-                      //   "category" + isActive
-                      //     ? "active-category"
-                      //     : "inactive-category"
-                      // }
-                    >
-                      {list_name}
-                    </CategoryLink>
+                    <div onClick={defaultSort}>
+                      <CategoryLink
+                        to={category.list_name_encoded}
+                        // className={(isActive) =>
+                        //   "category" + isActive
+                        //     ? "active-category"
+                        //     : "inactive-category"
+                        // }
+                      >
+                        {list_name}
+                      </CategoryLink>
+                    </div>
                   </CategoryBox>
                 );
               })}

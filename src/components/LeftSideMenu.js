@@ -15,25 +15,29 @@ const SideMenu = styled.div`
 `;
 
 const CategoryButton = styled.div`
-  font: 600 1.3rem barlow;
   padding: 7px 30px;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
   cursor: pointer;
   position: relative;
-  border: 1px solid;
-  border-radius: 3px;
+  border: 2px solid #0003;
+  border-radius: 4px;
   background: #fff;
+  transition: 0.2s;
+
+  &:hover {
+    border: 2px solid #0007;
+  }
 `;
 
 const CategoryButtonTitle = styled.div`
-  font: 600 1.2rem barlow;
+  font: 600 1rem barlow;
 `;
 
 const Arrow = styled.i`
   position: absolute;
   top: 9px;
   right: 25px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   transition: 0.1s;
 `;
 

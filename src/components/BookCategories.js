@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
-  /* background: #0003; */
-  overflow: hidden;
+  margin: 0;
+  overflow-y: hidden;
+  max-height: 0px;
+  transition: 0.3s;
 `;
 
 const CategoryBox = styled.div`
@@ -44,7 +45,7 @@ export default function Categories() {
 
   return (
     <div>
-      <CategoryContainer>
+      <CategoryContainer id="books-category-container">
         {!loading ? (
           <>
             {categories

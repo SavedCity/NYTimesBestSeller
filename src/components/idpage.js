@@ -20,21 +20,22 @@ const ListName = styled.h3`
 `;
 
 const SortingContainer = styled.div`
-  display: none;
   position: absolute;
   background: #fff;
-  top: 33px;
+  top: 36px;
   left: 0;
   z-index: 1;
   width: 198px;
-  border: 1px solid #ccc;
+  border: 1px solid transparent;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   transition: 0.3s;
+  max-height: 0;
+  overflow-y: hidden;
 `;
 
 const SortingOpener = styled.button`
-  border: 1px solid #0003;
+  border: 2px solid #03045e33;
   font: 500 1rem barlow;
   padding: 5px 40px 8px 40px;
   cursor: pointer;
@@ -84,12 +85,13 @@ const CardContainer = styled.div`
 const Card = styled.div`
   margin: 20px;
   padding: 10px;
-  border: 1px solid #03045e33;
+  border: 2px solid #03045e33;
   width: 20vw;
   flex: 1;
   flex-basis: 20%;
   border-radius: 8px;
   position: relative;
+  box-shadow: 4px 4px #03045e33;
 `;
 
 const Title = styled.h3`
@@ -212,6 +214,7 @@ export default function IdPage() {
               </span>{" "}
               {listName}
             </ListName>
+            <button>Filter</button>
             <div
               style={{
                 // display: "flex",

@@ -16,7 +16,7 @@ const SideMenu = styled.div`
 
 const CategoryButton = styled.div`
   padding: 7px 30px;
-  margin: 0 0 10px 0;
+  margin: 10px 0;
   cursor: pointer;
   position: relative;
   border: 2px solid #0003;
@@ -43,32 +43,34 @@ const Arrow = styled.i`
 
 export default function LeftSideMenu() {
   const openBooks = () => {
-    let books = document.getElementById("books-arrow");
-    let categories = document.getElementById("book-categories");
+    let booksArrow = document.getElementById("books-arrow");
+    let categoryContainer = document.getElementById("books-category-container");
 
-    if (books.classList.contains("arrow-rotate")) {
-      books.classList.remove("arrow-rotate");
-    } else books.classList.add("arrow-rotate");
+    if (booksArrow.classList.contains("arrow-rotate")) {
+      booksArrow.classList.remove("arrow-rotate");
+    } else booksArrow.classList.add("arrow-rotate");
 
-    if (categories.style.display === "none") {
-      categories.style.display = "block";
+    if (!categoryContainer.classList.contains("category-slide")) {
+      categoryContainer.classList.add("category-slide");
     } else {
-      categories.style.display = "none";
+      categoryContainer.classList.remove("category-slide");
     }
   };
 
   const openMovies = () => {
     let movies = document.getElementById("movies-arrow");
-    let categories = document.getElementById("movie-categories");
+    let categoryContainer = document.getElementById(
+      "movies-category-container"
+    );
 
     if (movies.classList.contains("arrow-rotate")) {
       movies.classList.remove("arrow-rotate");
     } else movies.classList.add("arrow-rotate");
 
-    if (categories.style.display === "none") {
-      categories.style.display = "block";
+    if (!categoryContainer.classList.contains("category-slide")) {
+      categoryContainer.classList.add("category-slide");
     } else {
-      categories.style.display = "none";
+      categoryContainer.classList.remove("category-slide");
     }
   };
 
@@ -78,17 +80,13 @@ export default function LeftSideMenu() {
         <CategoryButtonTitle>BOOKS</CategoryButtonTitle>
         <Arrow className="fas fa-arrow-right" id="books-arrow"></Arrow>
       </CategoryButton>
-      <div id="book-categories" style={{ display: "none" }}>
-        <BookCategories />
-      </div>
+      <BookCategories />
 
       <CategoryButton onClick={openMovies}>
         <CategoryButtonTitle>MOVIE REVIEWS</CategoryButtonTitle>
         <Arrow className="fas fa-arrow-right" id="movies-arrow"></Arrow>
       </CategoryButton>
-      <div id="movie-categories" style={{ display: "none" }}>
-        <MovieCategories />
-      </div>
+      <MovieCategories />
     </SideMenu>
   );
 }

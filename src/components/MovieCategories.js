@@ -9,7 +9,10 @@ import axios from "axios";
 const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
+  margin: 0;
+  overflow-y: hidden;
+  max-height: 0px;
+  transition: 0.3s;
 `;
 
 const CategoryBox = styled.div`
@@ -59,7 +62,7 @@ export default function Categories() {
 
   return (
     <div>
-      <CategoryContainer>
+      <CategoryContainer id="movies-category-container">
         {!loading ? (
           <>
             {categories

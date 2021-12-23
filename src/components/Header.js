@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import Logo from "../images/nytimes-blue.png";
+import React from "react";
 
 const HeaderContainer = styled.div`
   display: flex;

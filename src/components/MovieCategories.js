@@ -119,7 +119,13 @@ export default function Categories() {
                       <div
                         style={{
                           position: "absolute",
-                          top: "80px",
+                          display: "flex",
+                          flexDirection: "column",
+                          top: "60px",
+                          height: "280px",
+                          width: "250px",
+                          overflow: "hidden",
+                          marginLeft: "20px",
                         }}
                       >
                         <Title>Title - {display_title}</Title>

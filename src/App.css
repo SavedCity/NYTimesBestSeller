@@ -6,12 +6,16 @@ body {
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+::selection {
+  background: #cbaffe;
+}
+
+/* Main loader */
 .loader-div {
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 50px auto;
-  /* position: absolute; */
 }
 
 .loader {
@@ -31,4 +35,49 @@ body {
     transform: scale(100%);
     border: 3px solid;
   }
+}
+
+/* Side menu */
+.menu-slide {
+  left: 0 !important;
+  position: relative !important;
+}
+
+/* Pop up menu arrow */
+.arrow-rotate {
+  transform: rotate(90deg);
+}
+
+/* Hamburger menu */
+.hamburger-top {
+  transform: rotate(45deg);
+  top: 14px !important;
+}
+.hamburger-mid {
+  width: 0 !important;
+}
+.hamburger-bottom {
+  transform: rotate(-45deg);
+  bottom: 14px !important;
+}
+
+.hamburger-top-hover {
+  width: 26px !important;
+}
+.hamburger-mid-hover {
+  width: 33px !important;
+}
+.hamburger-bottom-hover {
+  width: 26px !important;
+}
+
+/* Category slide down */
+.category-slide {
+  max-height: 1000px !important;
+}
+/* Sorting */
+.sorting-opened {
+  /* display: block !important; */
+  max-height: 200px !important;
+  border: 1px solid #ccc !important;
 }

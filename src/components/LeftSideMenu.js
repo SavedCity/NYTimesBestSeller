@@ -6,6 +6,7 @@ import MovieCategories from "../components/MovieCategories";
 const SideMenu = styled.div`
   background: #eee;
   min-width: 370px;
+  max-width: 370px;
   min-height: 100%;
   padding: 10px 20px;
   position: absolute;

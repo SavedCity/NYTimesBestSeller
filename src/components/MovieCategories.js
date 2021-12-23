@@ -33,6 +33,26 @@ const CategoryLink = styled(Link)`
   white-space: nowrap;
 `;
 
+const Title = styled.h1`
+  font-size: 1.7vw;
+`;
+
+const Date = styled.h5`
+  font-size: 1vw;
+`;
+
+const Summary = styled.h5`
+  font-size: 1vw;
+  text-wrap: nowrap;
+  overflow: hidden;
+`;
+
+const MovieLink = styled.a`
+  font-size: 1vw;
+  text-decoration: none;
+  color: black;
+`;
+
 export default function Categories() {
   const [categories, setCategories] = useState([]);
   const loading = useSelector((state) => state.loading);
@@ -64,29 +84,55 @@ export default function Categories() {
       <CategoryContainer id="movies-category-container">
         {!loading ? (
           <>
-            {categories
-              .sort((a, b) =>
-                a.display_name > b.display_name
-                  ? 1
-                  : b.display_name > a.display_name
-                  ? -1
-                  : 0
-              )
-              .map((category, key) => {
-                const { display_title, publication_date, summary_short, link } =
-                  category;
+            <div style={{ display: "flex", flexWrap: "wrap", margin: "10px" }}>
+              {categories
+                .sort((a, b) =>
+                  a.display_name > b.display_name
+                    ? 1
+                    : b.display_name > a.display_name
+                    ? -1
+                    : 0
+                )
+                .map((category, key) => {
+                  const {
+                    display_title,
+                    publication_date,
+                    summary_short,
+                    link,
+                  } = category;
 
-                return (
-                  <>
-                    <h1>{display_title}</h1>
-                    <h5>{publication_date}</h5>
-                    <h4>{summary_short}</h4>
-                    <a target="_blank " href={link.url}>
-                      {link.url}
-                    </a>
-                  </>
-                );
-              })}
+                  return (
+                    <div
+                      style={{
+                        position: "relative",
+                        flex: "1",
+                        flexBasis: "30%",
+                      }}
+                    >
+                      <i
+                        style={{
+                          fontSize: "400px",
+                          color: "#0003",
+                        }}
+                        class="fas fa-video"
+                      ></i>
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: "80px",
+                        }}
+                      >
+                        <Title>Title - {display_title}</Title>
+                        <Date>Date - {publication_date}</Date>
+                        <Summary>Description - {summary_short}</Summary>
+                        <MovieLink target="_blank " href={link.url}>
+                          Movie Link - {link.url}
+                        </MovieLink>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </>
         ) : (
           <div className="loader-div">

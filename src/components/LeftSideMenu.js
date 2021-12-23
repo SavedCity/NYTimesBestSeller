@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import BookCategories from "../components/BookCategories";
-import MovieCategories from "../components/MovieCategories";
+import { Link } from "react-router-dom";
 
 const SideMenu = styled.div`
   background: #eee;
@@ -59,20 +59,20 @@ export default function LeftSideMenu() {
     }
   };
 
-  const openMovies = () => {
-    let movies = document.getElementById("movies-arrow");
-    let moviesContainer = document.getElementById("movies-category-container");
+  // const openMovies = () => {
+  //   let movies = document.getElementById("movies-arrow");
+  //   let moviesContainer = document.getElementById("movies-category-container");
 
-    if (movies.classList.contains("arrow-rotate")) {
-      movies.classList.remove("arrow-rotate");
-    } else movies.classList.add("arrow-rotate");
+  //   if (movies.classList.contains("arrow-rotate")) {
+  //     movies.classList.remove("arrow-rotate");
+  //   } else movies.classList.add("arrow-rotate");
 
-    if (!moviesContainer.classList.contains("category-slide")) {
-      moviesContainer.classList.add("category-slide");
-    } else {
-      moviesContainer.classList.remove("category-slide");
-    }
-  };
+  //   if (!moviesContainer.classList.contains("category-slide")) {
+  //     moviesContainer.classList.add("category-slide");
+  //   } else {
+  //     moviesContainer.classList.remove("category-slide");
+  //   }
+  // };
 
   return (
     <SideMenu id="side-menu">
@@ -82,11 +82,11 @@ export default function LeftSideMenu() {
       </CategoryButton>
       <BookCategories />
 
-      <CategoryButton onClick={openMovies}>
+      {/* <CategoryButton onClick={openMovies}>
         <CategoryButtonTitle>MOVIE REVIEWS</CategoryButtonTitle>
         <Arrow className="fas fa-arrow-right" id="movies-arrow"></Arrow>
-      </CategoryButton>
-      <MovieCategories />
+      </CategoryButton> */}
+      <Link to="/moviecategories">Movie Reviews</Link>
     </SideMenu>
   );
 }

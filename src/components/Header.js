@@ -150,7 +150,7 @@ export default function Header() {
       </LeftHeader>
       <LinkContainer>
         <HeaderLinks to="/homecategory">HOME</HeaderLinks>
-        <HeaderLinks to="/homecategory">BOOK CATEGORIES</HeaderLinks>
+        <HeaderLinks to="/bookcategory">BOOK CATEGORIES</HeaderLinks>
       </LinkContainer>
     </HeaderContainer>
   );

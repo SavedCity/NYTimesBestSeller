@@ -54,7 +54,6 @@ export default function Categories() {
       });
     setCategories(response.data.results);
   };
-  console.log(categories);
 
   const resetDropDown = () => {
     const dropDown = document.getElementById("sorting-option");

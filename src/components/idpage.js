@@ -9,6 +9,7 @@ import styled from "styled-components";
 import AmazonLogoImg from "../images/amazon.png";
 
 import Sorting from "./features/Sorting";
+import Filter from "./features/Filter";
 
 const CardContainerHeader = styled.div`
   display: flex;
@@ -112,14 +113,14 @@ export default function IdPage() {
     setBookList(response.data.results);
   };
 
+  console.log(bookList);
+
   let listName = params.idpage.replaceAll("-", " ").split(" ");
 
   for (let i = 0; i < listName.length; i++) {
     listName[i] =
       " " + listName[i].charAt(0).toUpperCase() + listName[i].slice(1);
   }
-
-  console.log(params.idpage.replaceAll("-", " ").split(" "));
 
   return (
     <div>
@@ -137,7 +138,7 @@ export default function IdPage() {
               </span>{" "}
               {listName}
             </ListName>
-            <button>Filter</button>
+            <Filter />
             <Sorting bookList={bookList} setBookList={setBookList} />
           </CardContainerHeader>
 

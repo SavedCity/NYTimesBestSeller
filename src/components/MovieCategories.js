@@ -10,8 +10,6 @@ const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0;
-  overflow: hidden;
-  max-height: 0px;
   transition: 0.3s;
 `;
 
@@ -74,14 +72,18 @@ export default function Categories() {
                   : 0
               )
               .map((category, key) => {
-                const { display_title } = category;
+                const { display_title, publication_date, summary_short, link } =
+                  category;
 
                 return (
-                  <CategoryBox key={key}>
-                    <CategoryLink onClick={resetDropDown} to={display_title}>
-                      {display_title}
-                    </CategoryLink>
-                  </CategoryBox>
+                  <>
+                    <h1>{display_title}</h1>
+                    <h5>{publication_date}</h5>
+                    <h4>{summary_short}</h4>
+                    <a target="_blank " href={link.url}>
+                      {link.url}
+                    </a>
+                  </>
                 );
               })}
           </>

@@ -6,6 +6,7 @@ import HomeCategories from "./headerComponents/HomeCategories";
 import Header from "./Header";
 import React from "react";
 import HeaderBookCategories from "./headerComponents/HeaderBookCategories";
+import MovieCategories from "../components/MovieCategories";
 
 const MainPage = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ export default function Home() {
           <Route path="/bookcategory/:idpage" element={<IdPage />} />
           <Route path="/homecategory" element={<HomeCategories />} />
           <Route path="/bookcategory" element={<HeaderBookCategories />} />
+          <Route path="/moviecategories" element={<MovieCategories />} />
         </Routes>
       </MainPage>
     </div>

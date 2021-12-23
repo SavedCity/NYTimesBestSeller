@@ -41,7 +41,7 @@ export default function HomeCategories() {
                 <h3>{section}</h3>
                 <h2>{title}</h2>
                 <p>{abstract}</p>
-                <a href={url} target="_blank" rel="noreferrer">
+                <a href={url} target="_blank" rel="noopener noreferrer">
                   LINK
                 </a>
                 <hr />

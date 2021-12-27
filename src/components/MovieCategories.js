@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -21,8 +20,6 @@ const Date = styled.h5`
 const Summary = styled.h5`
   margin: 8px;
   font-size: 1vw;
-  overflow: hidden;
-  overflow: scroll;
 `;
 
 const MovieLink = styled.a`
@@ -57,11 +54,6 @@ export default function Categories() {
     setCategories(response.data.results);
   };
 
-  const resetDropDown = () => {
-    const dropDown = document.getElementById("sorting-option");
-    dropDown.selectedIndex = 0;
-  };
-
   return (
     <div>
       <CategoryContainer id="movies-category-container">
@@ -71,7 +63,9 @@ export default function Categories() {
               style={{
                 display: "flex",
                 flexWrap: "wrap",
-                justifyContent: "center",
+                // justifyContent: "center",
+                gap: "15px",
+                margin: "20px 0",
               }}
             >
               {categories
@@ -91,38 +85,24 @@ export default function Categories() {
                   } = category;
 
                   let rating = category.mpaa_rating.replace("-", "");
-                  console.log(rating);
 
                   return (
                     <div
                       style={{
-                        position: "relative",
+                        display: "flex",
                         flex: "1",
-                        flexBasis: "33%",
+                        flexBasis: "30%",
+                        justifyContent: "center",
                       }}
                     >
                       <div
                         style={{
                           display: "flex",
-
-                          fontSize: "400px",
+                          flexDirection: "column",
                           background: "#0003",
                           height: "400px",
-                          width: "350px",
                           border: "2px solid black",
-                          marginBottom: "10px",
-                        }}
-                      ></div>
-                      <div
-                        style={{
-                          position: "absolute",
-                          flexDirection: "column",
-                          top: "60px",
-                          height: "300px",
-                          width: "250px",
-                          overflow: "scroll",
-                          marginLeft: "20px",
-                          background: "000",
+                          width: "80%",
                         }}
                       >
                         <Title>Title - {display_title}</Title>

@@ -9,7 +9,6 @@ import styled from "styled-components";
 import AmazonLogoImg from "../images/amazon.png";
 
 import Sorting from "./features/Sorting";
-import Filter from "./features/Filter";
 
 const CardContainerHeader = styled.div`
   display: flex;
@@ -130,15 +129,22 @@ export default function IdPage() {
             <ListName>
               <span
                 style={{
-                  font: "400 1.4rem barlow",
-                  color: "#0009",
+                  font: "400 1.6rem barlow",
+                  color: "#03045e",
                 }}
               >
-                Results for:
-              </span>{" "}
-              {listName}
+                {bookList.length}{" "}
+              </span>
+              results for:
+              <span
+                style={{
+                  font: "400 1.6rem barlow",
+                  color: "#03045e",
+                }}
+              >
+                {listName}
+              </span>
             </ListName>
-            <Filter />
             <Sorting bookList={bookList} setBookList={setBookList} />
           </CardContainerHeader>
 

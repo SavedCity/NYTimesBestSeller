@@ -54,6 +54,7 @@ export default function Categories() {
       });
     setMovies(response.data.results);
   };
+  console.log(categories);
 
   return (
     <div>

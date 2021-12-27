@@ -56,9 +56,8 @@ export default function HomeCategories() {
         return (
           <Carousel.Item>
             <CategoryBox>
-              <h5>{byline}</h5>
-              <Section>{section}</Section>
               <h2>{title}</h2>
+              <h5>{byline}</h5>
               <p>{abstract}</p>
               <a href={url} target="_blank" rel="noopener noreferrer">
                 LINK
@@ -71,7 +70,7 @@ export default function HomeCategories() {
   }
 
   return (
-    <div>
+    <>
       {!loading ? (
         <div style={{ width: "90%", margin: "0 auto" }}>
           <CarouselContainer>
@@ -81,51 +80,66 @@ export default function HomeCategories() {
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>Technology</h2>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("technology")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>
+              World News <i class="fas fa-globe"></i>
+            </h2>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("world")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>
+              Travel Guide <i class="fas fa-plane"></i>
+            </h2>
+
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("travel")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>Science</h2>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("science")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>Arts</h2>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("arts")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>Opinion Section</h2>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("opinion")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>Magazine</h2>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("magazine")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>Business</h2>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("business")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>Wellness</h2>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("well")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
+            <h2>Sports</h2>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
               {varChange("sports")}
             </Carousel>
@@ -136,6 +150,6 @@ export default function HomeCategories() {
           <div className="loader"></div>
         </div>
       )}
-    </div>
+    </>
   );
 }

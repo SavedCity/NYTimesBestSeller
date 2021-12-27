@@ -53,6 +53,7 @@ export default function Categories() {
       });
     setCategories(response.data.results);
   };
+  console.log(categories);
 
   return (
     <div>

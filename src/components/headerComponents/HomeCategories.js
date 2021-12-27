@@ -14,6 +14,8 @@ const CarouselContainer = styled.div`
   margin: 50px 0;
 `;
 
+const Section = styled.h3``;
+
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);
   const loading = useSelector((state) => state.loading);
@@ -34,7 +36,6 @@ export default function HomeCategories() {
 
     setHomeData(response.data.results);
   };
-  console.log(homeData);
 
   const MyDot = ({ isActive }) => (
     <span
@@ -47,30 +48,27 @@ export default function HomeCategories() {
     ></span>
   );
 
-  let allSections = { us: "us", tech: "technology" };
-
-  const varChange = (string) => {
-    console.log(string);
-  };
-
-  const usFilter = homeData
-    .filter((about) => about.section === allSections.us)
-    .map((topStories) => {
-      const { title, section, abstract, byline, url } = topStories;
-      return (
-        <Carousel.Item>
-          <CategoryBox>
-            <h5>{byline}</h5>
-            <h3>{section}</h3>
-            <h2>{title}</h2>
-            <p>{abstract}</p>
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              LINK
-            </a>
-          </CategoryBox>
-        </Carousel.Item>
-      );
-    });
+  function varChange(data) {
+    let newData = homeData
+      .filter((about) => about.section === data)
+      .map((topStories) => {
+        const { title, section, abstract, byline, url } = topStories;
+        return (
+          <Carousel.Item>
+            <CategoryBox>
+              <h5>{byline}</h5>
+              <Section>{section}</Section>
+              <h2>{title}</h2>
+              <p>{abstract}</p>
+              <a href={url} target="_blank" rel="noopener noreferrer">
+                LINK
+              </a>
+            </CategoryBox>
+          </Carousel.Item>
+        );
+      });
+    return newData;
+  }
 
   return (
     <div>
@@ -79,18 +77,58 @@ export default function HomeCategories() {
           <CarouselContainer>
             <h2>Top Stories US</h2>
             <Carousel cols={2} rows={1} gap={10} loop showDots dot={MyDot}>
-              {usFilter}
+              {varChange("us")}
             </Carousel>
           </CarouselContainer>
           <CarouselContainer>
-            <Carousel
-              cols={2}
-              rows={1}
-              gap={20}
-              loop
-              showDots
-              dot={MyDot}
-            ></Carousel>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("technology")}
+            </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("world")}
+            </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("travel")}
+            </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("science")}
+            </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("arts")}
+            </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("opinion")}
+            </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("magazine")}
+            </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("business")}
+            </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("well")}
+            </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("sports")}
+            </Carousel>
           </CarouselContainer>
         </div>
       ) : (

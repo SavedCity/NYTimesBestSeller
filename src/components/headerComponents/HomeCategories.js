@@ -49,27 +49,12 @@ export default function HomeCategories() {
 
   let allSections = { us: "us", tech: "technology" };
 
+  const varChange = (string) => {
+    console.log(string);
+  };
+
   const usFilter = homeData
     .filter((about) => about.section === allSections.us)
-    .map((topStories) => {
-      const { title, section, abstract, byline, url } = topStories;
-      return (
-        <Carousel.Item>
-          <CategoryBox>
-            <h5>{byline}</h5>
-            <h3>{section}</h3>
-            <h2>{title}</h2>
-            <p>{abstract}</p>
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              LINK
-            </a>
-          </CategoryBox>
-        </Carousel.Item>
-      );
-    });
-
-  const techFilter = homeData
-    .filter((about) => about.section === allSections.tech)
     .map((topStories) => {
       const { title, section, abstract, byline, url } = topStories;
       return (
@@ -91,13 +76,21 @@ export default function HomeCategories() {
     <div>
       {!loading ? (
         <div style={{ width: "90%", margin: "0 auto" }}>
-          <Carousel cols={2} rows={1} gap={10} loop showDots dot={MyDot}>
-            {usFilter}
-          </Carousel>
           <CarouselContainer>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {techFilter}
+            <h2>Top Stories US</h2>
+            <Carousel cols={2} rows={1} gap={10} loop showDots dot={MyDot}>
+              {usFilter}
             </Carousel>
+          </CarouselContainer>
+          <CarouselContainer>
+            <Carousel
+              cols={2}
+              rows={1}
+              gap={20}
+              loop
+              showDots
+              dot={MyDot}
+            ></Carousel>
           </CarouselContainer>
         </div>
       ) : (

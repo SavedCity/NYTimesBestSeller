@@ -44,13 +44,18 @@ const Date = styled.h5`
 const Summary = styled.h5`
   font-size: 1vw;
   text-wrap: nowrap;
-  overflow: hidden;
+  overflow: scroll;
 `;
 
 const MovieLink = styled.a`
   font-size: 1vw;
   text-decoration: none;
   color: black;
+`;
+
+const Rating = styled.h4`
+  font-size: 1vw;
+  color: red;
 `;
 
 export default function Categories() {
@@ -101,34 +106,41 @@ export default function Categories() {
                     link,
                   } = category;
 
+                  let rating = category.mpaa_rating.replace("-", "");
+
                   return (
                     <div
                       style={{
                         position: "relative",
                         flex: "1",
-                        flexBasis: "30%",
+                        flexBasis: "33%",
                       }}
                     >
-                      <i
+                      <div
                         style={{
+                          display: "flex",
+
                           fontSize: "400px",
-                          color: "#0003",
+                          background: "#0003",
+                          height: "400px",
+                          width: "350px",
+                          border: "2px solid black",
+                          marginBottom: "10px",
                         }}
-                        class="fas fa-video"
-                      ></i>
+                      ></div>
                       <div
                         style={{
                           position: "absolute",
-                          display: "flex",
                           flexDirection: "column",
                           top: "60px",
-                          height: "280px",
+                          height: "300px",
                           width: "250px",
-                          overflow: "hidden",
+                          overflow: "scroll",
                           marginLeft: "20px",
                         }}
                       >
                         <Title>Title - {display_title}</Title>
+                        <Rating className={rating}>Rated - {rating}</Rating>
                         <Date>Date - {publication_date}</Date>
                         <Summary>Description - {summary_short}</Summary>
                         <MovieLink target="_blank " href={link.url}>

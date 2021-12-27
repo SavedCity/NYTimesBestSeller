@@ -7,7 +7,7 @@ const SideMenu = styled.div`
   background: #eee;
   min-width: 370px;
   max-width: 370px;
-  min-height: 100%;
+  min-height: 100vw;
   padding: 10px 20px;
   position: absolute;
   left: -450px;
@@ -16,14 +16,15 @@ const SideMenu = styled.div`
 `;
 
 const CategoryButton = styled.div`
-  padding: 7px 30px;
-  margin: 5px 0;
+  padding: 12px 30px;
+  margin: 10px 0;
   cursor: pointer;
   position: relative;
   border: 1px solid #0003;
   border-radius: 4px;
   background: #fff;
   transition: 0.2s;
+  font: 500 1rem barlow;
 
   &:hover {
     border: 1px solid #0007;
@@ -37,10 +38,16 @@ const CategoryButtonTitle = styled.div`
 
 const Arrow = styled.i`
   position: absolute;
-  top: 9px;
+  top: 14px;
   right: 25px;
   font-size: 1rem;
   transition: 0.1s;
+`;
+
+const MovieLInk = styled(Link)`
+  text-decoration: none;
+  letter-spacing: 1px;
+  color: #000;
 `;
 
 export default function LeftSideMenu() {
@@ -77,7 +84,7 @@ export default function LeftSideMenu() {
   return (
     <SideMenu id="side-menu">
       <CategoryButton onClick={openBooks}>
-        <CategoryButtonTitle>BOOKS</CategoryButtonTitle>
+        <CategoryButtonTitle>BOOK CATEGORIES</CategoryButtonTitle>
         <Arrow className="fas fa-arrow-right" id="books-arrow"></Arrow>
       </CategoryButton>
       <BookCategories />
@@ -86,7 +93,9 @@ export default function LeftSideMenu() {
         <CategoryButtonTitle>MOVIE REVIEWS</CategoryButtonTitle>
         <Arrow className="fas fa-arrow-right" id="movies-arrow"></Arrow>
       </CategoryButton> */}
-      <Link to="/moviecategories">Movie Reviews</Link>
+      <MovieLInk to="/moviecategories">
+        <CategoryButton>MOVIE REVIEWS</CategoryButton>
+      </MovieLInk>
     </SideMenu>
   );
 }

@@ -112,14 +112,14 @@ export default function IdPage() {
     setBookList(response.data.results);
   };
 
+  console.log(bookList);
+
   let listName = params.idpage.replaceAll("-", " ").split(" ");
 
   for (let i = 0; i < listName.length; i++) {
     listName[i] =
       " " + listName[i].charAt(0).toUpperCase() + listName[i].slice(1);
   }
-
-  console.log(params.idpage.replaceAll("-", " ").split(" "));
 
   return (
     <div>
@@ -129,15 +129,22 @@ export default function IdPage() {
             <ListName>
               <span
                 style={{
-                  font: "400 1.4rem barlow",
-                  color: "#0009",
+                  font: "400 1.6rem barlow",
+                  color: "#03045e",
                 }}
               >
-                Results for:
-              </span>{" "}
-              {listName}
+                {bookList.length}{" "}
+              </span>
+              results for:
+              <span
+                style={{
+                  font: "400 1.6rem barlow",
+                  color: "#03045e",
+                }}
+              >
+                {listName}
+              </span>
             </ListName>
-            <button>Filter</button>
             <Sorting bookList={bookList} setBookList={setBookList} />
           </CardContainerHeader>
 

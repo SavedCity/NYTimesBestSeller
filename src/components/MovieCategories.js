@@ -6,48 +6,27 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-const CategoryContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  transition: 0.3s;
-`;
-
-const CategoryBox = styled.div`
-  margin: 5px 10px;
-  border-bottom: 1px solid #140152;
-  width: 0;
-  transition: 0.3s;
-  padding: 0 0 8px 0;
-
-  &:hover {
-    width: 100%;
-  }
-`;
-
-const CategoryLink = styled(Link)`
-  color: #282828;
-  font: 400 1.2rem barlow;
-  text-decoration: none;
-  transition: 0.3s;
-  white-space: nowrap;
-`;
+const CategoryContainer = styled.div``;
 
 const Title = styled.h1`
-  font-size: 1.7vw;
+  font-size: 1.1vw;
+  margin: 8px;
 `;
 
 const Date = styled.h5`
+  margin: 8px;
   font-size: 1vw;
 `;
 
 const Summary = styled.h5`
+  margin: 8px;
   font-size: 1vw;
-  text-wrap: nowrap;
+  overflow: hidden;
   overflow: scroll;
 `;
 
 const MovieLink = styled.a`
+  margin: 8px;
   font-size: 1vw;
   text-decoration: none;
   color: black;
@@ -77,7 +56,6 @@ export default function Categories() {
       });
     setCategories(response.data.results);
   };
-  console.log(categories);
 
   const resetDropDown = () => {
     const dropDown = document.getElementById("sorting-option");
@@ -89,7 +67,13 @@ export default function Categories() {
       <CategoryContainer id="movies-category-container">
         {!loading ? (
           <>
-            <div style={{ display: "flex", flexWrap: "wrap", margin: "10px" }}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
+            >
               {categories
                 .sort((a, b) =>
                   a.display_name > b.display_name
@@ -138,6 +122,7 @@ export default function Categories() {
                           width: "250px",
                           overflow: "scroll",
                           marginLeft: "20px",
+                          background: "000",
                         }}
                       >
                         <Title>Title - {display_title}</Title>
@@ -145,7 +130,7 @@ export default function Categories() {
                         <Date>Date - {publication_date}</Date>
                         <Summary>Description - {summary_short}</Summary>
                         <MovieLink target="_blank " href={link.url}>
-                          Movie Link - {link.url}
+                          Movie Link
                         </MovieLink>
                       </div>
                     </div>

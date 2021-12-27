@@ -6,26 +6,19 @@ import { Link } from "react-router-dom";
 
 const CategoryContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   margin: 0;
-  overflow: hidden;
-  max-height: 0px;
   transition: 0.3s;
 `;
 
 const CategoryBox = styled.div`
   margin: 5px 10px;
   border-bottom: 1px solid #140152;
-  width: 0;
   transition: 0.3s;
   padding: 0 0 8px 0;
-
-  &:hover {
-    width: 100%;
-  }
 `;
 
-const BookLink = styled(Link)`
+const CategoryLink = styled(Link)`
   color: #282828;
   font: 400 1.2rem barlow;
   text-decoration: none;
@@ -58,13 +51,13 @@ export default function Categories() {
                   : 0
               )
               .map((category) => {
-                const { list_id, list_name, list_name_encoded } = category;
+                const { list_id, list_name } = category;
 
                 return (
                   <CategoryBox onClick={defaultSort} key={list_id}>
-                    <BookLink to={"/bookcategory/" + list_name_encoded}>
+                    <CategoryLink to={category.list_name_encoded}>
                       {list_name}
-                    </BookLink>
+                    </CategoryLink>
                   </CategoryBox>
                 );
               })}

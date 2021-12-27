@@ -35,8 +35,9 @@ const Rating = styled.h4`
 `;
 
 export default function Categories() {
-  const [categories, setCategories] = useState([]);
+  const [movies, setMovies] = useState([]);
   const loading = useSelector((state) => state.loading);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchMovieCategories();
@@ -46,12 +47,12 @@ export default function Categories() {
   const fetchMovieCategories = async () => {
     const response = await axios
       .get(
-        "https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f"
+        `https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f`
       )
       .catch((err) => {
         console.log(err);
       });
-    setCategories(response.data.results);
+    setMovies(response.data.results);
   };
 
   return (
@@ -59,16 +60,22 @@ export default function Categories() {
       <CategoryContainer id="movies-category-container">
         {!loading ? (
           <>
+            <input
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+              }}
+            />
             <div
               style={{
                 display: "flex",
                 flexWrap: "wrap",
-                // justifyContent: "center",
                 gap: "15px",
                 margin: "20px 0",
               }}
             >
-              {categories
+              {movies
                 .sort((a, b) =>
                   a.display_name > b.display_name
                     ? 1
@@ -76,6 +83,18 @@ export default function Categories() {
                     ? -1
                     : 0
                 )
+                .filter((category) => {
+                  if (searchTerm === "") {
+                    return category;
+                  } else if (
+                    category.display_title
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                  ) {
+                    return category;
+                  }
+                  return null;
+                })
                 .map((category, key) => {
                   const {
                     display_title,
@@ -85,9 +104,9 @@ export default function Categories() {
                   } = category;
 
                   let rating = category.mpaa_rating.replace("-", "");
-
                   return (
                     <div
+                      key={key}
                       style={{
                         display: "flex",
                         flex: "1",

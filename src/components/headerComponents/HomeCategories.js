@@ -71,7 +71,7 @@ export default function HomeCategories() {
   }
 
   return (
-    <div>
+    <>
       {!loading ? (
         <div style={{ width: "90%", margin: "0 auto" }}>
           <CarouselContainer>
@@ -136,6 +136,6 @@ export default function HomeCategories() {
           <div className="loader"></div>
         </div>
       )}
-    </div>
+    </>
   );
 }

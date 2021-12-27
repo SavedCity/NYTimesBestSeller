@@ -91,7 +91,6 @@ export default function Categories() {
                   } = category;
 
                   let rating = category.mpaa_rating.replace("-", "");
-                  console.log(rating);
 
                   return (
                     <div

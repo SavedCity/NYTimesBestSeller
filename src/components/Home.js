@@ -19,9 +19,8 @@ export default function Home() {
       <MainPage>
         <LeftSideMenu />
         <Routes>
-          <Route path="/:idpage" element={<IdPage />} />
           <Route path="/bookcategory/:idpage" element={<IdPage />} />
-          <Route path="/homecategory" element={<HomeCategories />} />
+          <Route path="/home" element={<HomeCategories />} />
           <Route path="/bookcategory" element={<HeaderBookCategories />} />
           <Route path="/moviecategories" element={<MovieCategories />} />
         </Routes>

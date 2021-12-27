@@ -149,7 +149,7 @@ export default function Header() {
         {/* <ImgLogo src={Logo} /> */}
       </LeftHeader>
       <LinkContainer>
-        <HeaderLinks to="/homecategory">HOME</HeaderLinks>
+        <HeaderLinks to="/home">HOME</HeaderLinks>
         <HeaderLinks to="/bookcategory">BOOK CATEGORIES</HeaderLinks>
       </LinkContainer>
     </HeaderContainer>

@@ -25,7 +25,7 @@ const CategoryBox = styled.div`
   }
 `;
 
-const CategoryLink = styled(Link)`
+const BookLink = styled(Link)`
   color: #282828;
   font: 400 1.2rem barlow;
   text-decoration: none;
@@ -62,9 +62,9 @@ export default function Categories() {
 
                 return (
                   <CategoryBox onClick={defaultSort} key={list_id}>
-                    <CategoryLink to={list_name_encoded}>
+                    <BookLink to={"/bookcategory/" + list_name_encoded}>
                       {list_name}
-                    </CategoryLink>
+                    </BookLink>
                   </CategoryBox>
                 );
               })}

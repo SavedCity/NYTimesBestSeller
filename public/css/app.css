@@ -9,3 +9,11 @@
 .PG13 {
   color: rgb(12, 170, 233) !important;
 }
+
+body {
+  background: linear-gradient(
+    217deg,
+    rgba(253, 253, 253, 0.979),
+    rgba(175, 6, 6, 0) 70.71%
+  );
+}

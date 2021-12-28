@@ -3,15 +3,40 @@ import axios from "axios";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Carousel from "react-grid-carousel";
+import { red } from "@mui/material/colors";
 
 const CategoryBox = styled.div`
   margin: 10px;
-  border: 1px solid #0003;
+  border: 3px solid #0003;
   padding: 20px;
+  height: 250px;
+  margin-bottom: 120px;
+  box-shadow: 1px 3px 20px 10px black;
 `;
 
 const CarouselContainer = styled.div`
-  margin: 50px 0;
+  margin: 40px 0;
+`;
+
+const Title = styled.h2`
+  font-family: "Bungee", cursive;
+  font-family: "Roboto", sans-serif;
+`;
+
+const Header = styled.h2`
+  font-family: "Bungee", cursive;
+  font-family: "Roboto", sans-serif;
+`;
+
+const Author = styled.h5`
+  font-family: "Bungee", cursive;
+  font-family: "Roboto", sans-serif;
+`;
+
+const Paragraph = styled.p`
+  font-family: "Bungee", cursive;
+  font-family: "Poiret One", cursive;
+  font-family: "Roboto", sans-serif;
 `;
 
 const Section = styled.h3``;
@@ -52,13 +77,13 @@ export default function HomeCategories() {
     let newData = homeData
       .filter((about) => about.section === data)
       .map((topStories) => {
-        const { title, section, abstract, byline, url } = topStories;
+        const { title, abstract, byline, url } = topStories;
         return (
           <Carousel.Item>
             <CategoryBox>
-              <h2>{title}</h2>
-              <h5>{byline}</h5>
-              <p>{abstract}</p>
+              <Title>{title}</Title>
+              <Author>{byline}</Author>
+              <Paragraph>{abstract}</Paragraph>
               <a href={url} target="_blank" rel="noopener noreferrer">
                 LINK
               </a>
@@ -74,75 +99,232 @@ export default function HomeCategories() {
       {!loading ? (
         <div style={{ width: "90%", margin: "0 auto" }}>
           <CarouselContainer>
-            <h2>Top Stories US</h2>
-            <Carousel cols={2} rows={1} gap={10} loop showDots dot={MyDot}>
-              {varChange("us")}
-            </Carousel>
-          </CarouselContainer>
-          <CarouselContainer>
-            <h2>Technology</h2>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("technology")}
-            </Carousel>
-          </CarouselContainer>
-          <CarouselContainer>
-            <h2>
-              World News <i class="fas fa-globe"></i>
-            </h2>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("world")}
-            </Carousel>
-          </CarouselContainer>
-          <CarouselContainer>
-            <h2>
-              Travel Guide <i class="fas fa-plane"></i>
-            </h2>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>
+                  Top Stories US <i class="fas fa-newspaper"></i>
+                </Header>
+              </div>
 
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("travel")}
-            </Carousel>
+              <Carousel cols={2} rows={1} gap={10} loop>
+                {varChange("us")}
+              </Carousel>
+            </div>
           </CarouselContainer>
           <CarouselContainer>
-            <h2>Science</h2>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("science")}
-            </Carousel>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>Technology</Header>
+              </div>
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("technology")}
+              </Carousel>
+            </div>
           </CarouselContainer>
           <CarouselContainer>
-            <h2>Arts</h2>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("arts")}
-            </Carousel>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>
+                  World News <i class="fas fa-globe"></i>{" "}
+                  <i class="fas fa-newspaper"></i>{" "}
+                </Header>
+              </div>
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("world")}
+              </Carousel>
+            </div>
           </CarouselContainer>
           <CarouselContainer>
-            <h2>Opinion Section</h2>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("opinion")}
-            </Carousel>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>
+                  Travel Guide <i class="fas fa-plane"></i>
+                </Header>
+              </div>
+
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("travel")}
+              </Carousel>
+            </div>
           </CarouselContainer>
           <CarouselContainer>
-            <h2>Magazine</h2>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("magazine")}
-            </Carousel>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>
+                  Science <i class="fas fa-atom"></i>
+                </Header>
+              </div>
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("science")}
+              </Carousel>
+            </div>
           </CarouselContainer>
           <CarouselContainer>
-            <h2>Business</h2>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("business")}
-            </Carousel>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>
+                  Arts <i class="fas fa-palette"></i>
+                </Header>
+              </div>
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("arts")}
+              </Carousel>
+            </div>
           </CarouselContainer>
           <CarouselContainer>
-            <h2>Wellness</h2>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("well")}
-            </Carousel>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>Opinion Section</Header>
+              </div>
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("opinion")}
+              </Carousel>
+            </div>
           </CarouselContainer>
           <CarouselContainer>
-            <h2>Sports</h2>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("sports")}
-            </Carousel>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>Magazine</Header>
+              </div>
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("magazine")}
+              </Carousel>
+            </div>
+          </CarouselContainer>
+          <CarouselContainer>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>
+                  Business <i class="fas fa-business-time"></i>
+                </Header>
+              </div>
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("business")}
+              </Carousel>
+            </div>
+          </CarouselContainer>
+          <CarouselContainer>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>
+                  Wellness <i class="fas fa-spa"></i>
+                </Header>
+              </div>
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("well")}
+              </Carousel>
+            </div>
+          </CarouselContainer>
+          <CarouselContainer>
+            <div
+              style={{
+                boxShadow: " 1px 3px 20px 3px black",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Header>
+                  Sports <i class="fas fa-football-ball"></i>
+                </Header>
+              </div>
+              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+                {varChange("sports")}
+              </Carousel>
+            </div>
           </CarouselContainer>
         </div>
       ) : (

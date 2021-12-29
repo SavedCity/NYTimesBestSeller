@@ -14,8 +14,6 @@ const CarouselContainer = styled.div`
   margin: 50px 0;
 `;
 
-const Section = styled.h3``;
-
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);
   const loading = useSelector((state) => state.loading);
@@ -52,7 +50,7 @@ export default function HomeCategories() {
     let newData = homeData
       .filter((about) => about.section === data)
       .map((topStories) => {
-        const { title, section, abstract, byline, url } = topStories;
+        const { title, abstract, byline, url } = topStories;
         return (
           <Carousel.Item>
             <CategoryBox>

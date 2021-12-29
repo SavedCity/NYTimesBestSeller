@@ -9,7 +9,7 @@ const CategoryBox = styled.div`
   margin: 10px;
   border: 3px solid #0003;
   padding: 20px;
-  height: 250px;
+  height: 350px;
   margin-bottom: 120px;
   box-shadow: 1px 3px 20px 10px black;
 `;
@@ -21,6 +21,7 @@ const CarouselContainer = styled.div`
 const Title = styled.h2`
   font-family: "Bungee", cursive;
   font-family: "Roboto", sans-serif;
+  color: black;
 `;
 
 const Header = styled.h2`
@@ -44,6 +45,11 @@ const Section = styled.h3``;
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);
   const loading = useSelector((state) => state.loading);
+
+  const Image = styled.img`
+    width: 150px;
+    height: 150px;
+  `;
 
   useEffect(() => {
     fetchHomeList();
@@ -81,12 +87,17 @@ export default function HomeCategories() {
         return (
           <Carousel.Item>
             <CategoryBox>
-              <Title>{title}</Title>
+              <Image src="news-1172463__340.jpeg"></Image>
+              <a
+                style={{ textDecoration: "none" }}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Title>{title}</Title>
+              </a>
               <Author>{byline}</Author>
               <Paragraph>{abstract}</Paragraph>
-              <a href={url} target="_blank" rel="noopener noreferrer">
-                LINK
-              </a>
             </CategoryBox>
           </Carousel.Item>
         );
@@ -115,7 +126,7 @@ export default function HomeCategories() {
                 </Header>
               </div>
 
-              <Carousel cols={2} rows={1} gap={10} loop>
+              <Carousel cols={2} rows={1} gap={10} loop howDots dot={MyDot}>
                 {varChange("us")}
               </Carousel>
             </div>

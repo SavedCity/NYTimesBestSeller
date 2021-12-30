@@ -11,7 +11,6 @@ const HeaderContainer = styled.div`
   /* margin-bottom: 20px; */
   border-bottom: 1px solid #0002;
   background: black;
-  box-shadow: 3px 3px 3px darkgrey;
 `;
 
 const LeftHeader = styled.div`

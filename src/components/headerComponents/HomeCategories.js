@@ -21,6 +21,7 @@ const Title = styled.h2`
   font-family: "Bungee", cursive;
   font-family: "Roboto", sans-serif;
   color: black;
+  margin: 0 0 0 25px;
 `;
 
 const Header = styled.h2`
@@ -84,15 +85,18 @@ export default function HomeCategories() {
         return (
           <Carousel.Item>
             <CategoryBox>
-              <Image src="news-1172463__340.jpeg"></Image>
-              <a
-                style={{ textDecoration: "none" }}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Title>{title}</Title>
-              </a>
+              <div style={{ display: "flex" }}>
+                <Image src="news-1172463__340.jpeg"></Image>
+
+                <a
+                  style={{ textDecoration: "none" }}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Title>{title}</Title>
+                </a>
+              </div>
               <Author>{byline}</Author>
               <Paragraph>{abstract}</Paragraph>
             </CategoryBox>

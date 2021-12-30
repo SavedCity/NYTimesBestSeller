@@ -10,6 +10,8 @@ const HeaderContainer = styled.div`
   padding: 10px 20px;
   /* margin-bottom: 20px; */
   border-bottom: 1px solid #0002;
+  background: black;
+  box-shadow: 3px 3px 3px darkgrey;
 `;
 
 const LeftHeader = styled.div`
@@ -37,6 +39,7 @@ const HamburgerTop = styled.div`
   &:hover {
     width: 26px;
   }
+  background: white;
 `;
 
 const HamburgerMid = styled.div`
@@ -46,6 +49,7 @@ const HamburgerMid = styled.div`
   position: absolute;
   top: 13.5px;
   transition: 0.1s;
+  background: white;
 `;
 
 const HamburgerBottom = styled.div`
@@ -55,6 +59,7 @@ const HamburgerBottom = styled.div`
   position: absolute;
   bottom: 5px;
   transition: 0.2s;
+  background: white;
 `;
 
 const LinkContainer = styled.div`
@@ -71,6 +76,7 @@ const HeaderLinks = styled(Link)`
   border-radius: 3px;
   transition: 0.2s;
   margin: 0 12px;
+  color: white;
 `;
 
 // const ImgLogo = styled.img`

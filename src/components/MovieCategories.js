@@ -69,7 +69,6 @@ const Image = styled.img`
   border-radius: 40px;
 `;
 
-const RatingTitle = styled.h4``;
 export default function Categories() {
   const [movies, setMovies] = useState([]);
   const loading = useSelector((state) => state.loading);

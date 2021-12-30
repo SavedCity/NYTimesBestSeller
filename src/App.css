@@ -83,6 +83,6 @@ body {
 }
 
 mark {
-  background: #ac82fe;
-  font: 400 1.3rem barlow;
+  background: none;
+  font: 700 1.3rem barlow;
 }

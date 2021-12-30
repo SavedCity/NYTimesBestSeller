@@ -3,7 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Carousel from "react-grid-carousel";
-import { red } from "@mui/material/colors";
 
 const CategoryBox = styled.div`
   margin: 10px;
@@ -39,8 +38,6 @@ const Paragraph = styled.p`
   font-family: "Poiret One", cursive;
   font-family: "Roboto", sans-serif;
 `;
-
-const Section = styled.h3``;
 
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);

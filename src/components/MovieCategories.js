@@ -5,32 +5,51 @@ import { useSelector } from "react-redux";
 
 import axios from "axios";
 
+const CardContainerHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 20px 0 50px;
+  align-items: center;
+`;
+
+const SearchInput = styled.input`
+  width: 200px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid #0006;
+  background: #fff;
+  padding: 4px 4px 4px 10px;
+  font: 300 1rem barlow;
+  box-shadow: 3px 3px 5px #0003;
+  outline-color: #28282899;
+`;
+
 const CategoryContainer = styled.div``;
 
 const Title = styled.h1`
-  font-size: 1.1vw;
+  font: 400 1.3rem barlow;
   margin: 8px;
 `;
 
 const Date = styled.h5`
   margin: 8px;
-  font-size: 1vw;
+  font-size: 1rem;
 `;
 
 const Summary = styled.h5`
   margin: 8px;
-  font-size: 1vw;
+  font-size: 1rem;
 `;
 
 const MovieLink = styled.a`
   margin: 8px;
-  font-size: 1vw;
+  font-size: 1rem;
   text-decoration: none;
   color: black;
 `;
 
 const Rating = styled.h4`
-  font-size: 1vw;
+  font-size: 1rem;
   color: red;
 `;
 
@@ -55,19 +74,39 @@ export default function Categories() {
     setMovies(response.data.results);
   };
 
+  const highlightTitle = (e) => {
+    let textToSearch = e.target.value;
+    textToSearch = textToSearch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    let pattern = new RegExp(`${textToSearch}`, "gi");
+
+    for (let i = 0; i < movies.length; i++) {
+      let title = document.getElementById(movies[i].display_title);
+      if (title !== null) {
+        title.innerHTML = title.textContent.replace(
+          pattern,
+          (match) => `<mark>${match}</mark>`
+        );
+      }
+    }
+  };
+
   return (
     <div>
       <CategoryContainer id="movies-category-container">
         {!loading ? (
           <>
-            <input
-              type="text"
-              placeholder="Search..."
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
-            />
+            <CardContainerHeader>
+              <SearchInput
+                type="text"
+                placeholder="Search movie titles..."
+                onChange={async (e) => {
+                  await setSearchTerm(e.target.value);
+                  highlightTitle(e);
+                }}
+              />
+            </CardContainerHeader>
             <div
+              id="content-box"
               style={{
                 display: "flex",
                 flexWrap: "wrap",
@@ -124,7 +163,7 @@ export default function Categories() {
                           width: "80%",
                         }}
                       >
-                        <Title>Title - {display_title}</Title>
+                        <Title id={display_title}>{display_title}</Title>
                         <Rating className={rating}>Rated - {rating}</Rating>
                         <Date>Date - {publication_date}</Date>
                         <Summary>Description - {summary_short}</Summary>

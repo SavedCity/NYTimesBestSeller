@@ -53,6 +53,11 @@ const Rating = styled.h4`
   color: red;
 `;
 
+const Image = styled.img`
+  height: 180px;
+  width: 200px;
+  border-radius: 40px;
+`;
 export default function Categories() {
   const [movies, setMovies] = useState([]);
   const loading = useSelector((state) => state.loading);
@@ -158,18 +163,27 @@ export default function Categories() {
                           display: "flex",
                           flexDirection: "column",
                           background: "#0003",
-                          height: "400px",
+                          height: "450px",
                           border: "2px solid black",
                           width: "80%",
                         }}
                       >
-                        <Title id={display_title}>{display_title}</Title>
-                        <Rating className={rating}>Rated - {rating}</Rating>
-                        <Date>Date - {publication_date}</Date>
-                        <Summary>Description - {summary_short}</Summary>
-                        <MovieLink target="_blank " href={link.url}>
-                          Movie Link
-                        </MovieLink>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            marginLeft: "20px",
+                            overflow: "scroll",
+                          }}
+                        >
+                          <MovieLink target="_blank " href={link.url}>
+                            <Title id={display_title}>{display_title}</Title>
+                          </MovieLink>
+                          <Image src="movie.jpeg"></Image>
+                          <Rating className={rating}>Rated - {rating}</Rating>
+                          <Date>Date - {publication_date}</Date>
+                          <Summary>Description - {summary_short}</Summary>
+                        </div>
                       </div>
                     </div>
                   );

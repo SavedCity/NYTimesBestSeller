@@ -86,8 +86,7 @@ export default function HomeCategories() {
           <Carousel.Item>
             <CategoryBox>
               <div style={{ display: "flex" }}>
-                <Image src="news-1172463__340.jpeg"></Image>
-
+                <Image src="news-1172463__340.jpeg" />
                 <a
                   style={{ textDecoration: "none" }}
                   href={url}

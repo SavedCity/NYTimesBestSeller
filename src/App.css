@@ -7,7 +7,7 @@ body {
 }
 
 ::selection {
-  background: #ac82fe;
+  background: #ac82fe99;
 }
 
 /* Main loader */
@@ -77,12 +77,13 @@ body {
 }
 /* Sorting */
 .sorting-opened {
-  /* display: block !important; */
   max-height: 200px !important;
   border: 1px solid #ccc !important;
 }
 
+/* Highlight title on movies */
 mark {
   background: none;
   font: 700 1.3rem barlow;
+  color: #6e090b;
 }

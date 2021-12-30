@@ -20,8 +20,8 @@ const CarouselContainer = styled.div`
 const Title = styled.h2`
   font-family: "Bungee", cursive;
   font-family: "Roboto", sans-serif;
-  margin: 0 0 0 55px;
-  color: #000;
+  color: black;
+  margin: 0 0 0 25px;
 `;
 
 const Header = styled.h2`

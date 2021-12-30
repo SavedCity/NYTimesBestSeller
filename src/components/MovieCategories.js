@@ -27,18 +27,26 @@ const SearchInput = styled.input`
 const CategoryContainer = styled.div``;
 
 const Title = styled.h1`
-  font: 400 1.3rem barlow;
+  font-size: 20px;
   margin: 8px;
+  font-family: "Bungee", cursive;
+  font-family: "Roboto", sans-serif;
+  color: black;
 `;
 
 const Date = styled.h5`
   margin: 8px;
   font-size: 1rem;
+  font-family: "Bungee", cursive;
+  font-family: "Roboto", sans-serif;
 `;
 
 const Summary = styled.h5`
   margin: 8px;
   font-size: 1rem;
+  font-family: "Bungee", cursive;
+  font-family: "Poiret One", cursive;
+  font-family: "Roboto", sans-serif;
 `;
 
 const MovieLink = styled.a`
@@ -51,6 +59,8 @@ const MovieLink = styled.a`
 const Rating = styled.h4`
   font-size: 1rem;
   color: red;
+  font-family: "Bungee", cursive;
+  font-family: "Roboto", sans-serif;
 `;
 
 const Image = styled.img`
@@ -58,6 +68,8 @@ const Image = styled.img`
   width: 200px;
   border-radius: 40px;
 `;
+
+const RatingTitle = styled.h4``;
 export default function Categories() {
   const [movies, setMovies] = useState([]);
   const loading = useSelector((state) => state.loading);

@@ -52,6 +52,16 @@ const Date = styled.h5`
 
 const Summary = styled.h5`
   font: 500 1rem barlow;
+  background: #ddd;
+`;
+
+const SummaryBox = styled.div`
+  overflow: hidden;
+  height: 40px;
+  transition: 0.3s;
+  &:hover {
+    overflow: visible;
+  }
 `;
 
 // const MovieLink = styled.a`
@@ -254,13 +264,10 @@ export default function Categories() {
                           {rearrangedDate}
                         </span>
                       </Date>
-                      <Summary
-                        onMouseEnter={() => setIsShown(true)}
-                        onMouseLeave={() => setIsShown(false)}
-                      >
-                        Description
-                      </Summary>
-                      {isShown && <Summary>{summary_short}</Summary>}
+                      <SummaryBox>
+                        <h4>Description</h4>
+                        <Summary className="summary">{summary_short}</Summary>
+                      </SummaryBox>
                     </div>
                   </div>
                 );

@@ -52,7 +52,6 @@ const Date = styled.h5`
 
 const Summary = styled.h5`
   font: 500 1rem barlow;
-  display: none;
 `;
 
 // const MovieLink = styled.a`
@@ -72,6 +71,7 @@ export default function Categories() {
   const [movies, setMovies] = useState([]);
   const loading = useSelector((state) => state.loading);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isShown, setIsShown] = useState(false);
 
   useEffect(() => {
     fetchMovieCategories();
@@ -148,7 +148,7 @@ export default function Categories() {
                   mpaa_rating,
                   // link,
                 } = category;
-
+                console.log(category);
                 let rating = mpaa_rating.replace("-", "");
 
                 let abbMonths = [
@@ -254,7 +254,13 @@ export default function Categories() {
                           {rearrangedDate}
                         </span>
                       </Date>
-                      <Summary>{summary_short}</Summary>
+                      <Summary
+                        onMouseEnter={() => setIsShown(true)}
+                        onMouseLeave={() => setIsShown(false)}
+                      >
+                        Description
+                      </Summary>
+                      {isShown && <Summary>{summary_short}</Summary>}
                     </div>
                   </div>
                 );

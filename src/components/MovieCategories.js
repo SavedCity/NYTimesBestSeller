@@ -50,17 +50,29 @@ const Date = styled.h5`
   font: 300 1rem barlow;
 `;
 
+const DescriptionButton = styled.h4`
+  margin: 0;
+  cursor: pointer;
+  font: 500 1rem barlow;
+`;
+
 const Summary = styled.h5`
   font: 500 1rem barlow;
-  background: #ddd;
+  background: #282828;
+  position: absolute;
+  top: 0;
+  padding: 10px;
+  color: #fff;
 `;
 
 const SummaryBox = styled.div`
   overflow: hidden;
-  height: 40px;
-  transition: 0.3s;
+  position: relative;
+  width: 40%;
+
   &:hover {
     overflow: visible;
+    width: 100%;
   }
 `;
 
@@ -158,7 +170,6 @@ export default function Categories() {
                   mpaa_rating,
                   // link,
                 } = category;
-                console.log(category);
                 let rating = mpaa_rating.replace("-", "");
 
                 let abbMonths = [
@@ -265,7 +276,18 @@ export default function Categories() {
                         </span>
                       </Date>
                       <SummaryBox>
-                        <h4>Description</h4>
+                        <DescriptionButton>
+                          <span
+                            style={{
+                              font: "300 1rem barlow",
+                              background: "#0003",
+                              borderRadius: "50%",
+                              padding: "5px 10px",
+                            }}
+                          >
+                            ?
+                          </span>
+                        </DescriptionButton>
                         <Summary className="summary">{summary_short}</Summary>
                       </SummaryBox>
                     </div>

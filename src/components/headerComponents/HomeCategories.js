@@ -40,14 +40,14 @@ const Paragraph = styled.p`
   font-family: "Roboto", sans-serif;
 `;
 
+const Image = styled.img`
+  width: 150px;
+  height: 150px;
+`;
+
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);
   const loading = useSelector((state) => state.loading);
-
-  const Image = styled.img`
-    width: 150px;
-    height: 150px;
-  `;
 
   useEffect(() => {
     fetchHomeList();
@@ -80,13 +80,13 @@ export default function HomeCategories() {
   function varChange(data) {
     let newData = homeData
       .filter((about) => about.section === data)
-      .map((topStories) => {
+      .map((topStories, key) => {
         const { title, abstract, byline, url } = topStories;
         return (
-          <Carousel.Item>
+          <Carousel.Item key={key}>
             <CategoryBox>
               <div style={{ display: "flex" }}>
-                <Image src="news-1172463__340.jpeg" />
+                <Image src="news-1172463__340.jpeg" alt={title} />
                 <a
                   style={{ textDecoration: "none" }}
                   href={url}
@@ -122,7 +122,7 @@ export default function HomeCategories() {
                 }}
               >
                 <Header>
-                  Top Stories US <i class="fas fa-newspaper"></i>
+                  Top Stories US <i className="fas fa-newspaper"></i>
                 </Header>
               </div>
 
@@ -163,8 +163,8 @@ export default function HomeCategories() {
                 }}
               >
                 <Header>
-                  World News <i class="fas fa-globe"></i>{" "}
-                  <i class="fas fa-newspaper"></i>{" "}
+                  World News <i className="fas fa-globe"></i>{" "}
+                  <i className="fas fa-newspaper"></i>{" "}
                 </Header>
               </div>
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
@@ -185,7 +185,7 @@ export default function HomeCategories() {
                 }}
               >
                 <Header>
-                  Travel Guide <i class="fas fa-plane"></i>
+                  Travel Guide <i className="fas fa-plane"></i>
                 </Header>
               </div>
 
@@ -207,7 +207,7 @@ export default function HomeCategories() {
                 }}
               >
                 <Header>
-                  Science <i class="fas fa-atom"></i>
+                  Science <i className="fas fa-atom"></i>
                 </Header>
               </div>
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
@@ -228,7 +228,7 @@ export default function HomeCategories() {
                 }}
               >
                 <Header>
-                  Arts <i class="fas fa-palette"></i>
+                  Arts <i className="fas fa-palette"></i>
                 </Header>
               </div>
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
@@ -287,7 +287,7 @@ export default function HomeCategories() {
                 }}
               >
                 <Header>
-                  Business <i class="fas fa-business-time"></i>
+                  Business <i className="fas fa-business-time"></i>
                 </Header>
               </div>
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
@@ -308,7 +308,7 @@ export default function HomeCategories() {
                 }}
               >
                 <Header>
-                  Wellness <i class="fas fa-spa"></i>
+                  Wellness <i className="fas fa-spa"></i>
                 </Header>
               </div>
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
@@ -329,7 +329,7 @@ export default function HomeCategories() {
                 }}
               >
                 <Header>
-                  Sports <i class="fas fa-football-ball"></i>
+                  Sports <i className="fas fa-football-ball"></i>
                 </Header>
               </div>
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>

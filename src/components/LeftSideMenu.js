@@ -17,7 +17,7 @@ const SideMenu = styled.div`
 
 const CategoryButton = styled.div`
   padding: 12px 30px;
-  margin: 10px 0;
+  margin: 5px 0;
   cursor: pointer;
   position: relative;
   border: 1px solid #0003;

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import React from "react";
 // import Logo from "../images/nytimes-blue.png";

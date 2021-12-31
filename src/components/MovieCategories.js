@@ -8,7 +8,7 @@ import axios from "axios";
 const CardContainerHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 20px 0 40px;
+  margin: 20px 20px 0 20px;
   align-items: center;
 `;
 
@@ -16,7 +16,7 @@ const MovieContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  margin: 20px 0;
+  margin: 20px 60px;
 `;
 
 const SearchInput = styled.input`
@@ -29,6 +29,7 @@ const SearchInput = styled.input`
   font: 300 1rem barlow;
   box-shadow: 3px 3px 5px #0003;
   outline-color: #28282899;
+  margin-left: 60px;
 `;
 
 const Title = styled.h1`
@@ -42,6 +43,7 @@ const Title = styled.h1`
 const Rating = styled.h4`
   font: 400 1rem barlow;
   margin: 0;
+  color: #0009;
 `;
 
 const Date = styled.h5`
@@ -53,20 +55,19 @@ const Summary = styled.h5`
   display: none;
 `;
 
-const MovieLink = styled.a`
-  margin: 8px;
-  font-size: 1rem;
-  text-decoration: none;
-  color: black;
-`;
+// const MovieLink = styled.a`
+//   margin: 8px;
+//   font-size: 1rem;
+//   text-decoration: none;
+//   color: black;
+// `;
 
-const Image = styled.img`
-  height: 180px;
-  width: 200px;
-  border-radius: 40px;
-`;
+// const Image = styled.img`
+//   height: 180px;
+//   width: 200px;
+//   border-radius: 40px;
+// `;
 
-const RatingTitle = styled.h4``;
 export default function Categories() {
   const [movies, setMovies] = useState([]);
   const loading = useSelector((state) => state.loading);
@@ -103,7 +104,6 @@ export default function Categories() {
       }
     }
   };
-  // console.log(movies);
 
   return (
     <div>
@@ -146,10 +146,36 @@ export default function Categories() {
                   publication_date,
                   summary_short,
                   mpaa_rating,
-                  link,
+                  // link,
                 } = category;
 
                 let rating = mpaa_rating.replace("-", "");
+
+                let abbMonths = [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec",
+                ];
+                let splitDate = publication_date.split("-");
+                let monthDate = splitDate[1];
+                monthDate = abbMonths[monthDate - 1];
+
+                let rearrangedDate =
+                  monthDate +
+                  " " +
+                  splitDate.splice(2).join(" ") +
+                  ", " +
+                  splitDate[0];
+
                 return (
                   <div
                     key={key}
@@ -164,7 +190,6 @@ export default function Categories() {
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        // background: "#0003",
                         width: "80%",
                         padding: "20px",
                         border: "2px solid #6e090b33",
@@ -223,7 +248,12 @@ export default function Categories() {
                       ) : (
                         <Rating>Not Yet Rated</Rating>
                       )}
-                      <Date>{publication_date}</Date>
+                      <Date>
+                        Released on{" "}
+                        <span style={{ font: "500 1rem barlow" }}>
+                          {rearrangedDate}
+                        </span>
+                      </Date>
                       <Summary>{summary_short}</Summary>
                     </div>
                   </div>

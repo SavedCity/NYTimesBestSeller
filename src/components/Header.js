@@ -1,15 +1,15 @@
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import React from "react";
-import styled from "styled-components";
-// import Logo from "../images/nytimes-blue.png";
+import zIndex from "@mui/material/styles/zIndex";
 
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 40px;
   padding: 10px 20px;
-  /* margin-bottom: 20px; */
   border-bottom: 1px solid #0002;
+  background: #fff;
 `;
 
 const LeftHeader = styled.div`
@@ -18,9 +18,8 @@ const LeftHeader = styled.div`
 `;
 
 const HamburgerBox = styled.div`
-  width: 30px;
+  width: 33px;
   height: 31px;
-  /* background: #0001; */
   position: relative;
   margin: 0 30px 0 10px;
   cursor: pointer;
@@ -33,11 +32,6 @@ const HamburgerTop = styled.div`
   position: absolute;
   top: 5px;
   transition: 0.2s;
-
-  &:hover {
-    width: 26px;
-  }
-  background: white;
 `;
 
 const HamburgerMid = styled.div`
@@ -47,7 +41,6 @@ const HamburgerMid = styled.div`
   position: absolute;
   top: 13.5px;
   transition: 0.1s;
-  background: white;
 `;
 
 const HamburgerBottom = styled.div`
@@ -57,7 +50,6 @@ const HamburgerBottom = styled.div`
   position: absolute;
   bottom: 5px;
   transition: 0.2s;
-  background: white;
 `;
 
 const LinkContainer = styled.div`
@@ -69,17 +61,17 @@ const HeaderLinks = styled(Link)`
   color: #000;
   font-family: sen;
   font-size: 1rem;
-  /* line-height: 1.8; */
   padding: 6px 9px 4px 9px;
-  border-radius: 3px;
-  transition: 0.2s;
   margin: 0 12px;
-  color: white;
-`;
+  transition: 0.3s;
+  white-space: nowrap;
+  background: linear-gradient(#282828, #282828) no-repeat 0% 100%;
+  background-size: 0% 0.1em;
 
-// const ImgLogo = styled.img`
-//   width: 180px;
-// `;
+  &:hover {
+    background-size: 100% 0.1em;
+  }
+`;
 
 export default function Header() {
   const openMenu = () => {
@@ -89,26 +81,20 @@ export default function Header() {
     let bottom = document.getElementById("ham-bottom");
     let booksContainer = document.getElementById("books-category-container");
     let booksArrow = document.getElementById("books-arrow");
-    // let moviesContainer = document.getElementById("movies-category-container");
-    // let moviesArrow = document.getElementById("movies-arrow");
 
     if (!menu.classList.contains("menu-slide")) {
-      // menu.style.display = "block";
       menu.classList.add("menu-slide");
       top.classList.add("hamburger-top");
       mid.classList.add("hamburger-mid");
       bottom.classList.add("hamburger-bottom");
       mid.classList.remove("hamburger-mid-hover");
     } else {
-      // menu.style.display = "none";
       menu.classList.remove("menu-slide");
       top.classList.remove("hamburger-top");
       mid.classList.remove("hamburger-mid");
       bottom.classList.remove("hamburger-bottom");
       booksContainer.classList.remove("category-slide");
       booksArrow.classList.remove("arrow-rotate");
-      // moviesContainer.classList.remove("category-slide");
-      // moviesArrow.classList.remove("arrow-rotate");
     }
   };
 
@@ -138,10 +124,36 @@ export default function Header() {
     }
   };
 
+  window.onclick = function (e) {
+    let menu = document.getElementById("side-menu");
+    let top = document.getElementById("ham-top");
+    let mid = document.getElementById("ham-mid");
+    let bottom = document.getElementById("ham-bottom");
+    let booksContainer = document.getElementById("books-category-container");
+    let booksArrow = document.getElementById("books-arrow");
+
+    if (
+      menu.classList.contains("menu-slide") &&
+      !e.target.closest("#side-menu") &&
+      !e.target.closest("#hamburger-box")
+    ) {
+      menu.classList.remove("menu-slide");
+      top.classList.remove("hamburger-top");
+      mid.classList.remove("hamburger-mid");
+      bottom.classList.remove("hamburger-bottom");
+      booksContainer.classList.remove("category-slide");
+      booksArrow.classList.remove("arrow-rotate");
+      top.classList.remove("hamburger-top-hover");
+      mid.classList.remove("hamburger-mid-hover");
+      bottom.classList.remove("hamburger-bottom-hover");
+    }
+  };
+
   return (
     <HeaderContainer>
       <LeftHeader>
         <HamburgerBox
+          id="hamburger-box"
           onMouseOver={menuHover}
           onMouseLeave={menuLeave}
           onClick={openMenu}
@@ -150,13 +162,11 @@ export default function Header() {
           <HamburgerMid id="ham-mid"></HamburgerMid>
           <HamburgerBottom id="ham-bottom"></HamburgerBottom>
         </HamburgerBox>
-        {/* <ImgLogo src={Logo} /> */}
       </LeftHeader>
       <LinkContainer>
         <HeaderLinks to="/home">HOME</HeaderLinks>
-        <HeaderLinks id="bookc" to="/bookcategory">
-          BOOK CATEGORIES
-        </HeaderLinks>
+        <HeaderLinks to="/bookcategory">BOOK CATEGORIES</HeaderLinks>
+        <HeaderLinks to="/movies">MOVIE REVIEWS</HeaderLinks>
       </LinkContainer>
     </HeaderContainer>
   );

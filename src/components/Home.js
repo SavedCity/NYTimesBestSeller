@@ -1,30 +1,25 @@
 import LeftSideMenu from "./LeftSideMenu";
-import styled from "styled-components";
 import { Route, Routes } from "react-router-dom";
-import IdPage from "./idpage";
-import HomeCategories from "./headerComponents/HomeCategories";
+import IdPage from "./Books";
+import HomeCategories from "./headerComponents/HomePage";
 import Header from "./Header";
 import React from "react";
 import HeaderBookCategories from "./headerComponents/HeaderBookCategories";
-import MovieCategories from "../components/MovieCategories";
-
-const MainPage = styled.div`
-  display: flex;
-`;
+import MovieCategories from "./Movies";
 
 export default function Home() {
   return (
     <div>
       <Header />
-      <MainPage>
+      <div style={{ display: "flex" }}>
         <LeftSideMenu />
         <Routes>
           <Route path="/bookcategory/:idpage" element={<IdPage />} />
           <Route path="/home" element={<HomeCategories />} />
           <Route path="/bookcategory" element={<HeaderBookCategories />} />
-          <Route path="/moviecategories" element={<MovieCategories />} />
+          <Route path="/movies" element={<MovieCategories />} />
         </Routes>
-      </MainPage>
+      </div>
     </div>
   );
 }

@@ -76,17 +76,16 @@ export default function HomeCategories() {
       }}
     ></span>
   );
-
   function varChange(data) {
     let newData = homeData
       .filter((about) => about.section === data)
       .map((topStories, key) => {
-        const { title, abstract, byline, url } = topStories;
+        const { title, abstract, byline, url, multimedia } = topStories;
         return (
           <Carousel.Item key={key}>
             <CategoryBox>
               <div style={{ display: "flex" }}>
-                <Image src="news-1172463__340.jpeg" alt={title} />
+                <Image src={multimedia[0].url} alt={title} />
                 <a
                   style={{ textDecoration: "none" }}
                   href={url}
@@ -102,9 +101,10 @@ export default function HomeCategories() {
           </Carousel.Item>
         );
       });
+
     return newData;
   }
-
+  console.log(homeData);
   return (
     <>
       {!loading ? (
@@ -339,9 +339,7 @@ export default function HomeCategories() {
           </CarouselContainer>
         </div>
       ) : (
-        <div className="loader-div">
-          <div className="loader"></div>
-        </div>
+        <div className="loader"></div>
       )}
     </>
   );

@@ -4,7 +4,7 @@ import BookCategories from "../components/BookCategories";
 import { Link } from "react-router-dom";
 
 const SideMenu = styled.div`
-  background: #eee;
+  background: #fafafa;
   min-width: 370px;
   max-width: 370px;
   min-height: 100vw;
@@ -13,11 +13,12 @@ const SideMenu = styled.div`
   left: -450px;
   transition: 0.2s;
   z-index: 1;
+  border-right: 1px solid #0003;
 `;
 
 const CategoryButton = styled.div`
-  padding: 12px 30px;
-  margin: 5px 0;
+  padding: 12px 30px 12px 15px;
+  margin: -5px 0;
   cursor: pointer;
   position: relative;
   border: 1px solid #0003;
@@ -66,34 +67,15 @@ export default function LeftSideMenu() {
     }
   };
 
-  // const openMovies = () => {
-  //   let movies = document.getElementById("movies-arrow");
-  //   let moviesContainer = document.getElementById("movies-category-container");
-
-  //   if (movies.classList.contains("arrow-rotate")) {
-  //     movies.classList.remove("arrow-rotate");
-  //   } else movies.classList.add("arrow-rotate");
-
-  //   if (!moviesContainer.classList.contains("category-slide")) {
-  //     moviesContainer.classList.add("category-slide");
-  //   } else {
-  //     moviesContainer.classList.remove("category-slide");
-  //   }
-  // };
-
   return (
     <SideMenu id="side-menu">
       <CategoryButton onClick={openBooks}>
         <CategoryButtonTitle>BOOK CATEGORIES</CategoryButtonTitle>
         <Arrow className="fas fa-arrow-right" id="books-arrow"></Arrow>
       </CategoryButton>
-      <BookCategories />
 
-      {/* <CategoryButton onClick={openMovies}>
-        <CategoryButtonTitle>MOVIE REVIEWS</CategoryButtonTitle>
-        <Arrow className="fas fa-arrow-right" id="movies-arrow"></Arrow>
-      </CategoryButton> */}
-      <MovieLInk to="/moviecategories">
+      <BookCategories />
+      <MovieLInk to="/movies">
         <CategoryButton>MOVIE REVIEWS</CategoryButton>
       </MovieLInk>
     </SideMenu>

@@ -63,9 +63,7 @@ export default function Categories() {
               })}
           </>
         ) : (
-          <div className="loader-div">
-            <div className="loader"></div>
-          </div>
+          <div className="loader"></div>
         )}
       </CategoryContainer>
     </div>

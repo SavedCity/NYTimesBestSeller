@@ -2,20 +2,15 @@ body {
   margin: 0;
 }
 
-* {
-  font-family: Georgia, "Times New Roman", Times, serif;
-}
-
 ::selection {
   background: #ac82fe99;
 }
 
 /* Main loader */
 .loader-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #6e090b;
   margin: 50px auto;
+  width: 100%;
 }
 
 .loader {
@@ -25,6 +20,9 @@ body {
   animation: load 0.7s infinite;
   border-radius: 50%;
   transform: scale(50%);
+  position: absolute;
+  top: 40%;
+  left: 50%;
 }
 
 @keyframes load {
@@ -77,8 +75,9 @@ body {
 }
 /* Sorting */
 .sorting-opened {
-  max-height: 200px !important;
+  max-height: 500px !important;
   border: 1px solid #ccc !important;
+  transition: 0.6s !important;
 }
 
 /* Highlight title on movies */
@@ -86,4 +85,12 @@ mark {
   background: none;
   font: 700 1.3rem barlow;
   color: #6e090b;
+}
+
+/* Movie cards description pop-up animation */
+.summary-button:hover + .summary {
+  opacity: 1;
+  visibility: visible;
+  height: 76%;
+  transition: opacity 0.3s, visibility 0.4s, height 0.3s;
 }

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin: 15px 0 5px 25px;
   overflow: hidden;
   max-height: 0px;
   transition: 0.3s;
@@ -15,22 +15,23 @@ const CategoryContainer = styled.div`
 
 const CategoryBox = styled.div`
   margin: 5px 10px;
-  border-bottom: 1px solid #140152;
-  width: 0;
   transition: 0.3s;
   padding: 0 0 8px 0;
-
-  &:hover {
-    width: 100%;
-  }
 `;
 
 const BookLink = styled(Link)`
+  padding: 0 0 8px 0;
   color: #282828;
   font: 400 1.2rem barlow;
   text-decoration: none;
   transition: 0.3s;
   white-space: nowrap;
+  background: linear-gradient(#282828, #282828) no-repeat 0% 100%;
+  background-size: 0% 0.1em;
+
+  &:hover {
+    background-size: 100% 0.1em;
+  }
 `;
 
 export default function Categories() {
@@ -40,7 +41,7 @@ export default function Categories() {
   const defaultSort = () => {
     let sortButton = document.getElementById("sort-button");
     if (sortButton !== null) {
-      sortButton.innerHTML = "Sort";
+      sortButton.innerHTML = "Sort By: Rank: High to Low";
     }
   };
 
@@ -70,9 +71,7 @@ export default function Categories() {
               })}
           </>
         ) : (
-          <div className="loader-div">
-            <div className="loader"></div>
-          </div>
+          <div className="loader"></div>
         )}
       </CategoryContainer>
     </div>

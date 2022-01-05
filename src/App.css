@@ -94,3 +94,17 @@ mark {
   height: 76%;
   transition: opacity 0.3s, visibility 0.4s, height 0.3s;
 }
+
+/* Filter checkbox */
+.filter-label:hover input ~ .checkmark {
+  background-color: #6e090b77;
+}
+
+.filter-label input:checked ~ .checkmark {
+  background-color: #bc4749;
+}
+
+.filter-label input:checked ~ .checkmark:after {
+  opacity: 1;
+  visibility: visible;
+}

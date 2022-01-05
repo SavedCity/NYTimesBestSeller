@@ -46,18 +46,78 @@ const SearchInput = styled.input`
   }
 `;
 
+const FilterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 35px 0 0 20px;
+  width: 10%;
+  /* border: 1px solid; */
+`;
+
+const FilterLabel = styled.label`
+  font: 400 1.2rem barlow;
+  white-space: nowrap;
+  padding-left: 35px;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`;
+
+const FilterInput = styled.input`
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+`;
+
+const Checkmark = styled.span`
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #6e090b33;
+  transition: 0.2s;
+
+  &:after {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    transition: 0.2s;
+  }
+`;
+
 const MovieContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  margin: 20px 50px;
+  margin: 20px 0px;
   justify-content: center;
+  width: 90%;
 `;
 
 const Card = styled.div`
   display: flex;
   flex-direction: column;
   width: 320px;
+
   padding: 20px;
   border: 2px solid #6e090b33;
   box-shadow: 4px 4px #6e090b33;
@@ -114,12 +174,6 @@ const Summary = styled.h5`
   font: 500 1.15rem barlow;
   letter-spacing: 0.4px;
   word-spacing: 2px;
-
-  &:hover {
-    /* height: 91%;
-    opacity: 1;
-    visibility: visible; */
-  }
 `;
 
 const SummaryBox = styled.div`
@@ -200,7 +254,18 @@ export default function Categories() {
         <SortMovies setMovies={setMovies} movies={movies} />
       </CardContainerHeader>
       {!loading ? (
-        <div style={{ display: "flex" }}>
+        <div
+          style={{
+            display: "flex",
+          }}
+        >
+          <FilterContainer>
+            <FilterLabel className="filter-label" htmlFor="rated-r">
+              Rated R
+              <FilterInput id="rated-r" type="checkbox" />
+              <Checkmark className="checkmark"></Checkmark>
+            </FilterLabel>
+          </FilterContainer>
           <MovieContainer>
             {movies
               .filter((category) => {

@@ -27,7 +27,7 @@ const SortingOpener = styled.button`
   transition: 0.2s;
 
   &:hover {
-    background: #6e090b;
+    background: #bc4749;
     color: #fff;
   }
 `;
@@ -49,7 +49,7 @@ const SortingButton = styled.button`
   text-align: start;
 
   &:hover {
-    background: #6e090b;
+    background: #bc4749;
     color: #fff;
   }
 `;

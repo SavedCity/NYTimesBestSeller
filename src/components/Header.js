@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import React from "react";
-import zIndex from "@mui/material/styles/zIndex";
 
 const HeaderContainer = styled.div`
   display: flex;

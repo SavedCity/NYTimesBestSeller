@@ -49,12 +49,21 @@ const SearchInput = styled.input`
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 35px 0 0 20px;
+  row-gap: 20px;
+  margin: 35px 0px 0 0px;
   width: 10%;
-  /* border: 1px solid; */
+  border-right: 1px solid #0003;
+  padding: 0 40px;
 `;
 
+const Filter = styled.div`
+  font: 1.3rem sen;
+  text-align: center;
+  background: linear-gradient(#6e090b55, #6e090b55) no-repeat 0% 100%;
+  background-size: 10vw 0.1em;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+`;
 const FilterLabel = styled.label`
   font: 400 1.2rem barlow;
   white-space: nowrap;
@@ -83,8 +92,9 @@ const Checkmark = styled.span`
   left: 0;
   height: 22px;
   width: 22px;
-  background-color: #6e090b33;
+  background-color: #fff;
   transition: 0.2s;
+  border: 2px solid #6e090b77;
 
   &:after {
     content: "";
@@ -108,7 +118,7 @@ const MovieContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
-  margin: 20px 0px;
+  margin: 20px 60px;
   justify-content: center;
   width: 90%;
 `;
@@ -116,12 +126,13 @@ const MovieContainer = styled.div`
 const Card = styled.div`
   display: flex;
   flex-direction: column;
-  width: 320px;
-
+  /* width: 320px; */
   padding: 20px;
   border: 2px solid #6e090b33;
   box-shadow: 4px 4px #6e090b33;
   position: relative;
+  flex: 1;
+  flex-basis: 260px;
 `;
 
 const Title = styled.h1`
@@ -130,6 +141,46 @@ const Title = styled.h1`
   border-bottom: 1px solid #0003;
   padding-bottom: 10px;
   color: #6e090b;
+`;
+
+const Star = styled.div`
+  font: 500 1.3rem sen;
+  color: #be090b;
+  float: right;
+  position: absolute;
+  cursor: default;
+  top: 17px;
+  right: 15px;
+`;
+
+const StarToolTip = styled.div`
+  font: 500 1.1rem sen;
+  color: #fff;
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  width: 170px;
+  background-color: #333;
+  z-index: 1;
+  top: -15px;
+  left: 36px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 2px;
+  transition: 0.3s;
+  line-height: 24px;
+
+  &:before {
+    content: "";
+    width: 13px;
+    height: 13px;
+    border: solid #333;
+    background-color: #333;
+    transform: rotate(-33deg) skew(20deg);
+    position: absolute;
+    top: 21px;
+    left: -6px;
+  }
 `;
 
 const Rating = styled.h4`
@@ -194,6 +245,8 @@ const SummaryBox = styled.div`
 `;
 export default function Categories() {
   const [movies, setMovies] = useState([]);
+  const [filterMovies, setFilterMovies] = useState([]);
+
   const loading = useSelector((state) => state.loading);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -211,8 +264,10 @@ export default function Categories() {
         console.log(err);
       });
     setMovies(response.data.results);
+    setFilterMovies(response.data.results);
   };
 
+  // Highlight the typed letters if they match the title
   const highlightTitle = (e) => {
     let textToSearch = e.target.value;
     textToSearch = textToSearch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -228,7 +283,39 @@ export default function Categories() {
       }
     }
   };
-  console.log(movies);
+
+  // Abbreviation of months
+  let abbMonths = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Getting today's date, abbreviating the month, adding a "0" if the day is less than 10 (e.g. Jan 06, 2021).
+  const rawDate = new window.Date();
+  let currentAbbMonth = abbMonths[rawDate.getMonth()];
+  const currentDate = `${currentAbbMonth} ${
+    rawDate.getDate() < 10 ? "0" + rawDate.getDate() : rawDate.getDate()
+  }, ${rawDate.getFullYear()}`;
+
+  let filterCheckbox = (e, filter) => {
+    let filteredMovies = movies.filter((data) => data.mpaa_rating === filter);
+
+    if (e.checked) {
+      setMovies(filteredMovies);
+    } else {
+      setMovies(filterMovies);
+    }
+  };
 
   return (
     <div style={{ width: "100%" }}>
@@ -260,9 +347,57 @@ export default function Categories() {
           }}
         >
           <FilterContainer>
+            <Filter>Filter</Filter>
+
             <FilterLabel className="filter-label" htmlFor="rated-r">
               Rated R
-              <FilterInput id="rated-r" type="checkbox" />
+              <FilterInput
+                onChange={async (e) => {
+                  await filterCheckbox(e.target, e.target.value);
+                }}
+                value="R"
+                id="rated-r"
+                type="checkbox"
+              />
+              <Checkmark className="checkmark"></Checkmark>
+            </FilterLabel>
+
+            <FilterLabel className="filter-label" htmlFor="rated-pg13">
+              Rated PG13
+              <FilterInput
+                onChange={(e) => {
+                  filterCheckbox(e.target, e.target.value);
+                }}
+                value="PG-13"
+                id="rated-pg13"
+                type="checkbox"
+              />
+              <Checkmark className="checkmark"></Checkmark>
+            </FilterLabel>
+
+            <FilterLabel className="filter-label" htmlFor="rated-pg">
+              Rated PG
+              <FilterInput
+                onChange={(e) => {
+                  filterCheckbox(e.target, e.target.value);
+                }}
+                value="PG"
+                id="rated-pg"
+                type="checkbox"
+              />
+              <Checkmark className="checkmark"></Checkmark>
+            </FilterLabel>
+
+            <FilterLabel className="filter-label" htmlFor="no-rated">
+              Not Yet Rated
+              <FilterInput
+                onChange={(e) => {
+                  filterCheckbox(e.target, e.target.value);
+                }}
+                value=""
+                id="no-rated"
+                type="checkbox"
+              />
               <Checkmark className="checkmark"></Checkmark>
             </FilterLabel>
           </FilterContainer>
@@ -291,20 +426,6 @@ export default function Categories() {
                 } = category;
                 let rating = mpaa_rating.replace("-", "");
 
-                let abbMonths = [
-                  "Jan",
-                  "Feb",
-                  "Mar",
-                  "Apr",
-                  "May",
-                  "Jun",
-                  "Jul",
-                  "Aug",
-                  "Sep",
-                  "Oct",
-                  "Nov",
-                  "Dec",
-                ];
                 let splitDate = publication_date.split("-");
                 let monthDate = splitDate[1];
                 monthDate = abbMonths[monthDate - 1];
@@ -322,7 +443,33 @@ export default function Categories() {
 
                 return (
                   <Card key={key}>
-                    <Title id={display_title}>{display_title}</Title>
+                    <Title id={display_title}>
+                      {display_title ? (
+                        display_title
+                      ) : (
+                        <span style={{ color: "#6e090b" }}>(No Title)</span>
+                      )}
+                    </Title>
+                    {currentDate === rearrangedDate && (
+                      <Star className="movie-star">
+                        &#9733;
+                        <StarToolTip>
+                          {display_title ? (
+                            <span
+                              style={{
+                                borderBottom: " 1px solid #fff7",
+                                fontStyle: "italic",
+                              }}
+                            >
+                              {display_title}
+                            </span>
+                          ) : (
+                            "This movie"
+                          )}{" "}
+                          was just added today
+                        </StarToolTip>
+                      </Star>
+                    )}
                     {rating ? (
                       <Rating>
                         Rated{" "}

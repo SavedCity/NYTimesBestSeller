@@ -97,14 +97,22 @@ mark {
 
 /* Filter checkbox */
 .filter-label:hover input ~ .checkmark {
-  background-color: #6e090b77;
+  background-color: #bc474999;
+  border: 2px solid transparent;
 }
 
 .filter-label input:checked ~ .checkmark {
   background-color: #bc4749;
+  border: 2px solid transparent;
 }
 
 .filter-label input:checked ~ .checkmark:after {
   opacity: 1;
   visibility: visible;
+}
+
+/* Star on movies for newly added */
+.movie-star:hover > div {
+  visibility: visible;
+  opacity: 1;
 }

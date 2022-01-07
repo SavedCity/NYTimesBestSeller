@@ -85,7 +85,7 @@ export default function HomeCategories() {
           <Carousel.Item key={key}>
             <CategoryBox>
               <div style={{ display: "flex" }}>
-                <Image src={multimedia[0].url} alt={title} />
+                <Image src={multimedia && multimedia[0].url} alt={title} />
                 <a
                   style={{ textDecoration: "none" }}
                   href={url}

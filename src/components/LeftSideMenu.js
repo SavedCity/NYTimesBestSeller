@@ -8,7 +8,7 @@ const SideMenu = styled.div`
   min-width: 370px;
   max-width: 370px;
   min-height: 100vw;
-  padding: 10px 20px;
+  padding: 30px 20px;
   position: absolute;
   left: -450px;
   transition: 0.2s;

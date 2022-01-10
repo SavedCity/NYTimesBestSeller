@@ -74,10 +74,10 @@ export default function SortMovies(props) {
       HTML.includes("Z-A")
     ) {
       console.log(HTML);
-      const sorted = [...props.movies].sort((a, b) =>
+      const sorted = [...props.filteredMovies].sort((a, b) =>
         a[type] < b[type] ? 1 : b[type] < a[type] ? -1 : 0
       );
-      props.setMovies(sorted);
+      props.setFilteredMovies(sorted);
     }
 
     if (
@@ -86,10 +86,10 @@ export default function SortMovies(props) {
       HTML.includes("Old to New")
     ) {
       console.log(HTML);
-      const sorted = [...props.movies].sort((a, b) =>
+      const sorted = [...props.filteredMovies].sort((a, b) =>
         a[type] > b[type] ? 1 : b[type] > a[type] ? -1 : 0
       );
-      props.setMovies(sorted);
+      props.setFilteredMovies(sorted);
     }
 
     sortButton.innerHTML = "Sort By: " + HTML;

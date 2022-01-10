@@ -10,13 +10,20 @@ import SortMovies from "./features/SortMovies";
 const CardContainerHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 30px 9vw 50px 9vw;
+  margin: 30px 9vw 50px 4.5vw;
   align-items: center;
+`;
+
+const ResultsLength = styled.i`
+  font: 500 1.6rem barlow;
+  color: #9f0606;
+  max-width: 100px;
+  white-space: nowrap;
 `;
 
 const MagnifyingGlass = styled.i`
   position: absolute;
-  top: 12px;
+  top: 14px;
   left: 12px;
   font-size: 1.6rem;
   color: #0006;
@@ -24,13 +31,13 @@ const MagnifyingGlass = styled.i`
 `;
 
 const SearchInput = styled.input`
-  width: 130px;
-  height: 35px;
+  width: 150px;
+  height: 40px;
   border-radius: 25px;
-  border: 2px solid #0006;
+  border: 2px solid #0003;
   background: transparent;
   padding: 4px 4px 4px 45px;
-  font: 500 1.1rem barlow;
+  font: 400 1.2rem barlow;
   transition: 0.4s;
   position: absolute;
   z-index: 1;
@@ -38,11 +45,11 @@ const SearchInput = styled.input`
   &:focus {
     outline: none;
     width: 300px;
-    border: 2px solid #4b4b4b;
+    border: 2px solid #4b4b4b99;
   }
 
   &:hover {
-    border: 2px solid #4b4b4b;
+    border: 2px solid #4b4b4b99;
   }
 `;
 
@@ -50,10 +57,10 @@ const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 20px;
-  margin: 35px 0px 0 0px;
-  width: 10%;
-  border-right: 1px solid #0003;
-  padding: 0 40px;
+  margin: 20px 0 0 0;
+  max-width: 8%;
+  min-width: 8%;
+  padding: 0 1vw 0 4vw;
 `;
 
 const Filter = styled.div`
@@ -243,28 +250,53 @@ const SummaryBox = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 export default function Categories() {
   const [movies, setMovies] = useState([]);
-  const [filterMovies, setFilterMovies] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+
+  const [offset, setOffset] = useState(0);
 
   const loading = useSelector((state) => state.loading);
   const [searchTerm, setSearchTerm] = useState("");
 
+  const paginate = (plus) => {
+    let addition = 20;
+    let sum = plus + addition;
+    setOffset(sum);
+  };
+
   useEffect(() => {
-    fetchMovieCategories();
+    if (filters.length === 0) {
+      fetchMovieCategories();
+      setFilteredMovies(movies);
+    } else {
+      setFilteredMovies(
+        movies.filter((movie) =>
+          filters.some((category) =>
+            [movie.mpaa_rating].flat().includes(category)
+          )
+        )
+      );
+    }
+
     // eslint-disable-next-line
-  }, []);
+  }, [filters, offset]);
 
   const fetchMovieCategories = async () => {
     const response = await axios
       .get(
-        `https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f`
+        `https://api.nytimes.com/svc/movies/v2/reviews/all.json?offset=${offset}&api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f`
       )
       .catch((err) => {
         console.log(err);
       });
+
     setMovies(response.data.results);
-    setFilterMovies(response.data.results);
+    // if (filteredMovies.length === 0) {
+    setFilteredMovies(response.data.results);
+    // }
   };
 
   // Highlight the typed letters if they match the title
@@ -284,7 +316,7 @@ export default function Categories() {
     }
   };
 
-  // Abbreviation of months
+  // Abbreviated months
   let abbMonths = [
     "Jan",
     "Feb",
@@ -307,241 +339,229 @@ export default function Categories() {
     rawDate.getDate() < 10 ? "0" + rawDate.getDate() : rawDate.getDate()
   }, ${rawDate.getFullYear()}`;
 
-  let filterCheckbox = (e, filter) => {
-    let filteredMovies = movies.filter((data) => data.mpaa_rating === filter);
-
-    if (e.checked) {
-      setMovies(filteredMovies);
+  const filterCheckbox = (eTarget) => {
+    if (eTarget.checked) {
+      setFilters([...filters, eTarget.value]);
     } else {
-      setMovies(filterMovies);
+      setFilters(filters.filter((id) => id !== eTarget.value));
+    }
+    let sortButton = document.getElementById("sort-button");
+    if (sortButton !== null) {
+      sortButton.innerHTML = "Sort By: Date: New to Old";
     }
   };
+
+  // Only unique values for movie ratings
+  const movieRatings = [...new Set(movies.map((q) => q.mpaa_rating))];
 
   return (
     <div style={{ width: "100%" }}>
       <CardContainerHeader>
         <div
-          style={{
-            position: "relative",
-            width: "10px",
-            height: "48px",
-          }}
+          style={{ display: "flex", alignItems: "center", columnGap: "6vw" }}
         >
-          <MagnifyingGlass className="fas fa-search" />
-          <SearchInput
-            className="search"
-            type="text"
-            placeholder="Search Titles"
-            onChange={async (e) => {
-              await setSearchTerm(e.target.value);
-              highlightTitle(e);
+          <button onClick={paginate}>NEXT</button>
+          <ResultsLength>{filteredMovies.length} Results</ResultsLength>
+          <div
+            style={{
+              position: "relative",
+              width: "10px",
+              height: "48px",
             }}
-          />
+          >
+            <MagnifyingGlass className="fas fa-search" />
+            <SearchInput
+              className="search"
+              type="text"
+              placeholder="Search Titles"
+              onChange={async (e) => {
+                await setSearchTerm(e.target.value);
+                highlightTitle(e);
+              }}
+            />
+          </div>
         </div>
-        <SortMovies setMovies={setMovies} movies={movies} />
+        <SortMovies
+          setFilteredMovies={setFilteredMovies}
+          filteredMovies={filteredMovies}
+        />
       </CardContainerHeader>
-      {!loading ? (
-        <div
-          style={{
-            display: "flex",
-          }}
-        >
-          <FilterContainer>
-            <Filter>Filter</Filter>
+      <div style={{ display: "flex" }}>
+        <FilterContainer>
+          <Filter>Filter</Filter>
 
-            <FilterLabel className="filter-label" htmlFor="rated-r">
-              Rated R
-              <FilterInput
-                onChange={async (e) => {
-                  await filterCheckbox(e.target, e.target.value);
-                }}
-                value="R"
-                id="rated-r"
-                type="checkbox"
-              />
-              <Checkmark className="checkmark"></Checkmark>
-            </FilterLabel>
+          {movieRatings
+            .sort((a, b) => (a < b ? 1 : b < a ? -1 : 0))
+            .map((rating, key) => {
+              return (
+                <FilterLabel
+                  key={key}
+                  className="filter-label"
+                  htmlFor={"rated-" + rating}
+                >
+                  {rating ? "Rated " + rating : "Not Yet Rated"}
+                  <FilterInput
+                    onChange={async (e) => {
+                      filterCheckbox(e.target);
+                    }}
+                    value={rating}
+                    id={"rated-" + rating}
+                    type="checkbox"
+                  />
+                  <Checkmark className="checkmark"></Checkmark>
+                </FilterLabel>
+              );
+            })}
+        </FilterContainer>
+        {!loading && filteredMovies.length > 0 ? (
+          <div>
+            <MovieContainer>
+              {filteredMovies
+                .filter((category) => {
+                  if (searchTerm === "") {
+                    return category;
+                  } else if (
+                    category.display_title
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+                  ) {
+                    return category;
+                  }
+                  return null;
+                })
+                .map((category, key) => {
+                  const {
+                    display_title,
+                    publication_date,
+                    summary_short,
+                    mpaa_rating,
+                    multimedia,
+                    // link,
+                  } = category;
+                  let rating = mpaa_rating.replace("-", "");
 
-            <FilterLabel className="filter-label" htmlFor="rated-pg13">
-              Rated PG13
-              <FilterInput
-                onChange={(e) => {
-                  filterCheckbox(e.target, e.target.value);
-                }}
-                value="PG-13"
-                id="rated-pg13"
-                type="checkbox"
-              />
-              <Checkmark className="checkmark"></Checkmark>
-            </FilterLabel>
+                  let splitDate = publication_date.split("-");
+                  let monthDate = splitDate[1];
+                  monthDate = abbMonths[monthDate - 1];
 
-            <FilterLabel className="filter-label" htmlFor="rated-pg">
-              Rated PG
-              <FilterInput
-                onChange={(e) => {
-                  filterCheckbox(e.target, e.target.value);
-                }}
-                value="PG"
-                id="rated-pg"
-                type="checkbox"
-              />
-              <Checkmark className="checkmark"></Checkmark>
-            </FilterLabel>
+                  let rearrangedDate =
+                    monthDate +
+                    " " +
+                    splitDate.splice(2).join(" ") +
+                    ", " +
+                    splitDate[0];
 
-            <FilterLabel className="filter-label" htmlFor="no-rated">
-              Not Yet Rated
-              <FilterInput
-                onChange={(e) => {
-                  filterCheckbox(e.target, e.target.value);
-                }}
-                value=""
-                id="no-rated"
-                type="checkbox"
-              />
-              <Checkmark className="checkmark"></Checkmark>
-            </FilterLabel>
-          </FilterContainer>
-          <MovieContainer>
-            {movies
-              .filter((category) => {
-                if (searchTerm === "") {
-                  return category;
-                } else if (
-                  category.display_title
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())
-                ) {
-                  return category;
-                }
-                return null;
-              })
-              .map((category, key) => {
-                const {
-                  display_title,
-                  publication_date,
-                  summary_short,
-                  mpaa_rating,
-                  multimedia,
-                  // link,
-                } = category;
-                let rating = mpaa_rating.replace("-", "");
+                  let ratedR = "#a10000";
+                  let ratedPG13 = "#023e8a";
+                  let ratedPG = "#023e8a";
 
-                let splitDate = publication_date.split("-");
-                let monthDate = splitDate[1];
-                monthDate = abbMonths[monthDate - 1];
-
-                let rearrangedDate =
-                  monthDate +
-                  " " +
-                  splitDate.splice(2).join(" ") +
-                  ", " +
-                  splitDate[0];
-
-                let ratedR = "#a10000";
-                let ratedPG13 = "#023e8a";
-                let ratedPG = "#023e8a";
-
-                return (
-                  <Card key={key}>
-                    <Title id={display_title}>
-                      {display_title ? (
-                        display_title
-                      ) : (
-                        <span style={{ color: "#6e090b" }}>(No Title)</span>
+                  return (
+                    <Card key={key}>
+                      <Title id={display_title}>
+                        {display_title ? (
+                          display_title
+                        ) : (
+                          <span style={{ color: "#6e090b" }}>(No Title)</span>
+                        )}
+                      </Title>
+                      {currentDate === rearrangedDate && (
+                        <Star className="movie-star">
+                          &#9733;
+                          <StarToolTip>
+                            {display_title ? (
+                              <span
+                                style={{
+                                  borderBottom: " 1px solid #fff7",
+                                  fontStyle: "italic",
+                                }}
+                              >
+                                {display_title}
+                              </span>
+                            ) : (
+                              "This movie"
+                            )}{" "}
+                            was just added today
+                          </StarToolTip>
+                        </Star>
                       )}
-                    </Title>
-                    {currentDate === rearrangedDate && (
-                      <Star className="movie-star">
-                        &#9733;
-                        <StarToolTip>
-                          {display_title ? (
-                            <span
-                              style={{
-                                borderBottom: " 1px solid #fff7",
-                                fontStyle: "italic",
-                              }}
-                            >
-                              {display_title}
-                            </span>
-                          ) : (
-                            "This movie"
-                          )}{" "}
-                          was just added today
-                        </StarToolTip>
-                      </Star>
-                    )}
-                    {rating ? (
-                      <Rating>
-                        Rated{" "}
+                      {rating ? (
+                        <Rating>
+                          Rated{" "}
+                          <span
+                            style={
+                              rating === "R"
+                                ? {
+                                    color: ratedR,
+                                    font: " 600 1rem barlow",
+                                    marginLeft: "5px",
+                                    borderRadius: "4px",
+                                    background: "#0001",
+                                    padding: "5px 10px",
+                                  }
+                                : rating === "PG"
+                                ? {
+                                    color: ratedPG,
+                                    font: " 600 1rem barlow",
+                                    marginLeft: "5px",
+                                    borderRadius: "4px",
+                                    background: "#0001",
+                                    padding: "5px 6px",
+                                  }
+                                : rating === "PG13"
+                                ? {
+                                    color: ratedPG13,
+                                    font: " 600 1rem barlow",
+                                    marginLeft: "5px",
+                                    borderRadius: "4px",
+                                    background: "#0001",
+                                    padding: "5px 7px",
+                                  }
+                                : {
+                                    color: "#5a189a",
+                                    font: " 600 1rem barlow",
+                                    marginLeft: "5px",
+                                    borderRadius: "4px",
+                                    background: "#0001",
+                                    padding: "4px",
+                                  }
+                            }
+                          >
+                            {rating}
+                          </span>
+                        </Rating>
+                      ) : (
+                        <Rating>Not Yet Rated</Rating>
+                      )}
+                      <Date>
+                        Released on{" "}
                         <span
-                          style={
-                            rating === "R"
-                              ? {
-                                  color: ratedR,
-                                  font: " 600 1rem barlow",
-                                  marginLeft: "5px",
-                                  borderRadius: "4px",
-                                  background: "#0001",
-                                  padding: "5px 10px",
-                                }
-                              : rating === "PG"
-                              ? {
-                                  color: ratedPG,
-                                  font: " 600 1rem barlow",
-                                  marginLeft: "5px",
-                                  borderRadius: "4px",
-                                  background: "#0001",
-                                  padding: "5px 6px",
-                                }
-                              : rating === "PG13"
-                              ? {
-                                  color: ratedPG13,
-                                  font: " 600 1rem barlow",
-                                  marginLeft: "5px",
-                                  borderRadius: "4px",
-                                  background: "#0001",
-                                  padding: "5px 7px",
-                                }
-                              : {
-                                  color: "#5a189a",
-                                  font: " 600 1rem barlow",
-                                  marginLeft: "5px",
-                                  borderRadius: "4px",
-                                  background: "#0001",
-                                  padding: "4px",
-                                }
-                          }
+                          style={{ font: "500 1rem barlow", color: "#000" }}
                         >
-                          {rating}
+                          {rearrangedDate}
                         </span>
-                      </Rating>
-                    ) : (
-                      <Rating>Not Yet Rated</Rating>
-                    )}
-                    <Date>
-                      Released on{" "}
-                      <span style={{ font: "500 1rem barlow", color: "#000" }}>
-                        {rearrangedDate}
-                      </span>
-                    </Date>
+                      </Date>
 
-                    <Snapshot>Snapshot:</Snapshot>
-                    <MovieSnapshot src={multimedia.src} alt={display_title} />
+                      <Snapshot>Snapshot:</Snapshot>
+                      <MovieSnapshot
+                        src={multimedia && multimedia.src}
+                        alt={display_title}
+                      />
 
-                    <DescriptionButton className="summary-button">
-                      View Summary
-                    </DescriptionButton>
-                    <SummaryBox className="summary">
-                      <Summary>{summary_short}</Summary>
-                    </SummaryBox>
-                  </Card>
-                );
-              })}
-          </MovieContainer>
-        </div>
-      ) : (
-        <div className="loader"></div>
-      )}
+                      <DescriptionButton className="summary-button">
+                        View Summary
+                      </DescriptionButton>
+                      <SummaryBox className="summary">
+                        <Summary>{summary_short}</Summary>
+                      </SummaryBox>
+                    </Card>
+                  );
+                })}
+            </MovieContainer>
+          </div>
+        ) : (
+          <div className="loader"></div>
+        )}
+      </div>
     </div>
   );
 }

@@ -286,17 +286,35 @@ export default function Categories() {
     // eslint-disable-next-line
   }, [filters, offset]);
 
-  const url = `https://api.nytimes.com/svc/movies/v2/reviews/all.json?offset=${offset}&api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f`;
+  
 
   const fetchMovieCategories = async () => {
+    const url = `https://api.nytimes.com/svc/movies/v2/reviews/all.json?offset=${offset}&api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f`;
+
     const response = await axios.get(url).catch((err) => {
       console.log(err);
     });
-
-    setMovies(response.data.results);
     // if (filteredMovies.length === 0) {
     setFilteredMovies(response.data.results);
     // }
+    setMovies(response.data.results);
+    setMoreData(response.data.has_more);
+
+    const addDataIntoCache = () => {
+      // Converting our respons into Actual Response form
+      const data = new Response(JSON.stringify(response.data.results));
+      if ("caches" in window) {
+        // Opening given cache and putting our data into it
+        caches.open("cacheMovieData").then((cache) => {
+          cache.put(url, data);
+          alert("MovieData Added into cache!");
+        });
+      }
+    };
+    addDataIntoCache();
+
+    return response.data.results;
+  };
 
     const addDataIntoCache = () => {
       // Converting our respons into Actual Response form

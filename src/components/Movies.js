@@ -257,14 +257,33 @@ export default function Categories() {
   const [filteredMovies, setFilteredMovies] = useState([]);
 
   const [offset, setOffset] = useState(0);
+  const [moreData, setMoreData] = useState(false);
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(9);
 
   const loading = useSelector((state) => state.loading);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const paginate = (plus) => {
-    let addition = 20;
-    let sum = plus + addition;
-    setOffset(sum);
+  const paginateNext = () => {
+    if (offset >= 0) {
+      setOffset(offset + 20);
+    }
+  };
+
+  const paginateNumbers = (button) => {
+    setOffset(button.target.value * 20);
+
+    let currentClass = button.target.className;
+    let currentValue = parseInt(button.target.value) + 1;
+    if (parseInt(currentClass) === currentValue) {
+      button.target.style.color = "red";
+    }
+  };
+
+  const paginateBack = () => {
+    if (offset > 0) {
+      setOffset(offset - 20);
+    }
   };
 
   useEffect(() => {
@@ -280,7 +299,6 @@ export default function Categories() {
         )
       );
     }
-
     // eslint-disable-next-line
   }, [filters, offset]);
 
@@ -292,14 +310,22 @@ export default function Categories() {
       .catch((err) => {
         console.log(err);
       });
-
-    setMovies(response.data.results);
     // if (filteredMovies.length === 0) {
     setFilteredMovies(response.data.results);
+
     // }
+    setMovies(response.data.results);
+    setMoreData(response.data.has_more);
+
+    return response.data.results;
   };
 
-  // Highlight the typed letters if they match the title
+  const handle = async () => {
+    const test = await fetchMovieCategories();
+    setFilteredMovies(test);
+  };
+
+  // Highlight the typed letters on the title if they match
   const highlightTitle = (e) => {
     let textToSearch = e.target.value;
     textToSearch = textToSearch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -354,13 +380,32 @@ export default function Categories() {
   // Only unique values for movie ratings
   const movieRatings = [...new Set(movies.map((q) => q.mpaa_rating))];
 
+  // let numOfPages = 0 - 10;
+
+  function range(start, end) {
+    /* generate a range : [start, start+1, ..., end-1, end] */
+    var len = end - start + 1;
+    var a = new Array(len);
+    for (let i = 0; i < len; i++) a[i] = start + i;
+    return a;
+  }
+
+  function changeRangeHigh() {
+    setStart(start + 9);
+    setEnd(end + 9);
+  }
+
+  function changeRangeLow() {
+    setStart(start - 9);
+    setEnd(end - 9);
+  }
+
   return (
     <div style={{ width: "100%" }}>
       <CardContainerHeader>
         <div
           style={{ display: "flex", alignItems: "center", columnGap: "6vw" }}
         >
-          <button onClick={paginate}>NEXT</button>
           <ResultsLength>{filteredMovies.length} Results</ResultsLength>
           <div
             style={{
@@ -415,6 +460,24 @@ export default function Categories() {
         </FilterContainer>
         {!loading && filteredMovies.length > 0 ? (
           <div>
+            {moreData && <button onClick={paginateBack}>BACK</button>}
+
+            {start > 0 && <button onClick={changeRangeLow}>...</button>}
+
+            {range(start, end).map((button) => {
+              return (
+                <button
+                  className={button + 1}
+                  onClick={(e) => paginateNumbers(e)}
+                  value={button}
+                >
+                  {button + 1}
+                </button>
+              );
+            })}
+            {moreData && <button onClick={changeRangeHigh}>...</button>}
+
+            {moreData && <button onClick={paginateNext}>NEXT</button>}
             <MovieContainer>
               {filteredMovies
                 .filter((category) => {

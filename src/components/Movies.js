@@ -257,14 +257,16 @@ export default function Categories() {
   const [filteredMovies, setFilteredMovies] = useState([]);
 
   const [offset, setOffset] = useState(0);
-
+  const [paginateButtons, setPaginateButtons] = useState([]);
   const loading = useSelector((state) => state.loading);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const paginate = (plus) => {
-    let addition = 20;
-    let sum = plus + addition;
-    setOffset(sum);
+  const paginate = () => {
+    setOffset(offset + 20);
+  };
+
+  const back = () => {
+    setOffset(offset - 20);
   };
 
   useEffect(() => {
@@ -284,19 +286,30 @@ export default function Categories() {
     // eslint-disable-next-line
   }, [filters, offset]);
 
+  const url = `https://api.nytimes.com/svc/movies/v2/reviews/all.json?offset=${offset}&api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f`;
+
   const fetchMovieCategories = async () => {
-    const response = await axios
-      .get(
-        `https://api.nytimes.com/svc/movies/v2/reviews/all.json?offset=${offset}&api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f`
-      )
-      .catch((err) => {
-        console.log(err);
-      });
+    const response = await axios.get(url).catch((err) => {
+      console.log(err);
+    });
 
     setMovies(response.data.results);
     // if (filteredMovies.length === 0) {
     setFilteredMovies(response.data.results);
     // }
+
+    const addDataIntoCache = () => {
+      // Converting our respons into Actual Response form
+      const data = new Response(JSON.stringify(response.data.results));
+      if ("caches" in window) {
+        // Opening given cache and putting our data into it
+        caches.open("cacheMovieData").then((cache) => {
+          cache.put(url, data);
+          alert("MovieData Added into cache!");
+        });
+      }
+    };
+    addDataIntoCache();
   };
 
   // Highlight the typed letters if they match the title
@@ -360,6 +373,10 @@ export default function Categories() {
         <div
           style={{ display: "flex", alignItems: "center", columnGap: "6vw" }}
         >
+          <button onClick={back}>BACK</button>
+          {paginateButtons.map((button) => {
+            return <button>{button}</button>;
+          })}
           <button onClick={paginate}>NEXT</button>
           <ResultsLength>{filteredMovies.length} Results</ResultsLength>
           <div

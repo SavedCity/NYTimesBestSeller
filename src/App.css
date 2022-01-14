@@ -1,5 +1,6 @@
 html {
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -119,4 +120,58 @@ mark {
 .movie-star:hover > div {
   visibility: visible;
   opacity: 1;
+}
+
+/* Pagination button style active/inactive */
+.pagButtonActive {
+  padding: auto;
+  background: #5e101275;
+  color: #fff;
+  font: 600 0.9rem barlow;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid #0003;
+  margin: 0 5px;
+  transition: 0.3s;
+  /* outline-color: #000; */
+  outline: 1px solid #4b090af8;
+  white-space: nowrap;
+  width: 60px;
+  height: 30px;
+}
+
+.pagButtonActive:hover {
+  /* background: #49060775; */
+  /* color: #fff; */
+  border: 1px solid #0005;
+}
+
+.pagButtonInactive {
+  padding: auto;
+  background: #6e090b33;
+  color: #622828;
+  font: 600 0.9rem barlow;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid #0003;
+  margin: 0 5px;
+  transition: 0.3s;
+  white-space: nowrap;
+  width: 60px;
+  height: 30px;
+}
+
+.pagButtonInactive:hover {
+  background: #49060775;
+  color: #fff;
+  border: 1px solid #0005;
+}
+
+/* Back to top button */
+.show {
+  right: 20px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }

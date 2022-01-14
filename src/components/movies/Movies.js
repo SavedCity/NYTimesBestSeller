@@ -1,296 +1,61 @@
-import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-
 import { useSelector } from "react-redux";
 
 import axios from "axios";
 
-import SortMovies from "./features/SortMovies";
+import SortMovies from "../features/SortMovies";
 
-const CardContainerHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 30px 9vw 50px 4.5vw;
-  align-items: center;
-`;
-
-const ResultsLength = styled.i`
-  font: 500 1.6rem barlow;
-  color: #9f0606;
-  max-width: 100px;
-  white-space: nowrap;
-`;
-
-const MagnifyingGlass = styled.i`
-  position: absolute;
-  top: 14px;
-  left: 12px;
-  font-size: 1.6rem;
-  color: #0006;
-  cursor: text;
-`;
-
-const SearchInput = styled.input`
-  width: 150px;
-  height: 40px;
-  border-radius: 25px;
-  border: 2px solid #0003;
-  background: transparent;
-  padding: 4px 4px 4px 45px;
-  font: 400 1.2rem barlow;
-  transition: 0.4s;
-  position: absolute;
-  z-index: 1;
-
-  &:focus {
-    outline: none;
-    width: 300px;
-    border: 2px solid #4b4b4b99;
-  }
-
-  &:hover {
-    border: 2px solid #4b4b4b99;
-  }
-`;
-
-const FilterContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-  margin: 20px 0 0 0;
-  max-width: 8%;
-  min-width: 8%;
-  padding: 0 1vw 0 4vw;
-`;
-
-const Filter = styled.div`
-  font: 1.3rem sen;
-  text-align: center;
-  background: linear-gradient(#6e090b55, #6e090b55) no-repeat 0% 100%;
-  background-size: 10vw 0.1em;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-`;
-const FilterLabel = styled.label`
-  font: 400 1.2rem barlow;
-  white-space: nowrap;
-  padding-left: 35px;
-  display: block;
-  position: relative;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-`;
-
-const FilterInput = styled.input`
-  position: absolute;
-  top: 0;
-  left: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-`;
-
-const Checkmark = styled.span`
-  position: absolute;
-  top: 0px;
-  left: 0;
-  height: 22px;
-  width: 22px;
-  background-color: #fff;
-  transition: 0.2s;
-  border: 2px solid #6e090b77;
-
-  &:after {
-    content: "";
-    position: absolute;
-    opacity: 0;
-    visibility: hidden;
-    left: 7px;
-    top: 3px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-    transition: 0.2s;
-  }
-`;
-
-const MovieContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin: 20px 60px;
-  justify-content: center;
-  width: 90%;
-`;
-
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* width: 320px; */
-  padding: 20px;
-  border: 2px solid #6e090b33;
-  box-shadow: 4px 4px #6e090b33;
-  position: relative;
-  flex: 1;
-  flex-basis: 260px;
-`;
-
-const Title = styled.h1`
-  font: 500 1.3rem sen;
-  margin: 0 0 15px 0;
-  border-bottom: 1px solid #0003;
-  padding-bottom: 10px;
-  color: #6e090b;
-`;
-
-const Star = styled.div`
-  font: 500 1.3rem sen;
-  color: #be090b;
-  float: right;
-  position: absolute;
-  cursor: default;
-  top: 17px;
-  right: 15px;
-`;
-
-const StarToolTip = styled.div`
-  font: 500 1.1rem sen;
-  color: #fff;
-  position: absolute;
-  visibility: hidden;
-  opacity: 0;
-  width: 170px;
-  background-color: #333;
-  z-index: 1;
-  top: -15px;
-  left: 36px;
-  padding: 10px;
-  text-align: center;
-  border-radius: 2px;
-  transition: 0.3s;
-  line-height: 24px;
-
-  &:before {
-    content: "";
-    width: 13px;
-    height: 13px;
-    border: solid #333;
-    background-color: #333;
-    transform: rotate(-33deg) skew(20deg);
-    position: absolute;
-    top: 21px;
-    left: -6px;
-  }
-`;
-
-const Rating = styled.h4`
-  font: 500 1rem barlow;
-  margin: 0;
-  color: #0009;
-`;
-
-const Date = styled.h5`
-  font: 500 1rem barlow;
-  color: #0009;
-`;
-
-const Snapshot = styled.h4`
-  font: 500 1rem barlow;
-  margin: 0 0 8px 0;
-  color: #0009;
-`;
-
-const MovieSnapshot = styled.img`
-  border-radius: 2px;
-  margin-bottom: 40px;
-  width: 100%;
-`;
-
-const DescriptionButton = styled.h4`
-  margin: 3px 0 0 0;
-  cursor: pointer;
-  background: #0001;
-  text-align: center;
-  border-radius: 3px;
-  padding: 5px 8px 8px 8px;
-  font: 500 1rem barlow;
-  transition: 0.3s;
-
-  &:hover {
-    background: #6e090b33;
-  }
-`;
-
-const Summary = styled.h5`
-  font: 500 1.15rem barlow;
-  letter-spacing: 0.4px;
-  word-spacing: 2px;
-`;
-
-const SummaryBox = styled.div`
-  margin: 0 auto;
-  background: #fff;
-  padding: 20px;
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  height: 0%;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s, visibility 0.3s, height 0.4s;
-  transition-timing-function: ease-in-out;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+import {
+  CardContainerHeader,
+  ResultsLength,
+  MagnifyingGlass,
+  SearchInput,
+  FilterContainer,
+  Filter,
+  FilterLabel,
+  FilterInput,
+  Checkmark,
+  MovieContainer,
+  Card,
+  Title,
+  Star,
+  StarToolTip,
+  Rating,
+  Date,
+  Snapshot,
+  MovieSnapshot,
+  DescriptionButton,
+  SummaryBox,
+  Summary,
+  PaginateBtn,
+  GrayedOutBtn,
+  PaginationContainer,
+  BackToTop,
+} from "./MoviesStyle";
 
 export default function Categories() {
   const [movies, setMovies] = useState([]);
   const [filters, setFilters] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentSortingButton, setCurrentSortingButton] = useState(
+    "Sort By: Date: New to Old"
+  );
+
   const [offset, setOffset] = useState(0);
   const [moreData, setMoreData] = useState(false);
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(9);
+  const [buttonIndex, setButtonIndex] = useState(0);
+
+  const [error, setError] = useState(false);
 
   const loading = useSelector((state) => state.loading);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const paginateNext = () => {
-    if (offset >= 0) {
-      setOffset(offset + 20);
-    }
-  };
-
-  const paginateNumbers = (button) => {
-    setOffset(button.target.value * 20);
-
-    let currentClass = button.target.className;
-    let currentValue = parseInt(button.target.value) + 1;
-    if (parseInt(currentClass) === currentValue) {
-      button.target.style.color = "red";
-    }
-  };
-
-  const paginateBack = () => {
-    if (offset > 0) {
-      setOffset(offset - 20);
-    }
-  };
 
   useEffect(() => {
-    if (filters.length === 0) {
-      fetchMovieCategories();
-      setFilteredMovies(movies);
-    } else {
+    setError(false);
+    if (filters.length !== 0) {
       setFilteredMovies(
         movies.filter((movie) =>
           filters.some((category) =>
@@ -298,6 +63,9 @@ export default function Categories() {
           )
         )
       );
+    } else {
+      fetchMovieCategories();
+      setFilteredMovies(movies);
     }
     // eslint-disable-next-line
   }, [filters, offset]);
@@ -307,11 +75,11 @@ export default function Categories() {
 
     const response = await axios.get(url).catch((err) => {
       console.log(err);
+      setError(true);
     });
-    // if (filteredMovies.length === 0) {
-    setFilteredMovies(response.data.results);
-
-    // }
+    if (filteredMovies.length === 0) {
+      setFilteredMovies(response.data.results);
+    }
     setMovies(response.data.results);
     setMoreData(response.data.has_more);
 
@@ -322,18 +90,31 @@ export default function Categories() {
         // Opening given cache and putting our data into it
         caches.open("cacheMovieData").then((cache) => {
           cache.put(url, data);
-          alert("MovieData Added into cache!");
+          // console.log("MovieData Added into cache!");
+          // console.log(caches);
         });
       }
     };
     addDataIntoCache();
-
-    return response.data.results;
   };
 
-  const handle = async () => {
-    const test = await fetchMovieCategories();
-    setFilteredMovies(test);
+  const clearSorting = () => {
+    let sortButton = document.getElementById("sort-button");
+    if (currentSortingButton !== "Sort By: Date: New to Old") {
+      setCurrentSortingButton("Sort By: Date: New to Old");
+    }
+    if (sortButton !== null) {
+      sortButton.innerHTML = "Sort By: Date: New to Old";
+    }
+  };
+
+  const clearFilter = () => {
+    let checkbox = document.getElementsByClassName("rating-checkbox");
+    checkbox.checked = false;
+    for (let i = 0; i < checkbox.length; i++) {
+      checkbox[i].checked = false;
+    }
+    setFilters([]);
   };
 
   // Highlight the typed letters on the title if they match
@@ -372,9 +153,10 @@ export default function Categories() {
   // Getting today's date, abbreviating the month, adding a "0" if the day is less than 10 (e.g. Jan 06, 2021).
   const rawDate = new window.Date();
   let currentAbbMonth = abbMonths[rawDate.getMonth()];
-  const currentDate = `${currentAbbMonth} ${
-    rawDate.getDate() < 10 ? "0" + rawDate.getDate() : rawDate.getDate()
-  }, ${rawDate.getFullYear()}`;
+  const currentDate = `${currentAbbMonth} ${rawDate
+    .getDate()
+    .toString()
+    .padStart(2, "0")}, ${rawDate.getFullYear()}`;
 
   const filterCheckbox = (eTarget) => {
     if (eTarget.checked) {
@@ -382,37 +164,72 @@ export default function Categories() {
     } else {
       setFilters(filters.filter((id) => id !== eTarget.value));
     }
-    let sortButton = document.getElementById("sort-button");
-    if (sortButton !== null) {
-      sortButton.innerHTML = "Sort By: Date: New to Old";
-    }
+    clearSorting();
   };
 
   // Only unique values for movie ratings
   const movieRatings = [...new Set(movies.map((q) => q.mpaa_rating))];
 
-  // let numOfPages = 0 - 10;
-
   function range(start, end) {
     /* generate a range : [start, start+1, ..., end-1, end] */
-    var len = end - start + 1;
-    var a = new Array(len);
+    let len = end - start + 1;
+    let a = new Array(len);
     for (let i = 0; i < len; i++) a[i] = start + i;
     return a;
   }
-
+  // Pagination functions
   function changeRangeHigh() {
-    setStart(start + 9);
-    setEnd(end + 9);
+    setStart(start + 10);
+    setEnd(end + 10);
   }
 
   function changeRangeLow() {
-    setStart(start - 9);
-    setEnd(end - 9);
+    setStart(start - 10);
+    setEnd(end - 10);
   }
 
+  const paginateNext = () => {
+    if (offset >= 0) {
+      clearFilter();
+      setOffset(offset + 20);
+      setButtonIndex(buttonIndex + 1);
+      clearSorting();
+    }
+  };
+
+  const paginateNumbers = async (e, button) => {
+    setOffset(e.target.value * 20);
+    setButtonIndex(button);
+    setSearchTerm("");
+    clearSorting();
+    clearFilter();
+  };
+
+  const paginateBack = () => {
+    if (offset > 0) {
+      clearFilter();
+      setOffset(offset - 20);
+      setButtonIndex(buttonIndex - 1);
+      clearSorting();
+    }
+  };
+
+  window.onscroll = () => {
+    let topBtn = document.querySelector(".back-to-top");
+    if (window.pageYOffset > 400 && topBtn !== null) {
+      topBtn.classList.add("show");
+      console.log("works");
+    } else {
+      if (topBtn !== null) {
+        topBtn.classList.remove("show");
+      }
+    }
+  };
+
+  if (error) return <h2>DATA ERROR</h2>;
+
   return (
-    <div style={{ width: "100%" }}>
+    <div id="top" style={{ width: "100%" }}>
       <CardContainerHeader>
         <div
           style={{ display: "flex", alignItems: "center", columnGap: "6vw" }}
@@ -431,8 +248,8 @@ export default function Categories() {
               type="text"
               placeholder="Search Titles"
               onChange={async (e) => {
-                await setSearchTerm(e.target.value);
-                highlightTitle(e);
+                await highlightTitle(e);
+                setSearchTerm(e.target.value);
               }}
             />
           </div>
@@ -440,12 +257,14 @@ export default function Categories() {
         <SortMovies
           setFilteredMovies={setFilteredMovies}
           filteredMovies={filteredMovies}
+          currentSortingButton={currentSortingButton}
+          setCurrentSortingButton={setCurrentSortingButton}
         />
       </CardContainerHeader>
       <div style={{ display: "flex" }}>
         <FilterContainer>
           <Filter>Filter</Filter>
-
+          {}
           {movieRatings
             .sort((a, b) => (a < b ? 1 : b < a ? -1 : 0))
             .map((rating, key) => {
@@ -457,12 +276,13 @@ export default function Categories() {
                 >
                   {rating ? "Rated " + rating : "Not Yet Rated"}
                   <FilterInput
-                    onChange={async (e) => {
+                    onChange={(e) => {
                       filterCheckbox(e.target);
                     }}
                     value={rating}
                     id={"rated-" + rating}
                     type="checkbox"
+                    className="rating-checkbox"
                   />
                   <Checkmark className="checkmark"></Checkmark>
                 </FilterLabel>
@@ -470,25 +290,7 @@ export default function Categories() {
             })}
         </FilterContainer>
         {!loading && filteredMovies.length > 0 ? (
-          <div>
-            {moreData && <button onClick={paginateBack}>BACK</button>}
-
-            {start > 0 && <button onClick={changeRangeLow}>...</button>}
-
-            {range(start, end).map((button) => {
-              return (
-                <button
-                  className={button + 1}
-                  onClick={(e) => paginateNumbers(e)}
-                  value={button}
-                >
-                  {button + 1}
-                </button>
-              );
-            })}
-            {moreData && <button onClick={changeRangeHigh}>...</button>}
-
-            {moreData && <button onClick={paginateNext}>NEXT</button>}
+          <div style={{ width: "100%", position: "relative" }}>
             <MovieContainer>
               {filteredMovies
                 .filter((category) => {
@@ -545,7 +347,7 @@ export default function Categories() {
                             {display_title ? (
                               <span
                                 style={{
-                                  borderBottom: " 1px solid #fff7",
+                                  // borderBottom: " 1px solid #fff7",
                                   fontStyle: "italic",
                                 }}
                               >
@@ -554,7 +356,7 @@ export default function Categories() {
                             ) : (
                               "This movie"
                             )}{" "}
-                            was just added today
+                            was released today
                           </StarToolTip>
                         </Star>
                       )}
@@ -631,6 +433,90 @@ export default function Categories() {
                   );
                 })}
             </MovieContainer>
+            <PaginationContainer>
+              {true ? (
+                <PaginateBtn onClick={paginateBack}>PREVIOUS</PaginateBtn>
+              ) : (
+                <GrayedOutBtn>PREVIOUS</GrayedOutBtn>
+              )}
+
+              {start > 0 ? (
+                <PaginateBtn
+                  style={{
+                    padding: "0px 10px 20px 10px",
+                    margin: "0 5px",
+                    height: "20px",
+                    fontWeight: "800",
+                    letterSpacing: "2px",
+                  }}
+                  onClick={changeRangeLow}
+                >
+                  ...
+                </PaginateBtn>
+              ) : (
+                <GrayedOutBtn
+                  style={{
+                    padding: "0px 10px 20px 10px",
+                    margin: "0 5px",
+                    height: "20px",
+                    fontWeight: "800",
+                    letterSpacing: "2px",
+                  }}
+                >
+                  ...
+                </GrayedOutBtn>
+              )}
+
+              {range(start, end).map((button, index) => {
+                return (
+                  <button
+                    key={index}
+                    className={
+                      buttonIndex === button
+                        ? "pagButtonActive"
+                        : "pagButtonInactive"
+                    }
+                    onClick={(e) => paginateNumbers(e, button)}
+                    value={button}
+                    id={button}
+                  >
+                    {button + 1}
+                  </button>
+                );
+              })}
+
+              {moreData ? (
+                <PaginateBtn
+                  style={{
+                    padding: "0px 10px 20px 10px",
+                    margin: "0 5px",
+                    height: "20px",
+                    fontWeight: "800",
+                    letterSpacing: "2px",
+                  }}
+                  onClick={changeRangeHigh}
+                >
+                  ...
+                </PaginateBtn>
+              ) : (
+                <GrayedOutBtn
+                  style={{
+                    padding: "0px 10px 20px 10px",
+                    margin: "0 5px",
+                    height: "20px",
+                    fontWeight: "800",
+                    letterSpacing: "2px",
+                  }}
+                >
+                  ...
+                </GrayedOutBtn>
+              )}
+
+              {moreData && (
+                <PaginateBtn onClick={paginateNext}>NEXT</PaginateBtn>
+              )}
+            </PaginationContainer>
+            <BackToTop className="back-to-top" href="#top"></BackToTop>
           </div>
         ) : (
           <div className="loader"></div>

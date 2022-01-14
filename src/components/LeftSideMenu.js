@@ -51,7 +51,7 @@ const MovieLInk = styled(Link)`
   color: #000;
 `;
 
-export default function LeftSideMenu() {
+export default function LeftSideMenu({ currentButton, setCurrentButton }) {
   const openBooks = () => {
     let booksArrow = document.getElementById("books-arrow");
     let booksContainer = document.getElementById("books-category-container");
@@ -73,8 +73,11 @@ export default function LeftSideMenu() {
         <CategoryButtonTitle>BOOK CATEGORIES</CategoryButtonTitle>
         <Arrow className="fas fa-arrow-right" id="books-arrow"></Arrow>
       </CategoryButton>
+      <BookCategories
+        currentButton={currentButton}
+        setCurrentButton={setCurrentButton}
+      />
 
-      <BookCategories />
       <MovieLInk to="/movies">
         <CategoryButton>MOVIE REVIEWS</CategoryButton>
       </MovieLInk>

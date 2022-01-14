@@ -47,6 +47,7 @@ const SortingButton = styled.button`
   transition: 0.2s;
   background: none;
   text-align: start;
+  border: 1px solid transparent;
 
   &:hover {
     background: #bc4749;
@@ -73,7 +74,6 @@ export default function SortMovies(props) {
       HTML.includes("Mature to Family") ||
       HTML.includes("Z-A")
     ) {
-      console.log(HTML);
       const sorted = [...props.filteredMovies].sort((a, b) =>
         a[type] < b[type] ? 1 : b[type] < a[type] ? -1 : 0
       );
@@ -85,7 +85,6 @@ export default function SortMovies(props) {
       HTML.includes("Family to Mature") ||
       HTML.includes("Old to New")
     ) {
-      console.log(HTML);
       const sorted = [...props.filteredMovies].sort((a, b) =>
         a[type] > b[type] ? 1 : b[type] > a[type] ? -1 : 0
       );
@@ -93,6 +92,8 @@ export default function SortMovies(props) {
     }
 
     sortButton.innerHTML = "Sort By: " + HTML;
+    props.setCurrentSortingButton("Sort By: " + HTML);
+    console.log(props.currentSortingButton);
   };
 
   return (
@@ -108,6 +109,11 @@ export default function SortMovies(props) {
       <SortingContainer id="sorting-container">
         <SortingDropdown>
           <SortingButton
+            style={
+              props.currentSortingButton === "Sort By: Date: New to Old"
+                ? { border: " 1px solid #bc4749" }
+                : null
+            }
             value="publication_date"
             onClick={(e) => sortMovies(e.target.value, e.target.innerHTML)}
           >
@@ -115,6 +121,11 @@ export default function SortMovies(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              props.currentSortingButton === "Sort By: Date: Old to New"
+                ? { border: " 1px solid #bc4749" }
+                : null
+            }
             value="publication_date"
             onClick={(e) => sortMovies(e.target.value, e.target.innerHTML)}
           >
@@ -122,6 +133,11 @@ export default function SortMovies(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              props.currentSortingButton === "Sort By: Title: A-Z"
+                ? { border: " 1px solid #bc4749" }
+                : null
+            }
             value="display_title"
             onClick={(e) => sortMovies(e.target.value, e.target.innerHTML)}
           >
@@ -129,6 +145,11 @@ export default function SortMovies(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              props.currentSortingButton === "Sort By: Title: Z-A"
+                ? { border: " 1px solid #bc4749" }
+                : null
+            }
             value="display_title"
             onClick={(e) => sortMovies(e.target.value, e.target.innerHTML)}
           >
@@ -136,6 +157,11 @@ export default function SortMovies(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              props.currentSortingButton === "Sort By: Rating: Mature to Family"
+                ? { border: " 1px solid #bc4749" }
+                : null
+            }
             value="mpaa_rating"
             onClick={(e) => sortMovies(e.target.value, e.target.innerHTML)}
           >
@@ -143,6 +169,11 @@ export default function SortMovies(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              props.currentSortingButton === "Sort By: Rating: Family to Mature"
+                ? { border: " 1px solid #bc4749" }
+                : null
+            }
             value="mpaa_rating"
             onClick={(e) => sortMovies(e.target.value, e.target.innerHTML)}
           >

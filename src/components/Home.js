@@ -30,7 +30,7 @@ export default function Home() {
               />
             }
           />
-          <Route path="/home" element={<HomeCategories />} />
+          <Route path="/" element={<HomeCategories />} />
           <Route path="/bookcategory" element={<HeaderBookCategories />} />
           <Route path="/movies" element={<MovieCategories />} />
         </Routes>

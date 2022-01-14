@@ -163,7 +163,7 @@ export default function Header() {
         </HamburgerBox>
       </LeftHeader>
       <LinkContainer>
-        <HeaderLinks to="/home">HOME</HeaderLinks>
+        <HeaderLinks to="/">HOME</HeaderLinks>
         <HeaderLinks to="/bookcategory">BOOK CATEGORIES</HeaderLinks>
         <HeaderLinks to="/movies">MOVIE REVIEWS</HeaderLinks>
       </LinkContainer>

@@ -77,9 +77,9 @@ export default function Categories() {
       console.log(err);
       setError(true);
     });
-    if (filteredMovies.length === 0) {
-      setFilteredMovies(response.data.results);
-    }
+    // if (filteredMovies.length === 0) {
+    setFilteredMovies(response.data.results);
+    // }
     setMovies(response.data.results);
     setMoreData(response.data.has_more);
 
@@ -198,11 +198,11 @@ export default function Categories() {
   };
 
   const paginateNumbers = async (e, button) => {
+    clearFilter();
     setOffset(e.target.value * 20);
     setButtonIndex(button);
     setSearchTerm("");
     clearSorting();
-    clearFilter();
   };
 
   const paginateBack = () => {

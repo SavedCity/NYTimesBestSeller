@@ -41,13 +41,11 @@ const SearchInput = styled.input`
   transition: 0.4s;
   position: absolute;
   z-index: 1;
-
   &:focus {
     outline: none;
     width: 300px;
     border: 2px solid #4b4b4b99;
   }
-
   &:hover {
     border: 2px solid #4b4b4b99;
   }
@@ -102,7 +100,6 @@ const Checkmark = styled.span`
   background-color: #fff;
   transition: 0.2s;
   border: 2px solid #6e090b77;
-
   &:after {
     content: "";
     position: absolute;
@@ -176,7 +173,6 @@ const StarToolTip = styled.div`
   border-radius: 2px;
   transition: 0.3s;
   line-height: 24px;
-
   &:before {
     content: "";
     width: 13px;
@@ -222,7 +218,6 @@ const DescriptionButton = styled.h4`
   padding: 5px 8px 8px 8px;
   font: 500 1rem barlow;
   transition: 0.3s;
-
   &:hover {
     background: #6e090b33;
   }
@@ -257,16 +252,33 @@ export default function Categories() {
   const [filteredMovies, setFilteredMovies] = useState([]);
 
   const [offset, setOffset] = useState(0);
-  const [paginateButtons, setPaginateButtons] = useState([]);
+  const [moreData, setMoreData] = useState(false);
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(9);
+
   const loading = useSelector((state) => state.loading);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const paginate = () => {
-    setOffset(offset + 20);
+  const paginateNext = () => {
+    if (offset >= 0) {
+      setOffset(offset + 20);
+    }
   };
 
-  const back = () => {
-    setOffset(offset - 20);
+  const paginateNumbers = (button) => {
+    setOffset(button.target.value * 20);
+
+    let currentClass = button.target.className;
+    let currentValue = parseInt(button.target.value) + 1;
+    if (parseInt(currentClass) === currentValue) {
+      button.target.style.color = "red";
+    }
+  };
+
+  const paginateBack = () => {
+    if (offset > 0) {
+      setOffset(offset - 20);
+    }
   };
 
   useEffect(() => {
@@ -282,11 +294,8 @@ export default function Categories() {
         )
       );
     }
-
     // eslint-disable-next-line
   }, [filters, offset]);
-
-  
 
   const fetchMovieCategories = async () => {
     const url = `https://api.nytimes.com/svc/movies/v2/reviews/all.json?offset=${offset}&api-key=B96BsMyHZskb1xX0KJMMsfVweArZ2Q8f`;
@@ -296,6 +305,7 @@ export default function Categories() {
     });
     // if (filteredMovies.length === 0) {
     setFilteredMovies(response.data.results);
+
     // }
     setMovies(response.data.results);
     setMoreData(response.data.has_more);
@@ -307,7 +317,6 @@ export default function Categories() {
         // Opening given cache and putting our data into it
         caches.open("cacheMovieData").then((cache) => {
           cache.put(url, data);
-          alert("MovieData Added into cache!");
         });
       }
     };
@@ -316,21 +325,12 @@ export default function Categories() {
     return response.data.results;
   };
 
-    const addDataIntoCache = () => {
-      // Converting our respons into Actual Response form
-      const data = new Response(JSON.stringify(response.data.results));
-      if ("caches" in window) {
-        // Opening given cache and putting our data into it
-        caches.open("cacheMovieData").then((cache) => {
-          cache.put(url, data);
-          alert("MovieData Added into cache!");
-        });
-      }
-    };
-    addDataIntoCache();
+  const handle = async () => {
+    const test = await fetchMovieCategories();
+    setFilteredMovies(test);
   };
 
-  // Highlight the typed letters if they match the title
+  // Highlight the typed letters on the title if they match
   const highlightTitle = (e) => {
     let textToSearch = e.target.value;
     textToSearch = textToSearch.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -385,17 +385,32 @@ export default function Categories() {
   // Only unique values for movie ratings
   const movieRatings = [...new Set(movies.map((q) => q.mpaa_rating))];
 
+  // let numOfPages = 0 - 10;
+
+  function range(start, end) {
+    /* generate a range : [start, start+1, ..., end-1, end] */
+    var len = end - start + 1;
+    var a = new Array(len);
+    for (let i = 0; i < len; i++) a[i] = start + i;
+    return a;
+  }
+
+  function changeRangeHigh() {
+    setStart(start + 9);
+    setEnd(end + 9);
+  }
+
+  function changeRangeLow() {
+    setStart(start - 9);
+    setEnd(end - 9);
+  }
+
   return (
     <div style={{ width: "100%" }}>
       <CardContainerHeader>
         <div
           style={{ display: "flex", alignItems: "center", columnGap: "6vw" }}
         >
-          <button onClick={back}>BACK</button>
-          {paginateButtons.map((button) => {
-            return <button>{button}</button>;
-          })}
-          <button onClick={paginate}>NEXT</button>
           <ResultsLength>{filteredMovies.length} Results</ResultsLength>
           <div
             style={{
@@ -450,6 +465,24 @@ export default function Categories() {
         </FilterContainer>
         {!loading && filteredMovies.length > 0 ? (
           <div>
+            {moreData && <button onClick={paginateBack}>BACK</button>}
+
+            {start > 0 && <button onClick={changeRangeLow}>...</button>}
+
+            {range(start, end).map((button) => {
+              return (
+                <button
+                  className={button + 1}
+                  onClick={(e) => paginateNumbers(e)}
+                  value={button}
+                >
+                  {button + 1}
+                </button>
+              );
+            })}
+            {moreData && <button onClick={changeRangeHigh}>...</button>}
+
+            {moreData && <button onClick={paginateNext}>NEXT</button>}
             <MovieContainer>
               {filteredMovies
                 .filter((category) => {

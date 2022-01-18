@@ -15,7 +15,7 @@ export default function Home() {
         <LeftSideMenu />
         <Routes>
           <Route path="/bookcategory/:idpage" element={<IdPage />} />
-          <Route path="/home" element={<HomeCategories />} />
+          <Route path="/" element={<HomeCategories />} />
           <Route path="/bookcategory" element={<HeaderBookCategories />} />
           <Route path="/movies" element={<MovieCategories />} />
         </Routes>

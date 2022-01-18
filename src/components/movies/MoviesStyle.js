@@ -99,7 +99,7 @@ export const FilterContainer = styled.div`
   padding: 0 1vw 0 4vw;
 `;
 
-export const Filter = styled.div`
+export const FilterTitle = styled.div`
   font: 1.3rem sen;
   text-align: center;
   background: linear-gradient(#6e090b55, #6e090b55) no-repeat 0% 100%;

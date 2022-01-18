@@ -4,17 +4,13 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 import SortMovies from "../features/SortMovies";
+import Filter from "../features/Filter";
 
 import {
   CardContainerHeader,
   ResultsLength,
   MagnifyingGlass,
   SearchInput,
-  FilterContainer,
-  Filter,
-  FilterLabel,
-  FilterInput,
-  Checkmark,
   MovieContainer,
   Card,
   Title,
@@ -262,33 +258,7 @@ export default function Categories() {
         />
       </CardContainerHeader>
       <div style={{ display: "flex" }}>
-        <FilterContainer>
-          <Filter>Filter</Filter>
-          {}
-          {movieRatings
-            .sort((a, b) => (a < b ? 1 : b < a ? -1 : 0))
-            .map((rating, key) => {
-              return (
-                <FilterLabel
-                  key={key}
-                  className="filter-label"
-                  htmlFor={"rated-" + rating}
-                >
-                  {rating ? "Rated " + rating : "Not Yet Rated"}
-                  <FilterInput
-                    onChange={(e) => {
-                      filterCheckbox(e.target);
-                    }}
-                    value={rating}
-                    id={"rated-" + rating}
-                    type="checkbox"
-                    className="rating-checkbox"
-                  />
-                  <Checkmark className="checkmark"></Checkmark>
-                </FilterLabel>
-              );
-            })}
-        </FilterContainer>
+        <Filter movieRatings={movieRatings} filterCheckbox={filterCheckbox} />
         {!loading && filteredMovies.length > 0 ? (
           <div style={{ width: "100%", position: "relative" }}>
             <MovieContainer>

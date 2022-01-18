@@ -47,13 +47,19 @@ const SortingButton = styled.button`
   transition: 0.2s;
   background: none;
   text-align: start;
+  border: 1px solid transparent;
 
   &:hover {
     background: #7161ef;
     color: #fff;
   }
 `;
-export default function SortBooks(props) {
+export default function SortBooks({
+  bookList,
+  setBookList,
+  setCurrentButton,
+  currentButton,
+}) {
   const openSorting = () => {
     let sortingContainer = document.getElementById("sorting-container");
     sortingContainer.classList.add("sorting-opened");
@@ -68,7 +74,7 @@ export default function SortBooks(props) {
     let sortButton = document.getElementById("sort-button");
 
     if (HTML.includes("A-Z") || HTML.includes("High to Low")) {
-      const sorted = [...props.bookList].sort((a, b) =>
+      const sorted = [...bookList].sort((a, b) =>
         a.book_details[0][type] > b.book_details[0][type]
           ? 1
           : b.book_details[0][type] > a.book_details[0][type] ||
@@ -76,11 +82,11 @@ export default function SortBooks(props) {
           ? -1
           : 0
       );
-      props.setBookList(sorted);
+      setBookList(sorted);
     }
 
     if (HTML.includes("Z-A") || HTML.includes("Low to High")) {
-      const sorted = [...props.bookList].sort((a, b) =>
+      const sorted = [...bookList].sort((a, b) =>
         a.book_details[0][type] < b.book_details[0][type]
           ? 1
           : b.book_details[0][type] < a.book_details[0][type] ||
@@ -88,10 +94,11 @@ export default function SortBooks(props) {
           ? -1
           : 0
       );
-      props.setBookList(sorted);
+      setBookList(sorted);
     }
 
     sortButton.innerHTML = "Sort By: " + HTML;
+    setCurrentButton("Sort By: " + HTML);
   };
 
   return (
@@ -107,6 +114,11 @@ export default function SortBooks(props) {
       <SortingContainer id="sorting-container">
         <SortingDropdown>
           <SortingButton
+            style={
+              currentButton === "Sort By: Rank: High to Low"
+                ? { border: "1px solid #7161ef" }
+                : null
+            }
             value="rank"
             onClick={(e) => sortBooks(e.target.value, e.target.innerHTML)}
           >
@@ -114,6 +126,11 @@ export default function SortBooks(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              currentButton === "Sort By: Rank: Low to High"
+                ? { border: "1px solid #7161ef" }
+                : null
+            }
             value="rank"
             onClick={(e) => sortBooks(e.target.value, e.target.innerHTML)}
           >
@@ -121,6 +138,11 @@ export default function SortBooks(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              currentButton === "Sort By: Title: A-Z"
+                ? { border: "1px solid #7161ef" }
+                : null
+            }
             value="title"
             onClick={(e) => sortBooks(e.target.value, e.target.innerHTML)}
           >
@@ -128,6 +150,11 @@ export default function SortBooks(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              currentButton === "Sort By: Title: Z-A"
+                ? { border: "1px solid #7161ef" }
+                : null
+            }
             value="title"
             onClick={(e) => sortBooks(e.target.value, e.target.innerHTML)}
           >
@@ -135,6 +162,11 @@ export default function SortBooks(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              currentButton === "Sort By: Author: A-Z"
+                ? { border: "1px solid #7161ef" }
+                : null
+            }
             value="author"
             onClick={(e) => sortBooks(e.target.value, e.target.innerHTML)}
           >
@@ -142,6 +174,11 @@ export default function SortBooks(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              currentButton === "Sort By: Author: Z-A"
+                ? { border: "1px solid #7161ef" }
+                : null
+            }
             value="author"
             onClick={(e) => sortBooks(e.target.value, e.target.innerHTML)}
           >
@@ -149,6 +186,11 @@ export default function SortBooks(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              currentButton === "Sort By: Publisher: A-Z"
+                ? { border: "1px solid #7161ef" }
+                : null
+            }
             value="publisher"
             onClick={(e) => sortBooks(e.target.value, e.target.innerHTML)}
           >
@@ -156,6 +198,11 @@ export default function SortBooks(props) {
           </SortingButton>
 
           <SortingButton
+            style={
+              currentButton === "Sort By: Publisher: Z-A"
+                ? { border: "1px solid #7161ef" }
+                : null
+            }
             value="publisher"
             onClick={(e) => sortBooks(e.target.value, e.target.innerHTML)}
           >

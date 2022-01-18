@@ -1,5 +1,5 @@
 # NYTimes Project
 
-## Developer reminders:
+## Tech and tools Used:
 
-- `npm install` after pulling changes in case the other developer installed any packages.
+- React, Redux, Styled-Components, CSS, React-Query, Axios, REST API, Git, Postman.

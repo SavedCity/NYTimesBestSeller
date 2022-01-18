@@ -34,7 +34,7 @@ const BookLink = styled(Link)`
   }
 `;
 
-export default function Categories() {
+export default function Categories({ currentButton, setCurrentButton }) {
   const categories = useSelector((state) => state.allBookCategories);
   const loading = useSelector((state) => state.loading);
 
@@ -43,6 +43,7 @@ export default function Categories() {
     if (sortButton !== null) {
       sortButton.innerHTML = "Sort By: Rank: High to Low";
     }
+    setCurrentButton("Sort By: Rank: High to Low");
   };
 
   return (

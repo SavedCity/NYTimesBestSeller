@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 import AmazonLogoImg from "../images/amazon.png";
 
-import Sorting from "./features/SortBooks";
+import SortBooks from "./features/SortBooks";
 
 const CardContainerHeader = styled.div`
   display: flex;
@@ -93,7 +93,7 @@ const AmazonLogo = styled.img`
   left: -15px;
 `;
 
-export default function IdPage() {
+export default function IdPage({ currentButton, setCurrentButton }) {
   const [bookList, setBookList] = useState([]);
 
   const loading = useSelector((state) => state.loading);
@@ -117,8 +117,6 @@ export default function IdPage() {
 
     setBookList(response.data.results);
   };
-
-  console.log(bookList);
 
   let listName = params.idpage.replaceAll("-", " ").split(" ");
 
@@ -149,7 +147,12 @@ export default function IdPage() {
             {listName}
           </span>
         </ListName>
-        <Sorting bookList={bookList} setBookList={setBookList} />
+        <SortBooks
+          currentButton={currentButton}
+          setCurrentButton={setCurrentButton}
+          bookList={bookList}
+          setBookList={setBookList}
+        />
       </CardContainerHeader>
       {!loading ? (
         <div>

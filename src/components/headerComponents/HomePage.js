@@ -7,10 +7,6 @@ import Carousel from "react-grid-carousel";
 const CategoryBox = styled.div`
   margin: 10px;
   border: 3px solid #0003;
-  padding: 20px;
-  height: 350px;
-  margin-bottom: 120px;
-  box-shadow: 1px 3px 20px 10px black;
 `;
 
 const CarouselContainer = styled.div`
@@ -27,24 +23,34 @@ const Title = styled.h2`
 const Header = styled.h2`
   font-family: "Bungee", cursive;
   font-family: "Roboto", sans-serif;
+  text-align: center;
+  padding-top: 20px;
 `;
 
 const Author = styled.h5`
   font-family: "Bungee", cursive;
   font-family: "Roboto", sans-serif;
+  margin: 10px 25px;
 `;
 
 const Paragraph = styled.p`
   font-family: "Bungee", cursive;
   font-family: "Poiret One", cursive;
   font-family: "Roboto", sans-serif;
+  margin: 0 0 0 25px;
 `;
 
 const Image = styled.img`
-  width: 150px;
-  height: 150px;
+  object-fit: cover;
+  width: 20vw;
+  height: 20vw;
 `;
-
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+`;
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);
   const loading = useSelector((state) => state.loading);
@@ -86,17 +92,28 @@ export default function HomeCategories() {
             <CategoryBox>
               <div style={{ display: "flex" }}>
                 <Image src={multimedia && multimedia[0].url} alt={title} />
-                <a
-                  style={{ textDecoration: "none" }}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: "10px",
+                  }}
                 >
-                  <Title>{title}</Title>
-                </a>
+                  <a
+                    style={{ textDecoration: "none" }}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {" "}
+                    <Title>{title}</Title>
+                  </a>
+
+                  <Author>{byline}</Author>
+                  <Paragraph>{abstract}</Paragraph>
+                </div>
               </div>
-              <Author>{byline}</Author>
-              <Paragraph>{abstract}</Paragraph>
             </CategoryBox>
           </Carousel.Item>
         );
@@ -115,16 +132,9 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>
-                  Top Stories US <i className="fas fa-newspaper"></i>
-                </Header>
-              </div>
+              <Header>
+                Top Stories US <i className="fas fa-newspaper"></i>
+              </Header>
 
               <Carousel cols={2} rows={1} gap={10} loop howDots dot={MyDot}>
                 {varChange("us")}
@@ -137,14 +147,8 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>Technology</Header>
-              </div>
+              <Header>Technology</Header>
+
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
                 {varChange("technology")}
               </Carousel>
@@ -156,17 +160,11 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>
-                  World News <i className="fas fa-globe"></i>{" "}
-                  <i className="fas fa-newspaper"></i>{" "}
-                </Header>
-              </div>
+              <Header>
+                World News <i className="fas fa-globe"></i>{" "}
+                <i className="fas fa-newspaper"></i>{" "}
+              </Header>
+
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
                 {varChange("world")}
               </Carousel>
@@ -178,16 +176,9 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>
-                  Travel Guide <i className="fas fa-plane"></i>
-                </Header>
-              </div>
+              <Header>
+                Travel Guide <i className="fas fa-plane"></i>
+              </Header>
 
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
                 {varChange("travel")}
@@ -200,16 +191,10 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>
-                  Science <i className="fas fa-atom"></i>
-                </Header>
-              </div>
+              <Header>
+                Science <i className="fas fa-atom"></i>
+              </Header>
+
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
                 {varChange("science")}
               </Carousel>
@@ -221,20 +206,13 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>
-                  Arts <i className="fas fa-palette"></i>
-                </Header>
-              </div>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("arts")}
-              </Carousel>
+              <Header>
+                Arts <i className="fas fa-palette"></i>
+              </Header>
             </div>
+            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
+              {varChange("arts")}
+            </Carousel>
           </CarouselContainer>
           <CarouselContainer>
             <div
@@ -242,14 +220,8 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>Opinion Section</Header>
-              </div>
+              <Header>Opinion Section</Header>
+
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
                 {varChange("opinion")}
               </Carousel>
@@ -261,14 +233,8 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>Magazine</Header>
-              </div>
+              <Header>Magazine</Header>
+
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
                 {varChange("magazine")}
               </Carousel>
@@ -280,16 +246,10 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>
-                  Business <i className="fas fa-business-time"></i>
-                </Header>
-              </div>
+              <Header>
+                Business <i className="fas fa-business-time"></i>
+              </Header>
+
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
                 {varChange("business")}
               </Carousel>
@@ -301,16 +261,10 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>
-                  Wellness <i className="fas fa-spa"></i>
-                </Header>
-              </div>
+              <Header>
+                Wellness <i className="fas fa-spa"></i>
+              </Header>
+
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
                 {varChange("well")}
               </Carousel>
@@ -322,16 +276,10 @@ export default function HomeCategories() {
                 boxShadow: " 1px 3px 20px 3px black",
               }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Header>
-                  Sports <i className="fas fa-football-ball"></i>
-                </Header>
-              </div>
+              <Header>
+                Sports <i className="fas fa-football-ball"></i>
+              </Header>
+
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
                 {varChange("sports")}
               </Carousel>

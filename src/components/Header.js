@@ -9,6 +9,10 @@ const HeaderContainer = styled.div`
   padding: 10px 20px;
   border-bottom: 1px solid #0002;
   background: #fff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
 `;
 
 const LeftHeader = styled.div`

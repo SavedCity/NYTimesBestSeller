@@ -42,7 +42,7 @@ export default function Categories() {
   const [offset, setOffset] = useState(0);
   const [moreData, setMoreData] = useState(false);
   const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(9);
+  const [end, setEnd] = useState(4);
   const [buttonIndex, setButtonIndex] = useState(0);
 
   const [error, setError] = useState(false);
@@ -175,13 +175,13 @@ export default function Categories() {
   }
   // Pagination functions
   function changeRangeHigh() {
-    setStart(start + 10);
-    setEnd(end + 10);
+    setStart(start + 5);
+    setEnd(end + 5);
   }
 
   function changeRangeLow() {
-    setStart(start - 10);
-    setEnd(end - 10);
+    setStart(start - 5);
+    setEnd(end - 5);
   }
 
   const paginateNext = () => {

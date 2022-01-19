@@ -107,6 +107,7 @@ export const FilterTitle = styled.div`
   margin-bottom: 10px;
   padding-bottom: 10px;
 `;
+
 export const FilterLabel = styled.label`
   font: 400 1.2rem barlow;
   white-space: nowrap;

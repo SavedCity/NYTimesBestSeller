@@ -4,53 +4,64 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Carousel from "react-grid-carousel";
 
-const CategoryBox = styled.div`
-  margin: 10px;
-  border: 3px solid #0003;
+const NYTimesImg = styled.img`
+  /* margin-bottom: 30px; */
 `;
 
 const CarouselContainer = styled.div`
-  margin: 40px 0;
+  margin: 16px 0 40px 0;
+  padding: 20px 10px;
+  border: 1px solid #0004;
 `;
 
-const Title = styled.h2`
-  font-family: "Bungee", cursive;
-  font-family: "Roboto", sans-serif;
-  color: black;
-  margin: 0 0 0 25px;
+const CategoryBox = styled.div`
+  margin: 10px;
+`;
+
+const TopStories = styled.h2`
+  font: 400 2.5rem Barlow;
+  text-align: center;
+  margin: 0;
 `;
 
 const Header = styled.h2`
-  font-family: "Bungee", cursive;
-  font-family: "Roboto", sans-serif;
+  font: 400 2rem Roboto;
   text-align: center;
   padding-top: 20px;
+  letter-spacing: 1px;
+`;
+
+const Title = styled.a`
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  color: black;
+  font: 500 1.5rem Roboto;
+  letter-spacing: 0.5px;
 `;
 
 const Author = styled.h5`
-  font-family: "Bungee", cursive;
   font-family: "Roboto", sans-serif;
-  margin: 10px 25px;
+  font: 400 1rem Roboto;
+  margin: 10px 0 30px 0;
+  color: #555;
 `;
 
 const Paragraph = styled.p`
-  font-family: "Bungee", cursive;
-  font-family: "Poiret One", cursive;
   font-family: "Roboto", sans-serif;
-  margin: 0 0 0 25px;
+  font: 400 1.3rem roboto;
+`;
+
+const CreatedDate = styled.p`
+  font-family: "Roboto", sans-serif;
+  font: 400 1.3rem roboto;
 `;
 
 const Image = styled.img`
   object-fit: cover;
-  width: 20vw;
-  height: 20vw;
+  width: 22vw;
+  height: 22vw;
 `;
-const ImageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-`;
+
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);
   const loading = useSelector((state) => state.loading);
@@ -75,72 +86,103 @@ export default function HomeCategories() {
   const MyDot = ({ isActive }) => (
     <span
       style={{
-        height: isActive ? "8px" : "5px",
-        width: isActive ? "8px" : "5px",
-        background: "#6e44ff",
+        height: isActive ? "12px" : "8px",
+        width: isActive ? "12px" : "8px",
+        background: isActive ? "#0009" : "#39393977",
         borderRadius: "50%",
+        marginTop: "10px",
       }}
     ></span>
   );
-  function varChange(data) {
+  console.log(homeData);
+
+  let abbMonths = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  function section(data) {
     let newData = homeData
       .filter((about) => about.section === data)
       .map((topStories, key) => {
-        const { title, abstract, byline, url, multimedia } = topStories;
+        const { title, abstract, byline, url, multimedia, created_date } =
+          topStories;
+
+        let modifiedDate = created_date.split("T")[0];
+        let newDate =
+          modifiedDate.split("-").slice(2).join("-") +
+          "-" +
+          modifiedDate.split("-")[0];
+        console.log(newDate);
+
         return (
           <Carousel.Item key={key}>
             <CategoryBox>
               <div style={{ display: "flex" }}>
                 <Image src={multimedia && multimedia[0].url} alt={title} />
-
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    padding: "10px",
+                    padding: "20px 17px 20px 25px",
+                    borderRadius: "3px",
+                    background: "#00000009",
                   }}
                 >
-                  <a
-                    style={{ textDecoration: "none" }}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {" "}
-                    <Title>{title}</Title>
-                  </a>
-
+                  <Title href={url} target="_blank" rel="noopener noreferrer">
+                    {title}
+                  </Title>
                   <Author>{byline}</Author>
                   <Paragraph>{abstract}</Paragraph>
+                  <CreatedDate>{newDate}</CreatedDate>
                 </div>
               </div>
             </CategoryBox>
           </Carousel.Item>
         );
       });
-
     return newData;
   }
-  console.log(homeData);
   return (
     <>
       {!loading ? (
-        <div style={{ width: "90%", margin: "0 auto" }}>
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>
-                Top Stories US <i className="fas fa-newspaper"></i>
-              </Header>
+        <div style={{ width: "96%", margin: "0 auto" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "50px 0 70px 0",
+            }}
+          >
+            <NYTimesImg
+              src="../images/nytimes.png"
+              alt="New York Times Title"
+            />
+          </div>
 
-              <Carousel cols={2} rows={1} gap={10} loop howDots dot={MyDot}>
-                {varChange("us")}
-              </Carousel>
-            </div>
+          <TopStories>
+            Top Stories Today U.S.{" "}
+            <i
+              style={{ marginLeft: ".3em", fontSize: "2.5rem" }}
+              className="fas fa-newspaper"
+            ></i>
+          </TopStories>
+          <CarouselContainer>
+            <Carousel cols={2} rows={1} gap={10} loop showDots dot={MyDot}>
+              {section("us")}
+            </Carousel>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -148,12 +190,12 @@ export default function HomeCategories() {
               }}
             >
               <Header>Technology</Header>
-
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("technology")}
+                {section("technology")}
               </Carousel>
             </div>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -164,12 +206,12 @@ export default function HomeCategories() {
                 World News <i className="fas fa-globe"></i>{" "}
                 <i className="fas fa-newspaper"></i>{" "}
               </Header>
-
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("world")}
+                {section("world")}
               </Carousel>
             </div>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -179,12 +221,12 @@ export default function HomeCategories() {
               <Header>
                 Travel Guide <i className="fas fa-plane"></i>
               </Header>
-
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("travel")}
+                {section("travel")}
               </Carousel>
             </div>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -194,12 +236,12 @@ export default function HomeCategories() {
               <Header>
                 Science <i className="fas fa-atom"></i>
               </Header>
-
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("science")}
+                {section("science")}
               </Carousel>
             </div>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -211,9 +253,10 @@ export default function HomeCategories() {
               </Header>
             </div>
             <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {varChange("arts")}
+              {section("arts")}
             </Carousel>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -221,12 +264,12 @@ export default function HomeCategories() {
               }}
             >
               <Header>Opinion Section</Header>
-
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("opinion")}
+                {section("opinion")}
               </Carousel>
             </div>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -234,12 +277,12 @@ export default function HomeCategories() {
               }}
             >
               <Header>Magazine</Header>
-
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("magazine")}
+                {section("magazine")}
               </Carousel>
             </div>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -249,12 +292,12 @@ export default function HomeCategories() {
               <Header>
                 Business <i className="fas fa-business-time"></i>
               </Header>
-
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("business")}
+                {section("business")}
               </Carousel>
             </div>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -264,12 +307,12 @@ export default function HomeCategories() {
               <Header>
                 Wellness <i className="fas fa-spa"></i>
               </Header>
-
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("well")}
+                {section("well")}
               </Carousel>
             </div>
           </CarouselContainer>
+
           <CarouselContainer>
             <div
               style={{
@@ -279,9 +322,8 @@ export default function HomeCategories() {
               <Header>
                 Sports <i className="fas fa-football-ball"></i>
               </Header>
-
               <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {varChange("sports")}
+                {section("sports")}
               </Carousel>
             </div>
           </CarouselContainer>

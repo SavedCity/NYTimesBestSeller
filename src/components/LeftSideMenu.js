@@ -9,10 +9,10 @@ const SideMenu = styled.div`
   max-width: 370px;
   min-height: 100vw;
   padding: 30px 20px;
-  position: absolute;
+  position: fixed;
   left: -450px;
   transition: 0.2s;
-  z-index: 1;
+  z-index: 11;
   border-right: 1px solid #0003;
 `;
 

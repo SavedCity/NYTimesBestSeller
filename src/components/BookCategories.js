@@ -34,7 +34,7 @@ const BookLink = styled(Link)`
   }
 `;
 
-export default function Categories({ currentButton, setCurrentButton }) {
+export default function Categories({ setCurrentButton }) {
   const categories = useSelector((state) => state.allBookCategories);
   const loading = useSelector((state) => state.loading);
 

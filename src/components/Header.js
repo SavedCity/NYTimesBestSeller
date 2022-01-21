@@ -12,7 +12,7 @@ const HeaderContainer = styled.div`
   position: fixed;
   width: 100%;
   top: 0;
-  z-index: 10;
+  z-index: 12;
 `;
 
 const LeftHeader = styled.div`
@@ -57,6 +57,7 @@ const HamburgerBottom = styled.div`
 
 const LinkContainer = styled.div`
   display: flex;
+  margin-right: 20px;
 `;
 
 const HeaderLinks = styled(Link)`
@@ -65,7 +66,7 @@ const HeaderLinks = styled(Link)`
   font-family: sen;
   font-size: 1rem;
   padding: 6px 9px 4px 9px;
-  margin: 0 12px;
+  margin: 0 15px;
   transition: 0.3s;
   white-space: nowrap;
   background: linear-gradient(#282828, #282828) no-repeat 0% 100%;

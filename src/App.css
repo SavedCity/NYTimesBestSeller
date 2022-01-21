@@ -43,7 +43,7 @@ body {
 /* Side menu */
 .menu-slide {
   left: 0 !important;
-  position: relative !important;
+  /* position: relative !important; */
 }
 
 /* Pop up menu arrow */
@@ -174,4 +174,39 @@ mark {
   right: 20px !important;
   visibility: visible !important;
   opacity: 1 !important;
+}
+
+/* Carousel */
+
+.progress {
+  background: rgba(255, 255, 255, 0.1);
+  justify-content: flex-start;
+  border-radius: 100px;
+  align-items: center;
+  display: flex;
+  height: 10px;
+  width: 26vw;
+  border: 1px solid #0006;
+  margin: 20px auto 80px auto;
+}
+
+.progress-value {
+  animation: progress 7s linear infinite;
+  border-radius: 100px;
+  background: #777;
+  height: 10px;
+  width: 2%;
+}
+
+@keyframes progress {
+  0% {
+    width: 2%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.pause {
+  animation-play-state: paused;
 }

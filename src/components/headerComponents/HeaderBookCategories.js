@@ -7,13 +7,13 @@ import { Link } from "react-router-dom";
 const CategoryContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   margin: 0;
   transition: 0.3s;
 `;
 
 const CategoryBox = styled.div`
   margin: 5px 10px;
-  border-bottom: 1px solid #140152;
   transition: 0.3s;
   padding: 0 0 8px 0;
 `;
@@ -36,6 +36,13 @@ export default function Categories() {
       sortButton.innerHTML = "Sort";
     }
   };
+  let alphabetArr = [];
+
+  for (let i = 0; i < categories.length; i++) {
+    let firstChar = categories[i].list_name.charAt(0);
+    alphabetArr.push(firstChar);
+  }
+  console.log(alphabetArr);
 
   return (
     <div>

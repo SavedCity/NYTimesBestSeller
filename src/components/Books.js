@@ -96,7 +96,7 @@ const AmazonLogo = styled.img`
 export default function IdPage({ currentButton, setCurrentButton }) {
   const [bookList, setBookList] = useState([]);
 
-  const loading = useSelector((state) => state.loading);
+  const [loading, setLoading] = useState(true);
 
   const params = useParams();
 
@@ -116,6 +116,7 @@ export default function IdPage({ currentButton, setCurrentButton }) {
       });
 
     setBookList(response.data.results);
+    setLoading(false);
   };
 
   let listName = params.idpage.replaceAll("-", " ").split(" ");

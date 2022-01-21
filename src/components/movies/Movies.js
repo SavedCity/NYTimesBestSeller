@@ -47,7 +47,7 @@ export default function Categories() {
 
   const [error, setError] = useState(false);
 
-  const loading = useSelector((state) => state.loading);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setError(false);
@@ -73,6 +73,7 @@ export default function Categories() {
       console.log(err);
       setError(true);
     });
+    setLoading(false);
     // if (filteredMovies.length === 0) {
     setFilteredMovies(response.data.results);
     // }
@@ -259,7 +260,7 @@ export default function Categories() {
       </CardContainerHeader>
       <div style={{ display: "flex" }}>
         <Filter movieRatings={movieRatings} filterCheckbox={filterCheckbox} />
-        {!loading && filteredMovies.length > 0 ? (
+        {!loading ? (
           <div style={{ width: "100%", position: "relative" }}>
             <MovieContainer>
               {filteredMovies

@@ -1,27 +1,62 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import Carousel from "react-grid-carousel";
+import World from "./story_category/World";
+import Well from "./story_category/Well";
+import Tech from "./story_category/Tech";
+import Science from "./story_category/Science";
+import Opinion from "./story_category/Opinion";
+import Travel from "./story_category/Travel";
+import Art from "./story_category/Art";
+import Sports from "./story_category/Sports";
+import Business from "./story_category/Business";
+import NYRegion from "./story_category/NYRegion";
+import Style from "./story_category/Style";
 
-const NYTimesImg = styled.img`
-  /* margin-bottom: 30px; */
+const BackToTop = styled.a`
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: -40px;
+  visibility: hidden;
+  opacity: 0;
+  bottom: 30px;
+  text-decoration: none;
+  font: 300 2rem barlow;
+  background-color: #0002;
+  border-radius: 50%;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: #0003;
+  }
 `;
 
 const CarouselContainer = styled.div`
-  margin: 16px 0 40px 0;
-  padding: 20px 10px;
-  border: 1px solid #0004;
+  margin: 0px auto 40px auto;
+  padding: 10px 10px 20px 10px;
 `;
 
 const CategoryBox = styled.div`
-  margin: 10px;
+  display: flex;
+  margin: 20px;
+`;
+
+const DetailsBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 25px 20px 25px;
+  background: #f0000009;
+  max-height: 27.5rem;
+  min-height: 27.5rem;
+  position: relative;
 `;
 
 const TopStories = styled.h2`
   font: 400 2.5rem Barlow;
   text-align: center;
-  margin: 0;
+  margin: 0 0 4px 0;
 `;
 
 const Header = styled.h2`
@@ -31,40 +66,54 @@ const Header = styled.h2`
   letter-spacing: 1px;
 `;
 
+const Image = styled.img`
+  object-fit: cover;
+  width: 30rem;
+  height: 30rem;
+`;
+
+const CreatedDate = styled.p`
+  font: 400 1.1rem roboto;
+  position: absolute;
+  top: 0;
+  left: 25px;
+  color: #444;
+`;
+
 const Title = styled.a`
   text-decoration: none;
-  font-family: "Roboto", sans-serif;
   color: black;
   font: 500 1.5rem Roboto;
   letter-spacing: 0.5px;
+  margin-top: 50px;
 `;
 
 const Author = styled.h5`
-  font-family: "Roboto", sans-serif;
   font: 400 1rem Roboto;
-  margin: 10px 0 30px 0;
+  margin: 15px 0 30px 0;
   color: #555;
 `;
 
 const Paragraph = styled.p`
-  font-family: "Roboto", sans-serif;
   font: 400 1.3rem roboto;
 `;
 
-const CreatedDate = styled.p`
-  font-family: "Roboto", sans-serif;
-  font: 400 1.3rem roboto;
+const SubSection = styled.h5`
+  font: 400 1.1rem roboto;
+  position: absolute;
+  bottom: 0;
+  left: 25px;
+  color: #744;
 `;
 
-const Image = styled.img`
-  object-fit: cover;
-  width: 22vw;
-  height: 22vw;
-`;
+const LinksBox = styled.div``;
+
+const Link = styled.a``;
 
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);
-  const loading = useSelector((state) => state.loading);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchHomeList();
@@ -81,19 +130,9 @@ export default function HomeCategories() {
       });
 
     setHomeData(response.data.results);
+    setLoading(false);
   };
 
-  const MyDot = ({ isActive }) => (
-    <span
-      style={{
-        height: isActive ? "12px" : "8px",
-        width: isActive ? "12px" : "8px",
-        background: isActive ? "#0009" : "#39393977",
-        borderRadius: "50%",
-        marginTop: "10px",
-      }}
-    ></span>
-  );
   console.log(homeData);
 
   let abbMonths = [
@@ -110,227 +149,328 @@ export default function HomeCategories() {
     "Nov",
     "Dec",
   ];
-
+  let newDate;
   function section(data) {
     let newData = homeData
       .filter((about) => about.section === data)
       .map((topStories, key) => {
-        const { title, abstract, byline, url, multimedia, created_date } =
-          topStories;
+        const {
+          title,
+          abstract,
+          byline,
+          url,
+          multimedia,
+          created_date,
+          subsection,
+        } = topStories;
 
         let modifiedDate = created_date.split("T")[0];
-        let newDate =
+        let newMonth = parseInt(modifiedDate.split("-")[1]);
+        newDate =
+          abbMonths[newMonth - 1] +
+          " " +
           modifiedDate.split("-").slice(2).join("-") +
-          "-" +
+          ", " +
           modifiedDate.split("-")[0];
-        console.log(newDate);
 
         return (
           <Carousel.Item key={key}>
             <CategoryBox>
-              <div style={{ display: "flex" }}>
-                <Image src={multimedia && multimedia[0].url} alt={title} />
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: "20px 17px 20px 25px",
-                    borderRadius: "3px",
-                    background: "#00000009",
-                  }}
-                >
-                  <Title href={url} target="_blank" rel="noopener noreferrer">
-                    {title}
-                  </Title>
-                  <Author>{byline}</Author>
-                  <Paragraph>{abstract}</Paragraph>
-                  <CreatedDate>{newDate}</CreatedDate>
-                </div>
-              </div>
+              <Image src={multimedia && multimedia[0].url} alt={title} />
+              <DetailsBox>
+                <Title href={url} target="_blank" rel="noopener noreferrer">
+                  {title}
+                </Title>
+                <Author>{byline}</Author>
+                <Paragraph>{abstract}</Paragraph>
+                <CreatedDate>{newDate}</CreatedDate>
+                <SubSection>
+                  {subsection !== "" &&
+                    "- " +
+                      subsection.charAt("0").toUpperCase() +
+                      subsection.slice(1)}
+                </SubSection>
+              </DetailsBox>
             </CategoryBox>
           </Carousel.Item>
         );
       });
     return newData;
   }
+
+  const myDotMain = ({ isActive }) => (
+    <div
+      className="carousel-dot"
+      style={{
+        height: isActive ? "13px" : "10px",
+        width: isActive ? "13px" : "10px",
+        background: isActive ? "#0009" : "#39393977",
+        borderRadius: "100%",
+      }}
+    ></div>
+  );
+
+  const myDot = ({ isActive }) => (
+    <div
+      className="carousel-dot"
+      style={{
+        height: isActive ? "10px" : "7px",
+        width: isActive ? "10px" : "7px",
+        background: isActive ? "#0009" : "#39393977",
+        borderRadius: "100%",
+        marginTop: "20px",
+      }}
+    ></div>
+  );
+
+  const pauseAnimation = () => {
+    let bar = document.getElementById("progress-bar");
+    bar.classList.add("pause");
+    bar.style.animation = "none";
+  };
+
+  const resetAnimation = () => {
+    let bar = document.getElementById("progress-bar");
+    bar.classList.remove("pause");
+
+    setTimeout(function () {
+      bar.style.animation = "";
+    }, 1);
+  };
+
+  let worldData = homeData.filter((about) => about.section === "world").length;
+  let wellData = homeData.filter((about) => about.section === "well").length;
+  let opinionData = homeData.filter(
+    (about) => about.section === "opinion"
+  ).length;
+  let scienceData = homeData.filter(
+    (about) => about.section === "science"
+  ).length;
+  let techData = homeData.filter(
+    (about) => about.section === "technology"
+  ).length;
+  let travelData = homeData.filter(
+    (about) => about.section === "travel"
+  ).length;
+  let artData = homeData.filter((about) => about.section === "arts").length;
+  let sportsData = homeData.filter(
+    (about) => about.section === "sports"
+  ).length;
+  let businessData = homeData.filter(
+    (about) => about.section === "business"
+  ).length;
+  let nyData = homeData.filter((about) => about.section === "nyregion").length;
+  let styleData = homeData.filter((about) => about.section === "style").length;
+
   return (
     <>
-      {!loading ? (
-        <div style={{ width: "96%", margin: "0 auto" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              margin: "50px 0 70px 0",
-            }}
-          >
-            <NYTimesImg
-              src="../images/nytimes.png"
-              alt="New York Times Title"
-            />
-          </div>
-
-          <TopStories>
-            Top Stories Today U.S.{" "}
-            <i
-              style={{ marginLeft: ".3em", fontSize: "2.5rem" }}
-              className="fas fa-newspaper"
-            ></i>
-          </TopStories>
-          <CarouselContainer>
-            <Carousel cols={2} rows={1} gap={10} loop showDots dot={MyDot}>
-              {section("us")}
-            </Carousel>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>Technology</Header>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {section("technology")}
-              </Carousel>
-            </div>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>
-                World News <i className="fas fa-globe"></i>{" "}
-                <i className="fas fa-newspaper"></i>{" "}
-              </Header>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {section("world")}
-              </Carousel>
-            </div>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>
-                Travel Guide <i className="fas fa-plane"></i>
-              </Header>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {section("travel")}
-              </Carousel>
-            </div>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>
-                Science <i className="fas fa-atom"></i>
-              </Header>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {section("science")}
-              </Carousel>
-            </div>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>
-                Arts <i className="fas fa-palette"></i>
-              </Header>
-            </div>
-            <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-              {section("arts")}
-            </Carousel>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>Opinion Section</Header>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {section("opinion")}
-              </Carousel>
-            </div>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>Magazine</Header>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {section("magazine")}
-              </Carousel>
-            </div>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>
-                Business <i className="fas fa-business-time"></i>
-              </Header>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {section("business")}
-              </Carousel>
-            </div>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>
-                Wellness <i className="fas fa-spa"></i>
-              </Header>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {section("well")}
-              </Carousel>
-            </div>
-          </CarouselContainer>
-
-          <CarouselContainer>
-            <div
-              style={{
-                boxShadow: " 1px 3px 20px 3px black",
-              }}
-            >
-              <Header>
-                Sports <i className="fas fa-football-ball"></i>
-              </Header>
-              <Carousel cols={2} rows={1} gap={20} loop showDots dot={MyDot}>
-                {section("sports")}
-              </Carousel>
-            </div>
-          </CarouselContainer>
+      <div style={{ width: "96%", margin: "0 auto" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "50px 0 70px 0",
+          }}
+        >
+          <img src="../images/nytimes.png" alt="New York Times Title" />
         </div>
-      ) : (
-        <div className="loader"></div>
-      )}
+        {!loading ? (
+          <div>
+            <LinksBox>
+              <Link href="#world">World</Link>
+              <Link href="#well">Wellness</Link>
+              <Link href="#tech">Technology</Link>
+              <Link href="#travel">Travel</Link>
+              <Link href="#ny">N.Y.</Link>
+              <Link href="#opinion">Opinion</Link>
+              <Link href="#sports">Sports</Link>
+              <Link href="#business">Business</Link>
+              <Link href="#science">Science</Link>
+              <Link href="#arts">Arts</Link>
+              <Link href="#style">Style</Link>
+            </LinksBox>
+            {/* TOP STORIES IN TODAY */}
+            <TopStories>
+              Top Stories{" "}
+              <span style={{ color: "#8d0208", fontWeight: "500" }}>Today</span>{" "}
+              <i
+                style={{
+                  marginLeft: ".3em",
+                  fontSize: "2.5rem",
+                  color: "#393939",
+                }}
+                className="fas fa-newspaper"
+              ></i>
+            </TopStories>
+
+            <CarouselContainer
+              onMouseLeave={resetAnimation}
+              onMouseEnter={pauseAnimation}
+              id="carousel-container"
+              style={{
+                width: "70%",
+                position: "relative",
+                padding: "0",
+              }}
+            >
+              <Carousel
+                responsiveLayout={[
+                  {
+                    breakpoint: 1500,
+                    cols: 1,
+                  },
+                ]}
+                cols={1}
+                rows={1}
+                gap={10}
+                loop
+                showDots
+                dot={myDotMain}
+                autoplay={7000}
+                arrowLeft={<span />}
+                arrowRight={<span />}
+              >
+                {section("us")}
+              </Carousel>
+            </CarouselContainer>
+            <div
+              style={{
+                position: "relative",
+              }}
+            >
+              <div className="progress">
+                <div id="progress-bar" className="progress-value"></div>
+              </div>
+            </div>
+
+            {/* STORIES IN THE WORLD */}
+            <div>
+              {worldData > 0 && (
+                <World
+                  homeData={homeData}
+                  abbMonths={abbMonths}
+                  newDate={newDate}
+                />
+              )}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "45%",
+                    alignItems: "center",
+                  }}
+                >
+                  {wellData > 0 && (
+                    <Well
+                      homeData={homeData}
+                      abbMonths={abbMonths}
+                      newDate={newDate}
+                    />
+                  )}
+                  {sportsData > 0 && (
+                    <Sports
+                      myDot={myDot}
+                      homeData={homeData}
+                      abbMonths={abbMonths}
+                      newDate={newDate}
+                      sportsData={sportsData}
+                    />
+                  )}
+                  {businessData > 0 && (
+                    <Business
+                      myDot={myDot}
+                      homeData={homeData}
+                      abbMonths={abbMonths}
+                      newDate={newDate}
+                      businessData={businessData}
+                    />
+                  )}
+                  {scienceData > 0 && (
+                    <Science
+                      myDot={myDot}
+                      homeData={homeData}
+                      abbMonths={abbMonths}
+                      newDate={newDate}
+                      scienceData={scienceData}
+                    />
+                  )}
+                  {artData > 0 && (
+                    <Art
+                      myDot={myDot}
+                      homeData={homeData}
+                      abbMonths={abbMonths}
+                      newDate={newDate}
+                      artData={artData}
+                    />
+                  )}
+                  {styleData > 0 && (
+                    <Style
+                      myDot={myDot}
+                      homeData={homeData}
+                      abbMonths={abbMonths}
+                      newDate={newDate}
+                      styleData={styleData}
+                    />
+                  )}
+                </div>
+                <div
+                  style={{
+                    width: "45%",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {techData > 0 && (
+                    <Tech
+                      myDot={myDot}
+                      homeData={homeData}
+                      abbMonths={abbMonths}
+                      newDate={newDate}
+                      techData={techData}
+                    />
+                  )}
+                  {travelData > 0 && (
+                    <Travel
+                      myDot={myDot}
+                      homeData={homeData}
+                      abbMonths={abbMonths}
+                      newDate={newDate}
+                      travelData={travelData}
+                    />
+                  )}
+                  {nyData > 0 && (
+                    <NYRegion
+                      myDot={myDot}
+                      homeData={homeData}
+                      abbMonths={abbMonths}
+                      newDate={newDate}
+                      nyData={nyData}
+                    />
+                  )}
+                  <Opinion
+                    myDot={myDot}
+                    homeData={homeData}
+                    abbMonths={abbMonths}
+                    newDate={newDate}
+                    opinionData={opinionData}
+                  />
+                </div>
+              </div>
+            </div>
+            <BackToTop className="back-to-top" href="#top"></BackToTop>
+          </div>
+        ) : (
+          <div className="loader"></div>
+        )}
+      </div>
     </>
   );
 }

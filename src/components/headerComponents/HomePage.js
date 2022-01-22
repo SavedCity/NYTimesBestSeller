@@ -31,6 +31,50 @@ const BackToTop = styled.a`
   &:hover {
     background-color: #0003;
   }
+
+  &:before {
+    content: "";
+    height: 15px;
+    border: solid #555;
+    border-width: 2px;
+    position: absolute;
+    top: 18px;
+    left: 23px;
+  }
+
+  &:after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-right: solid #555;
+    border-top: solid #555;
+    border-width: 4px;
+    position: absolute;
+    top: 16px;
+    left: 17px;
+    transform: rotate(-45deg);
+  }
+`;
+
+const LinksBox = styled.div`
+  background: #393939;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 50px auto;
+  width: 65.5%;
+  padding: 10px 0;
+`;
+
+const Link = styled.a`
+  color: #ddd;
+  font: 400 1.2rem roboto;
+  text-decoration: none;
+  margin: 5px 13px;
+  transition: 0.3s;
+
+  &:hover {
+    color: #fff;
+  }
 `;
 
 const CarouselContainer = styled.div`
@@ -57,13 +101,6 @@ const TopStories = styled.h2`
   font: 400 2.5rem Barlow;
   text-align: center;
   margin: 0 0 4px 0;
-`;
-
-const Header = styled.h2`
-  font: 400 2rem Roboto;
-  text-align: center;
-  padding-top: 20px;
-  letter-spacing: 1px;
 `;
 
 const Image = styled.img`
@@ -105,10 +142,6 @@ const SubSection = styled.h5`
   left: 25px;
   color: #744;
 `;
-
-const LinksBox = styled.div``;
-
-const Link = styled.a``;
 
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);
@@ -238,6 +271,26 @@ export default function HomeCategories() {
     }, 1);
   };
 
+  window.onscroll = () => {
+    let topBtn = document.querySelector(".back-to-top");
+    let linkBox = document.querySelector("link-box");
+
+    if (window.pageYOffset > 900 && topBtn !== null) {
+      topBtn.classList.add("show");
+      console.log("works");
+    } else {
+      if (topBtn !== null) {
+        topBtn.classList.remove("show");
+      }
+    }
+
+    // if (window.pageYOffset > linkBox.offsetTop) {
+    //   linkBox.classList.add("sticky-links");
+    // } else {
+    //   linkBox.classList.remove("sticky-links");
+    // }
+  };
+
   let worldData = homeData.filter((about) => about.section === "world").length;
   let wellData = homeData.filter((about) => about.section === "well").length;
   let opinionData = homeData.filter(
@@ -275,19 +328,19 @@ export default function HomeCategories() {
           <img src="../images/nytimes.png" alt="New York Times Title" />
         </div>
         {!loading ? (
-          <div>
-            <LinksBox>
-              <Link href="#world">World</Link>
-              <Link href="#well">Wellness</Link>
-              <Link href="#tech">Technology</Link>
-              <Link href="#travel">Travel</Link>
-              <Link href="#ny">N.Y.</Link>
-              <Link href="#opinion">Opinion</Link>
-              <Link href="#sports">Sports</Link>
-              <Link href="#business">Business</Link>
-              <Link href="#science">Science</Link>
-              <Link href="#arts">Arts</Link>
-              <Link href="#style">Style</Link>
+          <div style={{ position: "relative" }}>
+            <LinksBox className="link-box">
+              {worldData > 0 && <Link href="#world">World</Link>}
+              {wellData > 0 && <Link href="#well">Wellness</Link>}
+              {techData > 0 && <Link href="#tech">Technology</Link>}
+              {travelData > 0 && <Link href="#travel">Travel</Link>}
+              {nyData > 0 && <Link href="#ny">NY Region</Link>}
+              {opinionData > 0 && <Link href="#opinion">Opinion</Link>}
+              {sportsData > 0 && <Link href="#sports">Sports</Link>}
+              {businessData > 0 && <Link href="#business">Business</Link>}
+              {scienceData > 0 && <Link href="#science">Science</Link>}
+              {artData > 0 && <Link href="#arts">Arts</Link>}
+              {styleData > 0 && <Link href="#style">Style</Link>}
             </LinksBox>
             {/* TOP STORIES IN TODAY */}
             <TopStories>

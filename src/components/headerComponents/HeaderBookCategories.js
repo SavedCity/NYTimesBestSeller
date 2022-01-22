@@ -57,11 +57,12 @@ export default function Categories() {
                   ? -1
                   : 0
               )
-              .map((category) => {
+              .map((category, index) => {
                 const { list_id, list_name } = category;
 
                 return (
                   <CategoryBox onClick={defaultSort} key={list_id}>
+                    <h2 id={index}>{list_name.charAt(0)}</h2>
                     <CategoryLink to={category.list_name_encoded}>
                       {list_name}
                     </CategoryLink>

@@ -106,9 +106,26 @@ const SubSection = styled.h5`
   color: #744;
 `;
 
-const LinksBox = styled.div``;
+const LinksBox = styled.div`
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #333;
+  position: fixed;
+  margin-left: 160px;
+  top: 210px;
+  width: 70%;
+  z-index: 20;
+`;
 
-const Link = styled.a``;
+const Link = styled.a`
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+`;
 
 export default function HomeCategories() {
   const [homeData, setHomeData] = useState([]);

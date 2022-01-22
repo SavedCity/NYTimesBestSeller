@@ -60,9 +60,12 @@ const LinksBox = styled.div`
   background: #393939;
   display: flex;
   justify-content: center;
-  margin: 0 auto 50px auto;
   width: 65.5%;
   padding: 10px 0;
+  position: absolute;
+  top: -100px;
+  left: 17.27%;
+  z-index: 12;
 `;
 
 const Link = styled.a`
@@ -273,22 +276,21 @@ export default function HomeCategories() {
 
   window.onscroll = () => {
     let topBtn = document.querySelector(".back-to-top");
-    let linkBox = document.querySelector("link-box");
+    let linkBox = document.getElementById("link-box");
 
     if (window.pageYOffset > 900 && topBtn !== null) {
       topBtn.classList.add("show");
-      console.log("works");
     } else {
       if (topBtn !== null) {
         topBtn.classList.remove("show");
       }
     }
 
-    // if (window.pageYOffset > linkBox.offsetTop) {
-    //   linkBox.classList.add("sticky-links");
-    // } else {
-    //   linkBox.classList.remove("sticky-links");
-    // }
+    if (window.pageYOffset > 236) {
+      linkBox.classList.add("sticky-links");
+    } else {
+      linkBox.classList.remove("sticky-links");
+    }
   };
 
   let worldData = homeData.filter((about) => about.section === "world").length;
@@ -325,11 +327,15 @@ export default function HomeCategories() {
             margin: "50px 0 70px 0",
           }}
         >
-          <img src="../images/nytimes.png" alt="New York Times Title" />
+          <img
+            style={{ marginBottom: "100px" }}
+            src="../images/nytimes.png"
+            alt="New York Times Title"
+          />
         </div>
         {!loading ? (
           <div style={{ position: "relative" }}>
-            <LinksBox className="link-box">
+            <LinksBox id="link-box">
               {worldData > 0 && <Link href="#world">World</Link>}
               {wellData > 0 && <Link href="#well">Wellness</Link>}
               {techData > 0 && <Link href="#tech">Technology</Link>}

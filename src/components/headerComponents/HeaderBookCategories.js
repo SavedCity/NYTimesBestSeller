@@ -16,7 +16,8 @@ const CategoryBox = styled.div`
   padding: 40px;
   border: 1px solid #0003;
   flex: 1;
-  flex-basis: 25%;
+  flex-basis: 40%;
+  max-width: 50%;
 `;
 
 const FirstLetter = styled.h1`
@@ -28,7 +29,7 @@ const CategoryLink = styled(Link)`
   font: 400 1.4rem barlow;
   text-decoration: none;
   transition: 0.3s;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   background: linear-gradient(#4a4a4a, #4a4a4a) no-repeat 0% 100%;
   background-size: 0% 0.1em;
 

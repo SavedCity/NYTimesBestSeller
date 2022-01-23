@@ -5,7 +5,7 @@ import Carousel from "react-grid-carousel";
 const CarouselContainer = styled.div`
   padding: 0px 10px;
   width: 100%;
-  margin: 20px 0;
+  margin: 0;
 `;
 
 const ArrowBtnLeft = styled.span`
@@ -101,7 +101,7 @@ const Paragraph = styled.p`
 export default function Tech({ myDot, homeData, newDate, techData }) {
   //   techData = 9;
   return (
-    <CarouselContainer id="tech" style={{ paddingTop: "30px" }}>
+    <CarouselContainer id="tech" style={{ paddingTop: "90px" }}>
       <Header>
         Technology{" "}
         <i style={{ color: "#393939" }} className="fas fa-mobile-alt"></i>

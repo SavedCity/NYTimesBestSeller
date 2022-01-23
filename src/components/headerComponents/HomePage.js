@@ -66,6 +66,7 @@ const LinksBox = styled.div`
   top: -100px;
   left: 17.27%;
   z-index: 12;
+  transition: background 0.3s;
 `;
 
 const Link = styled.a`
@@ -78,6 +79,13 @@ const Link = styled.a`
   &:hover {
     color: #fff;
   }
+`;
+
+const MarqueeBox = styled.div`
+  width: 65%;
+  margin: 0 auto;
+  background: #900;
+  padding: 8px 5px;
 `;
 
 const CarouselContainer = styled.div`
@@ -286,13 +294,16 @@ export default function HomeCategories() {
       }
     }
 
-    if (window.pageYOffset > 236) {
+    if (window.pageYOffset > 236 && linkBox !== null) {
       linkBox.classList.add("sticky-links");
     } else {
-      linkBox.classList.remove("sticky-links");
+      if (linkBox !== null) {
+        linkBox.classList.remove("sticky-links");
+      }
     }
   };
 
+  let usData = homeData.filter((about) => about.section === "us");
   let worldData = homeData.filter((about) => about.section === "world").length;
   let wellData = homeData.filter((about) => about.section === "well").length;
   let opinionData = homeData.filter(
@@ -401,8 +412,73 @@ export default function HomeCategories() {
                 <div id="progress-bar" className="progress-value"></div>
               </div>
             </div>
-
-            {/* STORIES IN THE WORLD */}
+            <MarqueeBox>
+              {/* eslint-disable-next-line */}
+              <marquee
+                style={{ font: "400 1.2rem barlow", color: "#fff" }}
+                scrollamount="7"
+              >
+                {usData[0].title !== null && usData[0].title}{" "}
+                {usData[0].title !== null && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[0].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+                {"... "}
+                {usData[1].title !== null && usData[1].title}{" "}
+                {usData[1].title !== null && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[1].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+                {"... "}
+                {usData[2].title !== null && usData[2].title}{" "}
+                {usData[2].title !== null && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[2].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+                {"... "}
+                {usData[3].title !== null && usData[3].title}{" "}
+                {usData[3].title !== null && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[3].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+                {"... "}
+                {usData[4].title !== null && usData[4].title}{" "}
+                {usData[4].title !== null && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[4].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+              </marquee>
+            </MarqueeBox>
             <div>
               {worldData > 0 && (
                 <World

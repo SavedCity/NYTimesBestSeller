@@ -5,7 +5,7 @@ import Carousel from "react-grid-carousel";
 const CarouselContainer = styled.div`
   padding: 0px 10px;
   width: 100%;
-  margin: 20px 0;
+  margin: 0;
 `;
 
 const ArrowBtnLeft = styled.span`
@@ -102,7 +102,7 @@ export default function Science({ myDot, homeData, newDate, scienceData }) {
   //   scienceData = 2;
   console.log(scienceData);
   return (
-    <CarouselContainer id="science" style={{ paddingTop: "30px" }}>
+    <CarouselContainer id="science" style={{ paddingTop: "90px" }}>
       <Header>
         Science <i style={{ color: "#393939" }} className="fas fa-atom"></i>
       </Header>

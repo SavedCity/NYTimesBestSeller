@@ -101,7 +101,7 @@ const Paragraph = styled.p`
 export default function Business({ myDot, homeData, newDate, businessData }) {
   //   businessData = 7;
   return (
-    <CarouselContainer id="business" style={{ paddingTop: "30px" }}>
+    <CarouselContainer id="business" style={{ paddingTop: "90px" }}>
       <Header>
         Business{" "}
         <i style={{ color: "#393939" }} className="fas fa-suitcase"></i>

@@ -184,12 +184,17 @@ export default function Categories() {
     setEnd(end - 5);
   }
 
-  const paginateNext = () => {
+  let currentActiveBtn = document.querySelector(".pagButtonActive");
+  const paginateNext = (e) => {
     if (offset >= 0) {
       clearFilter();
       setOffset(offset + 20);
       setButtonIndex(buttonIndex + 1);
       clearSorting();
+      if (currentActiveBtn.id === "4") {
+        setStart(start + 5);
+        setEnd(end + 5);
+      }
     }
   };
 
@@ -207,6 +212,10 @@ export default function Categories() {
       setOffset(offset - 20);
       setButtonIndex(buttonIndex - 1);
       clearSorting();
+      if (currentActiveBtn.id === "0") {
+        setStart(start - 5);
+        setEnd(end - 5);
+      }
     }
   };
 
@@ -214,7 +223,6 @@ export default function Categories() {
     let topBtn = document.querySelector(".back-to-top");
     if (window.pageYOffset > 400 && topBtn !== null) {
       topBtn.classList.add("show");
-      console.log("works");
     } else {
       if (topBtn !== null) {
         topBtn.classList.remove("show");
@@ -404,7 +412,7 @@ export default function Categories() {
                 })}
             </MovieContainer>
             <PaginationContainer>
-              {true ? (
+              {currentActiveBtn && currentActiveBtn.value > 0 ? (
                 <PaginateBtn onClick={paginateBack}>PREVIOUS</PaginateBtn>
               ) : (
                 <GrayedOutBtn>PREVIOUS</GrayedOutBtn>
@@ -448,7 +456,7 @@ export default function Categories() {
                     }
                     onClick={(e) => paginateNumbers(e, button)}
                     value={button}
-                    id={button}
+                    id={index}
                   >
                     {button + 1}
                   </button>
@@ -483,7 +491,13 @@ export default function Categories() {
               )}
 
               {moreData && (
-                <PaginateBtn onClick={paginateNext}>NEXT</PaginateBtn>
+                <PaginateBtn
+                  onClick={(e) => {
+                    paginateNext(e.target);
+                  }}
+                >
+                  NEXT
+                </PaginateBtn>
               )}
             </PaginationContainer>
             <BackToTop className="back-to-top" href="#top"></BackToTop>

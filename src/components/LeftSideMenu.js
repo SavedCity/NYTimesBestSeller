@@ -12,7 +12,7 @@ const SideMenu = styled.div`
   position: fixed;
   left: -450px;
   transition: 0.2s;
-  z-index: 11;
+  z-index: 25;
   border-right: 1px solid #0003;
 `;
 

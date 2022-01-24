@@ -246,6 +246,10 @@ export default function HomeCategories() {
     bar.style.animation = "none";
   };
 
+  const onScroll = () => {
+    let scroll = document.getElementById("linkBox");
+  };
+
   const resetAnimation = () => {
     let bar = document.getElementById("progress-bar");
     bar.classList.remove("pause");
@@ -293,7 +297,7 @@ export default function HomeCategories() {
         </div>
         {!loading ? (
           <div>
-            <LinksBox>
+            <LinksBox id="linkBox">
               <Link href="#world">World</Link>
               <Link href="#well">Wellness</Link>
               <Link href="#tech">Technology</Link>

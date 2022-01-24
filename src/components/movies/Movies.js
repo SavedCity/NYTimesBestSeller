@@ -189,15 +189,15 @@ export default function Categories() {
     return a;
   }
   // Pagination functions
-  function changeRangeHigh() {
-    setStart(start + 5);
-    setEnd(end + 5);
-  }
+  // function changeRangeHigh() {
+  //   setStart(start + 5);
+  //   setEnd(end + 5);
+  // }
 
-  function changeRangeLow() {
-    setStart(start - 5);
-    setEnd(end - 5);
-  }
+  // function changeRangeLow() {
+  //   setStart(start - 5);
+  //   setEnd(end - 5);
+  // }
 
   let currentActiveBtn = document.querySelector(".pagButtonActive");
   const paginateNext = (e) => {
@@ -445,7 +445,7 @@ export default function Categories() {
                 <GrayedOutBtn>PREVIOUS</GrayedOutBtn>
               )}
 
-              {start > 0 ? (
+              {/* {start > 0 ? (
                 <PaginateBtn
                   style={{
                     padding: "0px 10px 20px 10px",
@@ -470,7 +470,7 @@ export default function Categories() {
                 >
                   ...
                 </GrayedOutBtn>
-              )}
+              )} */}
 
               {range(start, end).map((button, index) => {
                 return (
@@ -490,7 +490,7 @@ export default function Categories() {
                 );
               })}
 
-              {moreData ? (
+              {/* {moreData ? (
                 <PaginateBtn
                   style={{
                     padding: "0px 10px 20px 10px",
@@ -515,7 +515,7 @@ export default function Categories() {
                 >
                   ...
                 </GrayedOutBtn>
-              )}
+              )} */}
 
               {moreData && (
                 <PaginateBtn

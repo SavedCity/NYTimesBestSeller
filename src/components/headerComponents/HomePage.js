@@ -67,8 +67,6 @@ const LinksBox = styled.div`
   left: 17.27%;
   z-index: 12;
   transition: background 0.3s;
-  @media (max-width: 600px) {
-  }
 `;
 
 const Link = styled.a`
@@ -93,16 +91,11 @@ const MarqueeBox = styled.div`
 const CarouselContainer = styled.div`
   margin: 0px auto 40px auto;
   padding: 10px 10px 20px 10px;
-  @media (max-width: 600px) {
-    width: 100vw;
-  }
 `;
 
 const CategoryBox = styled.div`
+  display: flex;
   margin: 20px;
-  @media (max-width: 600px) {
-    position: relative;
-  }
 `;
 
 const DetailsBox = styled.div`
@@ -113,33 +106,18 @@ const DetailsBox = styled.div`
   max-height: 27.5rem;
   min-height: 27.5rem;
   position: relative;
-  @media (max-width: 600px) {
-    max-height: 27.5rem;
-    min-height: 27.5rem;
-    width: 80%;
-  }
 `;
 
 const TopStories = styled.h2`
   font: 400 2.5rem Barlow;
   text-align: center;
   margin: 0 0 4px 0;
-  @media (max-width: 600px) {
-    font: 400 1.7rem Barlow;
-  }
 `;
 
 const Image = styled.img`
   object-fit: cover;
   width: 30rem;
   height: 30rem;
-  @media (max-width: 600px) {
-    width: 22.3rem;
-    height: 15rem;
-    position: absolute;
-    bottom: 10px;
-    left: 7px;
-  }
 `;
 
 const CreatedDate = styled.p`
@@ -148,9 +126,6 @@ const CreatedDate = styled.p`
   top: 0;
   left: 25px;
   color: #444;
-  @media (max-width: 600px) {
-    font: 400 0.8rem roboto;
-  }
 `;
 
 const Title = styled.a`
@@ -159,27 +134,16 @@ const Title = styled.a`
   font: 500 1.5rem Roboto;
   letter-spacing: 0.5px;
   margin-top: 50px;
-  @media (max-width: 600px) {
-    font: 500 1rem Roboto;
-    margin-top: 20px;
-  }
 `;
 
 const Author = styled.h5`
   font: 400 1rem Roboto;
   margin: 15px 0 30px 0;
   color: #555;
-  @media (max-width: 600px) {
-    font: 400 0.8rem Roboto;
-    margin: 8px 0 10px 0;
-  }
 `;
 
 const Paragraph = styled.p`
   font: 400 1.3rem roboto;
-  @media (max-width: 600px) {
-    font: 400 0.8rem roboto;
-  }
 `;
 
 const SubSection = styled.h5`
@@ -188,16 +152,6 @@ const SubSection = styled.h5`
   bottom: 0;
   left: 25px;
   color: #744;
-  @media (max-width: 600px) {
-    display: none;
-  }
-`;
-
-const ImageLogo = styled.img`
-  margin-bottom: 100px;
-  @media (max-width: 600px) {
-    width: 80vw;
-  } ;
 `;
 
 export default function HomeCategories() {
@@ -319,10 +273,6 @@ export default function HomeCategories() {
     bar.style.animation = "none";
   };
 
-  const onScroll = () => {
-    let scroll = document.getElementById("linkBox");
-  };
-
   const resetAnimation = () => {
     let bar = document.getElementById("progress-bar");
     bar.classList.remove("pause");
@@ -388,7 +338,11 @@ export default function HomeCategories() {
             margin: "50px 0 70px 0",
           }}
         >
-          <ImageLogo src="../images/nytimes.png" alt="New York Times Title" />
+          <img
+            style={{ marginBottom: "100px" }}
+            src="../images/nytimes.png"
+            alt="New York Times Title"
+          />
         </div>
         {!loading ? (
           <div style={{ position: "relative" }}>
@@ -423,6 +377,11 @@ export default function HomeCategories() {
               onMouseLeave={resetAnimation}
               onMouseEnter={pauseAnimation}
               id="carousel-container"
+              style={{
+                width: "70%",
+                position: "relative",
+                padding: "0",
+              }}
             >
               <Carousel
                 responsiveLayout={[

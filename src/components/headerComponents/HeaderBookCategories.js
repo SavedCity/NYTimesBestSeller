@@ -72,17 +72,15 @@ export default function Categories() {
     groupedCategoriesArr[i].splice(0, 0, { firstLetter });
   }
 
-  console.log(groupedCategoriesArr);
-
   return (
     <div style={{ width: "70%", margin: "50px auto" }}>
       <Header>BOOK CATEGORIES</Header>
       <CategoryContainer id="books-category-container">
         {!loading ? (
           <>
-            {groupedCategoriesArr.map((category) => {
+            {groupedCategoriesArr.map((category, index) => {
               return (
-                <CategoryBox>
+                <CategoryBox key={index}>
                   {" "}
                   {category.map((category, index) => {
                     const { list_name, list_name_encoded, firstLetter } =

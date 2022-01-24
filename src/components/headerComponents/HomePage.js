@@ -418,8 +418,8 @@ export default function HomeCategories() {
                 style={{ font: "400 1.2rem barlow", color: "#fff" }}
                 scrollamount="7"
               >
-                {usData[0].title !== null && usData[0].title}{" "}
-                {usData[0].title !== null && (
+                {usData[0] && usData[0].title}{" "}
+                {usData[0] && (
                   <a
                     style={{ font: "400 1.1rem barlow", color: "#fff" }}
                     href={usData[0].url}
@@ -430,8 +430,8 @@ export default function HomeCategories() {
                   </a>
                 )}
                 {"... "}
-                {usData[1].title !== null && usData[1].title}{" "}
-                {usData[1].title !== null && (
+                {usData[1] && usData[1].title}{" "}
+                {usData[1] && (
                   <a
                     style={{ font: "400 1.1rem barlow", color: "#fff" }}
                     href={usData[1].url}
@@ -442,8 +442,8 @@ export default function HomeCategories() {
                   </a>
                 )}
                 {"... "}
-                {usData[2].title !== null && usData[2].title}{" "}
-                {usData[2].title !== null && (
+                {usData[2] && usData[2].title}{" "}
+                {usData[2] && (
                   <a
                     style={{ font: "400 1.1rem barlow", color: "#fff" }}
                     href={usData[2].url}
@@ -454,8 +454,8 @@ export default function HomeCategories() {
                   </a>
                 )}
                 {"... "}
-                {usData[3].title !== null && usData[3].title}{" "}
-                {usData[3].title !== null && (
+                {usData[3] && usData[3].title}{" "}
+                {usData[3] && (
                   <a
                     style={{ font: "400 1.1rem barlow", color: "#fff" }}
                     href={usData[3].url}
@@ -466,8 +466,8 @@ export default function HomeCategories() {
                   </a>
                 )}
                 {"... "}
-                {usData[4].title !== null && usData[4].title}{" "}
-                {usData[4].title !== null && (
+                {usData[4] && usData[4].title}{" "}
+                {usData[4] && (
                   <a
                     style={{ font: "400 1.1rem barlow", color: "#fff" }}
                     href={usData[4].url}

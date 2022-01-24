@@ -4,10 +4,14 @@ html {
 }
 
 @media only screen and (max-width: 600px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 body {
-  margin: 50px 0 0 0;
+  margin: 50px 0;
 }
 
 ::selection {
@@ -212,4 +216,17 @@ mark {
 
 .pause {
   animation-play-state: paused;
+}
+
+/* Sticky link box on home page */
+.sticky-links {
+  position: fixed !important;
+  top: 52px !important;
+  width: 62.9% !important;
+  left: 18.59% !important;
+  background: #39393977 !important;
+}
+
+.sticky-links:hover {
+  background: #393939 !important;
 }

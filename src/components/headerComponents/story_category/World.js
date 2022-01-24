@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
-  padding: 10px 10px 20px 10px;
+  padding: 10px 10px 0 10px;
   display: flex;
   flex-wrap: wrap;
 `;
@@ -93,7 +93,7 @@ export default function World({ homeData, newDate }) {
   return (
     <div
       id="world"
-      style={{ paddingTop: "30px", width: "90%", margin: "0 auto" }}
+      style={{ paddingTop: "90px", width: "90%", margin: "0 auto" }}
     >
       {" "}
       <Header>

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const MainContainer = styled.div`
   padding: 10px 10px 20px 10px;
   width: 35rem;
-  margin: 20px 0;
+  margin: 0;
 `;
 
 const CategoryBox = styled.div`
@@ -78,7 +78,7 @@ const Paragraph = styled.p`
 
 export default function World({ homeData, newDate }) {
   return (
-    <MainContainer id="well" style={{ paddingTop: "30px" }}>
+    <MainContainer id="well" style={{ paddingTop: "90px" }}>
       <Header>
         Wellness <i style={{ color: "#393939" }} className="fas fa-spa"></i>
       </Header>

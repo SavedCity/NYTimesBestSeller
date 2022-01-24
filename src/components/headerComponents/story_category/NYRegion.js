@@ -5,7 +5,7 @@ import Carousel from "react-grid-carousel";
 const CarouselContainer = styled.div`
   padding: 0px 10px;
   width: 100%;
-  margin: 20px 0;
+  margin: 0;
 `;
 
 const ArrowBtnLeft = styled.span`
@@ -101,7 +101,7 @@ const Paragraph = styled.p`
 export default function NYRegion({ myDot, homeData, newDate, nyData }) {
   //   nyData = 7;
   return (
-    <CarouselContainer id="ny" style={{ paddingTop: "30px" }}>
+    <CarouselContainer id="ny" style={{ paddingTop: "90px" }}>
       <Header>
         N.Y. Region{" "}
         <i style={{ color: "#393939" }} className="fas fa-building"></i>

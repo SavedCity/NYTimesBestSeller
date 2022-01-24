@@ -5,7 +5,7 @@ import Carousel from "react-grid-carousel";
 const CarouselContainer = styled.div`
   padding: 0px 10px;
   width: 100%;
-  margin: 20px 0;
+  margin: 0;
 `;
 
 const ArrowBtnLeft = styled.span`
@@ -102,7 +102,7 @@ export default function Travel({ myDot, homeData, newDate, travelData }) {
   //   travelData = 2;
   console.log(travelData);
   return (
-    <CarouselContainer id="travel" style={{ paddingTop: "30px" }}>
+    <CarouselContainer id="travel" style={{ paddingTop: "90px" }}>
       <Header>
         Travel <i style={{ color: "#393939" }} className="fas fa-plane"></i>
       </Header>

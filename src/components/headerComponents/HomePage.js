@@ -31,16 +31,78 @@ const BackToTop = styled.a`
   &:hover {
     background-color: #0003;
   }
+
+  &:before {
+    content: "";
+    height: 15px;
+    border: solid #555;
+    border-width: 2px;
+    position: absolute;
+    top: 18px;
+    left: 23px;
+  }
+
+  &:after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-right: solid #555;
+    border-top: solid #555;
+    border-width: 4px;
+    position: absolute;
+    top: 16px;
+    left: 17px;
+    transform: rotate(-45deg);
+  }
+`;
+
+const LinksBox = styled.div`
+  background: #393939;
+  display: flex;
+  justify-content: center;
+  width: 65.5%;
+  padding: 10px 0;
+  position: absolute;
+  top: -100px;
+  left: 17.27%;
+  z-index: 12;
+  transition: background 0.3s;
+  @media (max-width: 600px) {
+  }
+`;
+
+const Link = styled.a`
+  color: #ddd;
+  font: 400 1.2rem roboto;
+  text-decoration: none;
+  margin: 5px 13px;
+  transition: 0.3s;
+
+  &:hover {
+    color: #fff;
+  }
+`;
+
+const MarqueeBox = styled.div`
+  width: 65%;
+  margin: 0 auto;
+  background: #900;
+  padding: 8px 5px;
 `;
 
 const CarouselContainer = styled.div`
   margin: 0px auto 40px auto;
   padding: 10px 10px 20px 10px;
+  @media (max-width: 600px) {
+    width: 100vw;
+  }
 `;
 
 const CategoryBox = styled.div`
-  display: flex;
   margin: 20px;
+  @media (max-width: 600px) {
+    position: relative;
+  }
 `;
 
 const DetailsBox = styled.div`
@@ -51,25 +113,33 @@ const DetailsBox = styled.div`
   max-height: 27.5rem;
   min-height: 27.5rem;
   position: relative;
+  @media (max-width: 600px) {
+    max-height: 27.5rem;
+    min-height: 27.5rem;
+    width: 80%;
+  }
 `;
 
 const TopStories = styled.h2`
   font: 400 2.5rem Barlow;
   text-align: center;
   margin: 0 0 4px 0;
-`;
-
-const Header = styled.h2`
-  font: 400 2rem Roboto;
-  text-align: center;
-  padding-top: 20px;
-  letter-spacing: 1px;
+  @media (max-width: 600px) {
+    font: 400 1.7rem Barlow;
+  }
 `;
 
 const Image = styled.img`
   object-fit: cover;
   width: 30rem;
   height: 30rem;
+  @media (max-width: 600px) {
+    width: 22.3rem;
+    height: 15rem;
+    position: absolute;
+    bottom: 10px;
+    left: 7px;
+  }
 `;
 
 const CreatedDate = styled.p`
@@ -78,6 +148,9 @@ const CreatedDate = styled.p`
   top: 0;
   left: 25px;
   color: #444;
+  @media (max-width: 600px) {
+    font: 400 0.8rem roboto;
+  }
 `;
 
 const Title = styled.a`
@@ -86,16 +159,27 @@ const Title = styled.a`
   font: 500 1.5rem Roboto;
   letter-spacing: 0.5px;
   margin-top: 50px;
+  @media (max-width: 600px) {
+    font: 500 1rem Roboto;
+    margin-top: 20px;
+  }
 `;
 
 const Author = styled.h5`
   font: 400 1rem Roboto;
   margin: 15px 0 30px 0;
   color: #555;
+  @media (max-width: 600px) {
+    font: 400 0.8rem Roboto;
+    margin: 8px 0 10px 0;
+  }
 `;
 
 const Paragraph = styled.p`
   font: 400 1.3rem roboto;
+  @media (max-width: 600px) {
+    font: 400 0.8rem roboto;
+  }
 `;
 
 const SubSection = styled.h5`
@@ -104,27 +188,16 @@ const SubSection = styled.h5`
   bottom: 0;
   left: 25px;
   color: #744;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
-const LinksBox = styled.div`
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  background-color: #333;
-  position: fixed;
-  margin-left: 160px;
-  top: 210px;
-  width: 70%;
-  z-index: 20;
-`;
-
-const Link = styled.a`
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px;
-  text-decoration: none;
+const ImageLogo = styled.img`
+  margin-bottom: 100px;
+  @media (max-width: 600px) {
+    width: 80vw;
+  } ;
 `;
 
 export default function HomeCategories() {
@@ -259,6 +332,28 @@ export default function HomeCategories() {
     }, 1);
   };
 
+  window.onscroll = () => {
+    let topBtn = document.querySelector(".back-to-top");
+    let linkBox = document.getElementById("link-box");
+
+    if (window.pageYOffset > 900 && topBtn !== null) {
+      topBtn.classList.add("show");
+    } else {
+      if (topBtn !== null) {
+        topBtn.classList.remove("show");
+      }
+    }
+
+    if (window.pageYOffset > 236 && linkBox !== null) {
+      linkBox.classList.add("sticky-links");
+    } else {
+      if (linkBox !== null) {
+        linkBox.classList.remove("sticky-links");
+      }
+    }
+  };
+
+  let usData = homeData.filter((about) => about.section === "us");
   let worldData = homeData.filter((about) => about.section === "world").length;
   let wellData = homeData.filter((about) => about.section === "well").length;
   let opinionData = homeData.filter(
@@ -293,22 +388,22 @@ export default function HomeCategories() {
             margin: "50px 0 70px 0",
           }}
         >
-          <img src="../images/nytimes.png" alt="New York Times Title" />
+          <ImageLogo src="../images/nytimes.png" alt="New York Times Title" />
         </div>
         {!loading ? (
-          <div>
-            <LinksBox id="linkBox">
-              <Link href="#world">World</Link>
-              <Link href="#well">Wellness</Link>
-              <Link href="#tech">Technology</Link>
-              <Link href="#travel">Travel</Link>
-              <Link href="#ny">N.Y.</Link>
-              <Link href="#opinion">Opinion</Link>
-              <Link href="#sports">Sports</Link>
-              <Link href="#business">Business</Link>
-              <Link href="#science">Science</Link>
-              <Link href="#arts">Arts</Link>
-              <Link href="#style">Style</Link>
+          <div style={{ position: "relative" }}>
+            <LinksBox id="link-box">
+              {worldData > 0 && <Link href="#world">World</Link>}
+              {wellData > 0 && <Link href="#well">Wellness</Link>}
+              {techData > 0 && <Link href="#tech">Technology</Link>}
+              {travelData > 0 && <Link href="#travel">Travel</Link>}
+              {nyData > 0 && <Link href="#ny">NY Region</Link>}
+              {opinionData > 0 && <Link href="#opinion">Opinion</Link>}
+              {sportsData > 0 && <Link href="#sports">Sports</Link>}
+              {businessData > 0 && <Link href="#business">Business</Link>}
+              {scienceData > 0 && <Link href="#science">Science</Link>}
+              {artData > 0 && <Link href="#arts">Arts</Link>}
+              {styleData > 0 && <Link href="#style">Style</Link>}
             </LinksBox>
             {/* TOP STORIES IN TODAY */}
             <TopStories>
@@ -328,11 +423,6 @@ export default function HomeCategories() {
               onMouseLeave={resetAnimation}
               onMouseEnter={pauseAnimation}
               id="carousel-container"
-              style={{
-                width: "70%",
-                position: "relative",
-                padding: "0",
-              }}
             >
               <Carousel
                 responsiveLayout={[
@@ -363,8 +453,73 @@ export default function HomeCategories() {
                 <div id="progress-bar" className="progress-value"></div>
               </div>
             </div>
-
-            {/* STORIES IN THE WORLD */}
+            <MarqueeBox>
+              {/* eslint-disable-next-line */}
+              <marquee
+                style={{ font: "400 1.2rem barlow", color: "#fff" }}
+                scrollamount="7"
+              >
+                {usData[0] && usData[0].title}{" "}
+                {usData[0] && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[0].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+                {"... "}
+                {usData[1] && usData[1].title}{" "}
+                {usData[1] && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[1].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+                {"... "}
+                {usData[2] && usData[2].title}{" "}
+                {usData[2] && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[2].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+                {"... "}
+                {usData[3] && usData[3].title}{" "}
+                {usData[3] && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[3].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+                {"... "}
+                {usData[4] && usData[4].title}{" "}
+                {usData[4] && (
+                  <a
+                    style={{ font: "400 1.1rem barlow", color: "#fff" }}
+                    href={usData[4].url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Learn More
+                  </a>
+                )}
+              </marquee>
+            </MarqueeBox>
             <div>
               {worldData > 0 && (
                 <World

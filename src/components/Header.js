@@ -75,6 +75,10 @@ const HeaderLinks = styled(Link)`
   &:hover {
     background-size: 100% 0.1em;
   }
+  @media (max-width: 600px) {
+    font-size: 0.8rem;
+    margin: 0 5px;
+  }
 `;
 
 export default function Header() {

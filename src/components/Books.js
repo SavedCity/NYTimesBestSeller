@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useSelector } from "react-redux";
 
 import axios from "axios";
 

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const MainContainer = styled.div`
   padding: 10px 10px 20px 10px;
   width: 35rem;
-  margin: 20px 0;
+  margin: 0;
 `;
 
 const CategoryBox = styled.div`
@@ -78,7 +78,7 @@ const Paragraph = styled.p`
 
 export default function World({ homeData, newDate }) {
   return (
-    <MainContainer id="opinion" style={{ paddingTop: "30px" }}>
+    <MainContainer id="opinion" style={{ paddingTop: "90px" }}>
       <Header>
         Opinion Based{" "}
         <i style={{ color: "#393939" }} className="fas fa-comment-dots"></i>

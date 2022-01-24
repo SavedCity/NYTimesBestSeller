@@ -42,10 +42,10 @@ export const BackToTop = styled.a`
   }
 `;
 
-export const CardContainerHeader = styled.div`
+export const MovieContainerHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 30px 9vw 50px 4.5vw;
+  margin: 30px 9vw 50px 16vw;
   align-items: center;
 `;
 

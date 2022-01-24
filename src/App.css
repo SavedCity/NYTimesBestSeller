@@ -105,6 +105,10 @@ mark {
   background-color: #bc474999;
   border: 2px solid transparent;
 }
+/* .filter-label:hover input ~ .grayed {
+  background-color: none;
+  border: 2px solid #6e090b77;
+} */
 
 .filter-label input:checked ~ .checkmark {
   background-color: #bc4749;

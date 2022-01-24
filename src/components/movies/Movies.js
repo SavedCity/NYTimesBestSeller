@@ -6,8 +6,8 @@ import SortMovies from "../features/SortMovies";
 import Filter from "../features/Filter";
 
 import {
-  CardContainerHeader,
-  ResultsLength,
+  MovieContainerHeader,
+  // ResultsLength,
   MagnifyingGlass,
   SearchInput,
   MovieContainer,
@@ -59,6 +59,7 @@ export default function Categories() {
         )
       );
     } else {
+      disableCheckbox();
       fetchMovieCategories();
       setFilteredMovies(movies);
     }
@@ -163,6 +164,20 @@ export default function Categories() {
     clearSorting();
   };
 
+  const disableCheckbox = () => {
+    let checkbox = document.getElementsByClassName("rating-checkbox");
+    for (let i = 0; i < checkbox.length; i++) {
+      checkbox[i].disabled = true;
+      checkbox[i].nextSibling.classList.remove("checkmark");
+    }
+    setTimeout(() => {
+      for (let i = 0; i < checkbox.length; i++) {
+        checkbox[i].disabled = false;
+        checkbox[i].nextSibling.classList.add("checkmark");
+      }
+    }, 750);
+  };
+
   // Only unique values for movie ratings
   const movieRatings = [...new Set(movies.map((q) => q.mpaa_rating))];
 
@@ -191,6 +206,7 @@ export default function Categories() {
       setOffset(offset + 20);
       setButtonIndex(buttonIndex + 1);
       clearSorting();
+      setLoading(true);
       if (currentActiveBtn.id === "4") {
         setStart(start + 5);
         setEnd(end + 5);
@@ -204,6 +220,7 @@ export default function Categories() {
     setButtonIndex(button);
     setSearchTerm("");
     clearSorting();
+    setLoading(true);
   };
 
   const paginateBack = () => {
@@ -212,6 +229,7 @@ export default function Categories() {
       setOffset(offset - 20);
       setButtonIndex(buttonIndex - 1);
       clearSorting();
+      setLoading(true);
       if (currentActiveBtn.id === "0") {
         setStart(start - 5);
         setEnd(end - 5);
@@ -234,11 +252,11 @@ export default function Categories() {
 
   return (
     <div id="top" style={{ width: "100%" }}>
-      <CardContainerHeader>
+      <MovieContainerHeader>
         <div
           style={{ display: "flex", alignItems: "center", columnGap: "6vw" }}
         >
-          <ResultsLength>{filteredMovies.length} Results</ResultsLength>
+          {/* <ResultsLength>{filteredMovies.length} Results</ResultsLength> */}
           <div
             style={{
               position: "relative",
@@ -264,11 +282,20 @@ export default function Categories() {
           currentSortingButton={currentSortingButton}
           setCurrentSortingButton={setCurrentSortingButton}
         />
-      </CardContainerHeader>
+      </MovieContainerHeader>
       <div style={{ display: "flex" }}>
         <Filter movieRatings={movieRatings} filterCheckbox={filterCheckbox} />
         {!loading ? (
-          <div style={{ width: "100%", position: "relative" }}>
+          <div
+            style={{
+              width: "100%",
+              position: "relative",
+              minHeight: "100vh",
+              justifyContent: "space-between",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <MovieContainer>
               {filteredMovies
                 .filter((category) => {

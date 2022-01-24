@@ -4,11 +4,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+const Header = styled.h1`
+  font: 600 2rem barlow;
+  margin: 20px 0 40px 10px;
+  color: #282828;
+`;
+
 const CategoryContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 70%;
-  margin: 50px auto;
 `;
 
 const CategoryBox = styled.div`
@@ -22,6 +26,7 @@ const CategoryBox = styled.div`
 
 const FirstLetter = styled.h1`
   font: 600 2rem barlow;
+  color: #282828;
 `;
 
 const CategoryLink = styled(Link)`
@@ -70,7 +75,8 @@ export default function Categories() {
   console.log(groupedCategoriesArr);
 
   return (
-    <div>
+    <div style={{ width: "70%", margin: "50px auto" }}>
+      <Header>BOOK CATEGORIES</Header>
       <CategoryContainer id="books-category-container">
         {!loading ? (
           <>

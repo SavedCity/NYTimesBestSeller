@@ -206,7 +206,7 @@ export const StarToolTip = styled.div`
   width: 170px;
   background-color: #333;
   z-index: 1;
-  top: -75px;
+  top: -100px;
   left: -75px;
   padding: 10px;
   text-align: center;

@@ -81,19 +81,19 @@ export default function Categories() {
     setMovies(response.data.results);
     setMoreData(response.data.has_more);
 
-    const addDataIntoCache = () => {
-      // Converting our respons into Actual Response form
-      const data = new Response(JSON.stringify(response.data.results));
-      if ("caches" in window) {
-        // Opening given cache and putting our data into it
-        caches.open("cacheMovieData").then((cache) => {
-          cache.put(url, data);
-          // console.log("MovieData Added into cache!");
-          // console.log(caches);x
-        });
-      }
-    };
-    addDataIntoCache();
+    // const addDataIntoCache = () => {
+    //   // Converting our respons into Actual Response form
+    //   const data = new Response(JSON.stringify(response.data.results));
+    //   if ("caches" in window) {
+    //     // Opening given cache and putting our data into it
+    //     caches.open("cacheMovieData").then((cache) => {
+    //       cache.put(url, data);
+    //       // console.log("MovieData Added into cache!");
+    //       // console.log(caches);x
+    //     });
+    //   }
+    // };
+    // addDataIntoCache();
   };
 
   const clearSorting = () => {

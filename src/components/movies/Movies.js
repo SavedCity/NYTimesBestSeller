@@ -63,6 +63,7 @@ export default function Categories() {
       fetchMovieCategories();
       setFilteredMovies(movies);
     }
+
     // eslint-disable-next-line
   }, [filters, offset]);
 

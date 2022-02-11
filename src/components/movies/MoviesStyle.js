@@ -308,13 +308,11 @@ export const PaginateBtn = styled.button`
   border: 1px solid #0003;
   margin: 0 10px;
   white-space: nowrap;
-  /* max-width: 0px; */
   transition: 0.3s;
   height: 30px;
 
   &:hover {
     background: #6e090b22;
-    /* color: #fff; */
     border: 1px solid #0005;
   }
 `;

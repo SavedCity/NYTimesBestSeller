@@ -34,7 +34,6 @@ const CategoryLink = styled(Link)`
   font: 400 1.4rem barlow;
   text-decoration: none;
   transition: 0.3s;
-  /* white-space: nowrap; */
   background: linear-gradient(#4a4a4a, #4a4a4a) no-repeat 0% 100%;
   background-size: 0% 0.1em;
 

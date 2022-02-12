@@ -141,7 +141,6 @@ mark {
   border: 1px solid #0003;
   margin: 0 5px;
   transition: 0.3s;
-  /* outline-color: #000; */
   outline: 1px solid #4b090af8;
   white-space: nowrap;
   width: 60px;
@@ -149,8 +148,6 @@ mark {
 }
 
 .pagButtonActive:hover {
-  /* background: #49060775; */
-  /* color: #fff; */
   border: 1px solid #0005;
 }
 

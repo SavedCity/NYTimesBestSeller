@@ -99,7 +99,6 @@ const Paragraph = styled.p`
 `;
 
 export default function Science({ myDot, homeData, newDate, scienceData }) {
-  //   scienceData = 2;
   console.log(scienceData);
   return (
     <CarouselContainer id="science" style={{ paddingTop: "90px" }}>

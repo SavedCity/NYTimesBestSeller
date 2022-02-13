@@ -99,7 +99,6 @@ const Paragraph = styled.p`
 `;
 
 export default function NYRegion({ myDot, homeData, newDate, nyData }) {
-  //   nyData = 7;
   return (
     <CarouselContainer id="ny" style={{ paddingTop: "90px" }}>
       <Header>

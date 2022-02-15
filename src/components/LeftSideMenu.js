@@ -14,6 +14,7 @@ const SideMenu = styled.div`
   transition: 0.2s;
   z-index: 25;
   border-right: 1px solid #0003;
+  /* overflow-y: scroll; */
 `;
 
 const CategoryButton = styled.div`

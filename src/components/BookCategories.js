@@ -34,6 +34,19 @@ const BookLink = styled(Link)`
   }
 `;
 
+const SeeAll = styled(Link)`
+  padding: 0 0 12px 10px;
+  color: #282828;
+  font: 500 1.2rem barlow;
+  text-decoration: none;
+  transition: 0.3s;
+  color: #1117;
+
+  &:hover {
+    color: #0009;
+  }
+`;
+
 export default function Categories({ setCurrentButton }) {
   const categories = useSelector((state) => state.allBookCategories);
   const loading = useSelector((state) => state.loading);
@@ -59,6 +72,7 @@ export default function Categories({ setCurrentButton }) {
                   ? -1
                   : 0
               )
+              .slice(0, 10)
               .map((category) => {
                 const { list_id, list_name, list_name_encoded } = category;
 
@@ -74,6 +88,7 @@ export default function Categories({ setCurrentButton }) {
         ) : (
           <div className="loader"></div>
         )}
+        <SeeAll to="/bookcategory">See all</SeeAll>
       </CategoryContainer>
     </div>
   );

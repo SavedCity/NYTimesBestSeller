@@ -161,6 +161,7 @@ export default function HomeCategories() {
 
   useEffect(() => {
     fetchHomeList();
+
     // eslint-disable-next-line
   }, []);
 
